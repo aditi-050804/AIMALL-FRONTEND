@@ -2,7 +2,7 @@ import React from 'react';
 import { ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { AppRoute } from '../../types';
-
+import logo from '../../../public/logo/logo.png';
 const Header = () => {
   const navigate = useNavigate();
 
@@ -12,10 +12,10 @@ const Header = () => {
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate(AppRoute.HOME)}>
           <div className="w-[30px] h-[30px] rounded-[10px_4px_10px_4px] bg-gradient-to-br from-[#06b6d4] to-[#8b5cf6] flex items-center justify-center shadow-lg">
           </div>
-          <span className="font-bold text-xl text-[#1A1A1A] tracking-tighter uppercase">AI MALL</span>
+          <span className="font-bold text-xl text-[#1A1A1A] tracking-tighter uppercase"><img className='w-15 h-15' src={logo} alt="" /> AI MALL</span>
         </div>
 
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="flex items-center gap-10">
           <button onClick={() => navigate(AppRoute.MARKETPLACE)} className="text-[#1A1A1A] text-[0.95rem] font-bold hover:text-[#3B82F6] transition-colors cursor-pointer">Marketplace</button>
           <a href="#" className="text-[#666] text-[0.95rem] font-medium hover:text-[#3B82F6] transition-colors">Documentation</a>
           <a href="#" className="text-[#666] text-[0.95rem] font-medium hover:text-[#3B82F6] transition-colors">Reviews</a>
