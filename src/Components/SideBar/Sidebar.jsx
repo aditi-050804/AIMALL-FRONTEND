@@ -20,7 +20,7 @@ import { apis, AppRoute } from '../../types';
 import { faqs } from '../../constants';
 import NotificationBar from '../NotificationBar/NotificationBar.jsx';
 import { useRecoilState } from 'recoil';
-import { clearUser, getUserData, toggleState, userData } from '../../userStore/userData';
+import { clearUser, getUserData, toggleState, userData, notificationState } from '../../userStore/userData';
 import { useLanguage } from '../../context/LanguageContext';
 import axios from 'axios';
 
@@ -35,7 +35,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   /* const [clickedItem, setClickedItem] = useState(null); // Removed unused state */
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [expandedSection, setExpandedSection] = useState(null);
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useRecoilState(notificationState);
   const [isFaqOpen, setIsFaqOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const [isSending, setIsSending] = useState(false);
@@ -130,9 +130,9 @@ const Sidebar = ({ isOpen, onClose }) => {
     { id: 'chat', icon: MessageSquare, label: t('chat'), route: '/dashboard/chat' },
     { id: 'myAgents', icon: Bot, label: t('myAgents'), route: AppRoute.MY_AGENTS },
     { id: 'marketplace', icon: ShoppingBag, label: t('marketplace'), route: AppRoute.MARKETPLACE, onClick: () => setNotifyTgl(prev => ({ ...prev, marketPlaceMode: 'AIMall' })) },
-    { id: 'vendor', icon: LayoutGrid, label: t('vendorDashboard'), route: '/vendor/overview' },
-    { id: 'billing', icon: FileText, label: t('billing'), route: AppRoute.INVOICES },
-    { id: 'admin', icon: Settings, label: t('adminDashboard'), route: AppRoute.ADMIN },
+    //{ id: 'vendor', icon: LayoutGrid, label: t('vendorDashboard'), route: '/vendor/overview' },
+    // { id: 'billing', icon: FileText, label: t('billing'), route: AppRoute.INVOICES },
+    //{ id: 'admin', icon: Settings, label: t('adminDashboard'), route: AppRoute.ADMIN },
   ];
 
   const toggleSection = (section) => {
@@ -178,7 +178,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         className={`
           fixed inset-y-0 left-0 z-[200] bg-white/40 backdrop-blur-3xl border-r border-white/60
           flex flex-col transition-all duration-500 ease-in-out 
-          md:relative md:translate-x-0 shadow-2xl md:shadow-none w-20 md:w-20
+          md:relative md:translate-x-0 shadow-2xl md:shadow-none w-64 md:w-20 overflow-visible
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}
       >
@@ -190,25 +190,28 @@ const Sidebar = ({ isOpen, onClose }) => {
 
         {/* Logo */}
         <div className="p-4 flex items-center justify-center transition-all duration-500">
-          <Link to="/" onClick={() => setNotifyTgl(prev => ({ ...prev, marketPlaceMode: 'AIMall' }))} className="group">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#d946ef] to-[#8b5cf6] rounded-2xl flex items-center justify-center text-white text-xl font-black shadow-lg shadow-purple-500/20 group-hover:rotate-12 transition-transform duration-500 ring-2 ring-white/50">
-              A
+          <Link to="/" onClick={() => { setNotifyTgl(prev => ({ ...prev, marketPlaceMode: 'AIMall' })); onClose(); }} className="group">
+            <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-[0_0_15px_rgba(236,72,153,0.5)] ring-2 ring-[#ec4899]/20 group-hover:rotate-12 transition-transform duration-500">
+              <span className="text-2xl font-black text-[#9333ea]">
+                A
+              </span>
             </div>
           </Link>
         </div>
 
         {/* Navigation Icons */}
-        <div className="flex-1 px-2 py-4 space-y-2 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+        <div className="flex-1 px-2 py-4 space-y-2 overflow-visible">
           {navItems.map((item) => (
             <NavLink
               key={item.id}
               to={item.route}
               onClick={() => {
                 if (item.onClick) item.onClick();
+                setExpandedSection(null);
                 onClose();
               }}
               className={({ isActive }) =>
-                `flex items-center justify-center p-4 rounded-2xl transition-all duration-300 group relative overflow-visible ${isActive
+                `flex items-center justify-start md:justify-center p-4 rounded-2xl transition-all duration-300 group relative overflow-visible ${isActive
                   ? 'bg-[#3b82f6] text-white shadow-lg shadow-blue-500/50'
                   : 'text-slate-400 hover:bg-white/50 hover:text-[#3b82f6]'
                 }`
@@ -217,11 +220,14 @@ const Sidebar = ({ isOpen, onClose }) => {
               {({ isActive }) => (
                 <>
                   <item.icon className="w-6 h-6 flex-shrink-0" />
+                  <span className="ml-3 font-bold text-sm md:hidden">{item.label}</span>
 
                   {/* Glassmorphic Tooltip on Hover */}
-                  <div className="absolute left-full ml-3 px-4 py-2 text-slate-900 text-sm font-bold rounded-2xl shadow-xl whitespace-nowrap bg-white/60 backdrop-blur-xl border border-white/80 z-[9999] opacity-100 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    {item.label}
-                  </div>
+                  {!isActive && (
+                    <div className="hidden md:block absolute left-full ml-3 px-4 py-2 text-slate-900 text-sm font-bold rounded-2xl shadow-xl whitespace-nowrap bg-white/60 backdrop-blur-xl border border-white/80 z-[9999] opacity-0 group-hover:opacity-100 group-active:opacity-100 group-focus:opacity-100 transition-opacity duration-300 pointer-events-none">
+                      {item.label}
+                    </div>
+                  )}
                 </>
               )}
             </NavLink>
@@ -232,9 +238,12 @@ const Sidebar = ({ isOpen, onClose }) => {
         <div className="px-2 py-2">
           <NavLink
             to={AppRoute.NOTIFICATIONS}
-            onClick={onClose}
+            onClick={() => {
+              setExpandedSection(null);
+              onClose();
+            }}
             className={({ isActive }) =>
-              `flex items-center justify-center p-4 rounded-2xl transition-all duration-300 group relative overflow-visible ${isActive
+              `flex items-center justify-start md:justify-center p-4 rounded-2xl transition-all duration-300 group relative overflow-visible ${isActive
                 ? 'bg-[#3b82f6] text-white shadow-lg shadow-blue-500/50'
                 : 'text-slate-400 hover:bg-white/50 hover:text-[#3b82f6]'
               }`
@@ -250,11 +259,14 @@ const Sidebar = ({ isOpen, onClose }) => {
                     </div>
                   )}
                 </div>
+                <span className="ml-3 font-bold text-sm md:hidden">Notifications</span>
 
                 {/* Glassmorphic Tooltip on Hover */}
-                <div className="absolute left-full ml-3 px-4 py-2 text-slate-900 text-sm font-bold rounded-2xl shadow-xl whitespace-nowrap bg-white/60 backdrop-blur-xl border border-white/80 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                  Notifications
-                </div>
+                {!isActive && (
+                  <div className="hidden md:block absolute left-full ml-3 px-4 py-2 text-slate-900 text-sm font-bold rounded-2xl shadow-xl whitespace-nowrap bg-white/60 backdrop-blur-xl border border-white/80 z-[9999] opacity-0 group-hover:opacity-100 group-active:opacity-100 group-focus:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    Notifications
+                  </div>
+                )}
               </>
             )}
           </NavLink>
@@ -262,31 +274,50 @@ const Sidebar = ({ isOpen, onClose }) => {
 
         {/* User Profile Icon */}
         <div className="px-2 py-2">
-          <button
-            onClick={() => toggleSection('profile')}
-            className="flex items-center justify-center p-4 rounded-2xl transition-all duration-300 group relative text-slate-400 hover:bg-white/50 hover:text-[#3b82f6] w-full"
+          <NavLink
+            to={AppRoute.PROFILE}
+            onClick={() => {
+              toggleSection(null);
+              onClose();
+            }}
+            className={({ isActive }) =>
+              `flex items-center justify-start md:justify-center p-4 rounded-2xl transition-all duration-300 group relative overflow-visible ${isActive
+                ? 'bg-[#3b82f6] text-white shadow-lg shadow-blue-500/50'
+                : 'text-slate-400 hover:bg-white/50 hover:text-[#3b82f6]'
+              } w-full`
+            }
           >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d946ef] to-[#8b5cf6] flex items-center justify-center text-white font-black text-sm flex-shrink-0">
-              {user.name.charAt(0)}
-            </div>
+            {({ isActive }) => (
+              <>
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-lg shadow-blue-500/20 ring-2 ring-blue-500/20 flex-shrink-0">
+                  <span className="font-black text-sm text-[#3b82f6]">
+                    {user.name.charAt(0)}
+                  </span>
+                </div>
+                <span className="ml-3 font-bold text-sm md:hidden text-[#3b82f6]">Profile</span>
 
-            {/* Glassmorphic Tooltip on Hover */}
-            <div className="absolute left-full ml-3 px-4 py-2 text-slate-900 text-sm font-bold rounded-2xl shadow-xl whitespace-nowrap bg-white/60 backdrop-blur-xl border border-white/80 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-              Profile
-            </div>
-          </button>
+                {/* Glassmorphic Tooltip on Hover */}
+                {!isActive && (
+                  <div className="hidden md:block absolute left-full ml-3 px-4 py-2 text-slate-900 text-sm font-bold rounded-2xl shadow-xl whitespace-nowrap bg-white/60 backdrop-blur-xl border border-white/80 z-[9999] opacity-0 group-hover:opacity-100 group-active:opacity-100 group-focus:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    Profile
+                  </div>
+                )}
+              </>
+            )}
+          </NavLink>
         </div>
 
         {/* Help Icon */}
         <div className="px-2 py-2 mb-4">
           <button
-            onClick={() => setIsFaqOpen(true)}
-            className="flex items-center justify-center p-4 rounded-2xl transition-all duration-300 group relative text-slate-400 hover:bg-white/50 hover:text-[#3b82f6] w-full"
+            onClick={() => { setIsFaqOpen(true); onClose(); setExpandedSection(null); }}
+            className="flex items-center justify-start md:justify-center p-4 rounded-2xl transition-all duration-300 group relative overflow-visible text-slate-400 hover:bg-white/50 hover:text-[#3b82f6] w-full"
           >
             <HelpCircle className="w-6 h-6 flex-shrink-0" />
+            <span className="ml-3 font-bold text-sm md:hidden text-[#3b82f6]">Help & FAQ</span>
 
             {/* Glassmorphic Tooltip on Hover */}
-            <div className="absolute left-full ml-3 px-4 py-2 text-slate-900 text-sm font-bold rounded-2xl shadow-xl whitespace-nowrap bg-white/60 backdrop-blur-xl border border-white/80 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div className="hidden md:block absolute left-full ml-3 px-4 py-2 text-slate-900 text-sm font-bold rounded-2xl shadow-xl whitespace-nowrap bg-white/60 backdrop-blur-xl border border-white/80 z-[9999] opacity-0 group-hover:opacity-100 group-active:opacity-100 group-focus:opacity-100 transition-opacity duration-300 pointer-events-none">
               Help & FAQ
             </div>
           </button>
@@ -301,7 +332,7 @@ const Sidebar = ({ isOpen, onClose }) => {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
             transition={{ type: 'spring', damping: 25 }}
-            className="fixed left-20 top-0 bottom-0 w-72 bg-white/40 backdrop-blur-3xl border-r border-white/60 z-[99] shadow-2xl"
+            className="fixed inset-0 md:inset-auto md:left-20 md:top-0 md:bottom-0 w-full md:w-72 bg-white/40 backdrop-blur-3xl md:border-r border-white/60 z-[250] shadow-2xl"
           >
             {/* Close button */}
             <button
@@ -317,9 +348,11 @@ const Sidebar = ({ isOpen, onClose }) => {
               <div className="flex flex-col items-center mb-6">
                 <div
                   onClick={() => { navigate(AppRoute.PROFILE); setExpandedSection(null); onClose(); }}
-                  className="w-20 h-20 rounded-3xl bg-gradient-to-br from-[#d946ef] to-[#8b5cf6] flex items-center justify-center text-white font-black text-3xl cursor-pointer shadow-lg hover:scale-105 active:scale-95 transition-all mb-4"
+                  className="w-20 h-20 rounded-3xl bg-white flex items-center justify-center shadow-lg shadow-blue-500/20 ring-2 ring-blue-500/20 cursor-pointer hover:scale-105 active:scale-95 transition-all mb-4"
                 >
-                  {user.name.charAt(0)}
+                  <span className="font-black text-3xl text-[#3b82f6]">
+                    {user.name.charAt(0)}
+                  </span>
                 </div>
                 <p className="text-lg font-black text-slate-900">{user.name}</p>
                 <p className="text-sm text-slate-500 font-medium">{user.email}</p>
@@ -353,24 +386,24 @@ const Sidebar = ({ isOpen, onClose }) => {
             animate={{ scale: 1, opacity: 1 }}
             className="glass-card rounded-[56px] w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col shadow-2xl border-white/80"
           >
-            <div className="p-8 border-b border-white/40 flex justify-between items-center bg-white/20">
-              <div className="flex gap-6 bg-white/40 p-1.5 rounded-full border border-white/60">
+            <div className="p-4 md:p-8 border-b border-white/40 flex justify-between items-center bg-white/20 shrink-0">
+              <div className="flex gap-2 md:gap-6 bg-white/40 p-1.5 rounded-full border border-white/60">
                 <button
                   onClick={() => setActiveTab('faq')}
-                  className={`text-[10px] font-black uppercase tracking-widest px-6 py-2.5 rounded-full transition-all ${activeTab === 'faq' ? 'bg-white text-brand-dark shadow-sm' : 'text-slate-500 hover:text-brand-dark'}`}
+                  className={`text-[10px] font-black uppercase tracking-widest px-4 md:px-6 py-2.5 rounded-full transition-all ${activeTab === 'faq' ? 'bg-white text-brand-dark shadow-sm' : 'text-slate-500 hover:text-brand-dark'}`}
                 >
                   Knowledge
                 </button>
                 <button
                   onClick={() => setActiveTab('help')}
-                  className={`text-[10px] font-black uppercase tracking-widest px-6 py-2.5 rounded-full transition-all ${activeTab === 'help' ? 'bg-white text-brand-dark shadow-sm' : 'text-slate-500 hover:text-brand-dark'}`}
+                  className={`text-[10px] font-black uppercase tracking-widest px-4 md:px-6 py-2.5 rounded-full transition-all ${activeTab === 'help' ? 'bg-white text-brand-dark shadow-sm' : 'text-slate-500 hover:text-brand-dark'}`}
                 >
                   Support
                 </button>
               </div>
               <button
                 onClick={() => setIsFaqOpen(false)}
-                className="p-3 bg-white/40 hover:bg-white rounded-2xl text-slate-500 hover:text-slate-900 transition-all shadow-sm"
+                className="p-3 bg-white/40 hover:bg-white rounded-2xl text-slate-500 hover:text-slate-900 transition-all shadow-sm shrink-0"
               >
                 <X className="w-5 h-5" />
               </button>

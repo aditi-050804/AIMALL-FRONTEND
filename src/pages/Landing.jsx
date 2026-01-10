@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Header from '../Components/Landing/Header';
 import Hero from '../Components/Landing/Hero';
 import Stats from '../Components/Landing/Stats';
-import FeaturedVendors from '../Components/Landing/FeaturedVendors';
+
 import HowItWorks from '../Components/Landing/HowItWorks';
 import Testimonials from '../Components/Landing/Testimonials';
-import CTA from '../Components/Landing/CTA';
+
 import Footer from '../Components/Landing/Footer';
 import SecurityModal from '../Components/LiveDemo/SecurityModal';
 
@@ -23,10 +23,10 @@ const Landing = () => {
       <Header />
       <Hero />
       {/* <Stats /> */}
-      <FeaturedVendors />
+
       <HowItWorks />
       <Testimonials />
-      <CTA />
+
       <Footer />
 
       <SecurityModal

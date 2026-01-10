@@ -226,7 +226,7 @@ const Marketplace = () => {
                 <div className="absolute top-[40%] left-[20%] w-[40vmax] h-[40vmax] bg-pink-200/10 rounded-full blur-[90px]" />
             </div>
 
-            <div className="relative z-10 p-6 md:p-10 lg:p-14 max-w-[1600px] mx-auto">
+            <div className="relative z-10 p-4 md:p-10 lg:p-14 max-w-[1600px] mx-auto">
 
                 <AnimatePresence>
                     {subToggle.subscripPgTgl && <SubscriptionForm id={agentId} />}
@@ -303,7 +303,7 @@ const Marketplace = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     whileHover={{ y: -5 }} // Subtle interactive float
-                    className="relative w-full min-h-[380px] mb-16 rounded-[48px] overflow-hidden bg-white/30 backdrop-blur-3xl border border-white/60 shadow-[0_20px_60px_-15px_rgba(100,50,255,0.1)] group"
+                    className="relative w-full min-h-[250px] md:min-h-[380px] mb-16 rounded-[48px] overflow-hidden bg-white/30 backdrop-blur-3xl border border-white/60 shadow-[0_20px_60px_-15px_rgba(100,50,255,0.1)] group"
                 >
                     {/* Background Gradients & Flow */}
                     <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-purple-50/20 to-blue-50/10 pointer-events-none" />
@@ -320,7 +320,7 @@ const Marketplace = () => {
                         className="absolute -bottom-[20%] -right-[10%] w-[650px] h-[650px] bg-blue-300/20 rounded-full blur-[130px] mix-blend-multiply"
                     />
 
-                    <div className="relative z-10 flex flex-col md:flex-row h-full items-center px-6 md:px-20 py-8 md:py-12 gap-8 md:gap-10">
+                    <div className="relative z-10 flex flex-col md:flex-row h-full items-center px-6 md:px-20 py-6 md:py-12 gap-8 md:gap-10">
                         {/* Left Content */}
                         <div className="flex-1 space-y-6">
                             <h1 className="text-4xl md:text-7xl font-black text-gray-900 tracking-tighter leading-[0.95] md:leading-[0.9] drop-shadow-sm">
@@ -454,7 +454,7 @@ const Marketplace = () => {
                                     scale: 1.02,
                                     boxShadow: "0 25px 50px -12px rgba(100, 50, 255, 0.15), 0 0 0 1px rgba(255,255,255,0.8)"
                                 }}
-                                className="group relative bg-white/40 backdrop-blur-2xl rounded-[32px] md:rounded-[40px] p-6 md:p-8 border border-white/50 shadow-[0_10px_30px_rgb(0,0,0,0.02)] flex flex-col h-full overflow-hidden transition-all duration-300"
+                                className="group relative bg-white/40 backdrop-blur-2xl rounded-[32px] md:rounded-[40px] p-4 md:p-8 border border-white/50 shadow-[0_10px_30px_rgb(0,0,0,0.02)] flex flex-col h-full overflow-hidden transition-all duration-300"
                             >
                                 {/* Gentle Lavender Tint on Hover */}
                                 <div className="absolute inset-0 bg-gradient-to-br from-purple-50/0 to-blue-50/0 opacity-0 group-hover:opacity-100 group-hover:from-purple-50/20 group-hover:to-blue-50/20 transition-all duration-500 pointer-events-none" />
@@ -469,7 +469,7 @@ const Marketplace = () => {
                                 </div>
 
                                 <div className="flex-1 relative z-10 space-y-3 mb-8">
-                                    <h3 className="text-2xl font-black text-gray-900 tracking-tight leading-none group-hover:text-purple-900 transition-colors">
+                                    <h3 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight leading-none group-hover:text-purple-900 transition-colors">
                                         {agent.agentName}
                                     </h3>
                                     <p className="text-sm text-gray-500 font-medium leading-relaxed line-clamp-3 group-hover:text-gray-600">

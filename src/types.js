@@ -61,12 +61,13 @@ export const AppRoute = {
   VENDOR_TRANSACTIONS: "/vendor/revenue/transactions",
   agentSoon: "/agentsoon",
   FORGOT_PASSWORD: "/forgot-password",
+  SERIES: "/series",
   RESET_PASSWORD: "/reset-password/:token",
 };
 
 // Use environment variable for API URL (configured in .env file)
-export const API = "https://ai-mall-b.onrender.com/api";
-// export const API = "http://localhost:5000/api";
+// export const API = "https://ai-mall-b.onrender.com/api";
+export const API = "http://localhost:5000/api";
 
 export const apis = {
   emailVerificationApi: `${API}/email_varification`,

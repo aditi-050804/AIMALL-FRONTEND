@@ -24,7 +24,7 @@ const Testimonials = () => {
                 <div className="flex animate-marquee gap-8 py-4 pl-4">
                     {/* Render twice for seamless loop */}
                     {[...testimonials, ...testimonials].map((t, i) => (
-                        <div key={i} className="min-w-[350px] p-8 glass-card bg-white/40 backdrop-blur-xl border border-white/60 rounded-[24px] shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] hover:bg-white/60 transition-colors">
+                        <div key={i} className="min-w-[280px] sm:min-w-[350px] p-6 sm:p-8 glass-card bg-white/40 backdrop-blur-xl border border-white/60 rounded-[24px] shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] hover:bg-white/60 transition-colors">
                             <p className="text-gray-600 italic mb-6 leading-relaxed">"{t.text}"</p>
                             <div className="flex items-center gap-4">
                                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center text-blue-600 font-bold">

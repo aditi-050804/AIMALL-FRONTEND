@@ -30,17 +30,14 @@ const Hero = () => {
 
                     <div className={`flex gap-6 justify-center md:justify-start transition-all duration-1000 delay-200 ease-out transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                         <button
-                            onClick={() => navigate(AppRoute.MARKETPLACE)}
+                            onClick={() => navigate('/dashboard/chat')}
                             className="px-8 py-3.5 rounded-full font-bold text-base text-white bg-[#8b5cf6] hover:bg-[#7c3aed] shadow-lg shadow-purple-500/50 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/60 active:scale-95 outline-none focus:ring-4 focus:ring-purple-400/50">
-                            Start Now
+                            AI Mall
                         </button>
                         <button
-                            onClick={() => {
-                                const element = document.getElementById('how-it-works');
-                                element?.scrollIntoView({ behavior: 'smooth' });
-                            }}
+                            onClick={() => window.location.href = "https://ai-mall.onrender.com/"}
                             className="px-8 py-3.5 rounded-full font-bold text-base text-white bg-[#3b82f6] hover:bg-[#2563eb] shadow-lg shadow-blue-500/50 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/60 active:scale-95 outline-none focus:ring-4 focus:ring-blue-400/50">
-                            Learn More
+                            A Series
                         </button>
                     </div>
                 </div>
@@ -75,11 +72,11 @@ const Hero = () => {
 
                             {/* Large Stacked Text */}
                             <div className="relative z-10 flex flex-col items-center justify-center leading-[0.85] animate-zoom">
-                                <h2 className="text-[140px] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-blue-500/80 to-purple-600/80 mix-blend-overlay drop-shadow-lg"
+                                <h2 className="text-[60px] sm:text-[100px] md:text-[140px] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-blue-500/80 to-purple-600/80 mix-blend-overlay drop-shadow-lg"
                                     style={{ fontFamily: 'Inter, sans-serif' }}>
                                     AI
                                 </h2>
-                                <h2 className="text-[140px] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-t from-purple-600/80 to-pink-500/80 mix-blend-overlay drop-shadow-lg -mt-4"
+                                <h2 className="text-[60px] sm:text-[100px] md:text-[140px] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-t from-purple-600/80 to-pink-500/80 mix-blend-overlay drop-shadow-lg -mt-2 md:-mt-4"
                                     style={{ fontFamily: 'Inter, sans-serif' }}>
                                     MALL
                                 </h2>

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
-import { Send, Bot, User, Sparkles, Plus, Monitor, ChevronDown, History, Trash2, Clock } from 'lucide-react';
+import { Send, Bot, User, Sparkles, Plus, Monitor, ChevronDown, History, Trash2, Clock, Video, Mic } from 'lucide-react';
 import { generateChatResponse } from '../services/geminiService';
 import { chatStorageService } from '../services/chatStorageService';
 import Loader from '../Components/Loader/Loader';
@@ -152,7 +152,7 @@ const Chat = () => {
           <h2 className="text-2xl font-black text-gray-900 tracking-tight mb-6">History<span className="text-[#8b5cf6]">.</span></h2>
           <button
             onClick={handleNewChat}
-            className="w-full bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] hover:from-[#c026d3] hover:to-[#7c3aed] text-white font-black py-4 px-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-[0_10px_20px_rgba(168,85,247,0.3)] hover:scale-[1.02] active:scale-95 uppercase text-xs tracking-widest"
+            className="w-full bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-black py-4 px-4 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-[0_10px_20px_rgba(139,92,246,0.3)] hover:scale-[1.02] active:scale-95 uppercase text-xs tracking-widest"
           >
             <Plus className="w-4 h-4" strokeWidth={3} /> New Instance
           </button>
@@ -162,7 +162,10 @@ const Chat = () => {
           {sessions.map((session) => (
             <div key={session.sessionId} className="group relative">
               <button
-                onClick={() => navigate(`/dashboard/chat/${session.sessionId}`)}
+                onClick={() => {
+                  navigate(`/dashboard/chat/${session.sessionId}`);
+                  setShowHistory(false);
+                }}
                 className={`w-full text-left px-5 py-4 rounded-[20px] transition-all duration-300 truncate border
                   ${currentSessionId === session.sessionId
                     ? 'bg-white/80 text-[#8b5cf6] border-[#8b5cf6]/20 shadow-sm font-black'
@@ -221,12 +224,7 @@ const Chat = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/40 border border-white/60 rounded-full text-xs font-bold text-gray-500">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
-              Neural Link Stable
-            </div>
-          </div>
+
         </div>
 
         {/* Messages - Fluid & Glassy */}
@@ -290,27 +288,42 @@ const Chat = () => {
 
         {/* Input Area - Floaty Glass Design */}
         <div className="p-4 md:p-8 lg:p-12 shrink-0 bg-transparent relative z-[60]">
-          <div className="max-w-4xl mx-auto">
-            <form onSubmit={handleSendMessage} className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#d946ef]/10 to-[#8b5cf6]/10 blur-2xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
-              <input
-                type="text"
+          <div className="max-w-4xl mx-auto flex items-center gap-3">
+            <button
+              className="w-[60px] h-[60px] shrink-0 rounded-full bg-[#3b82f6] text-white flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all shadow-blue-500/20"
+              type="button"
+            >
+              <Plus className="w-6 h-6" />
+            </button>
+
+            <form onSubmit={handleSendMessage} className="relative flex-1 group">
+              <div className="absolute inset-0 bg-blue-500/5 blur-2xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+              <textarea
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Synchronize your intent..."
-                className="w-full bg-white/60 backdrop-blur-3xl border border-white rounded-[32px] py-6 pl-8 pr-20 text-[15px] text-gray-900 font-medium placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-[#8b5cf6]/10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all"
+                placeholder="Ask Aisa..."
+                className="w-full h-[60px] bg-white/60 backdrop-blur-3xl border border-white rounded-[32px] pl-6 pr-48 py-4 text-[15px] text-gray-900 font-medium placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-[#3b82f6]/10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all resize-none overflow-y-auto no-scrollbar"
               />
-              <button
-                type="submit"
-                disabled={!inputValue.trim() || isLoading}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-14 h-14 rounded-[24px] bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white hover:scale-105 active:scale-95 transition-all disabled:opacity-30 disabled:grayscale shadow-[0_10px_20px_rgba(168,85,247,0.3)] flex items-center justify-center group/btn"
-              >
-                <Send className="w-5 h-5 group-hover/btn:rotate-12 transition-transform" />
-              </button>
+
+              <div className="absolute right-6 top-0 h-full flex items-center gap-2">
+                <button type="button" className="p-2.5 text-[#3b82f6] hover:bg-blue-50 transition-colors rounded-full flex items-center justify-center">
+                  <Video className="w-5 h-5" />
+                </button>
+                <button type="button" className="p-2.5 text-[#3b82f6] hover:bg-blue-50 transition-colors rounded-full flex items-center justify-center">
+                  <Mic className="w-5 h-5" />
+                </button>
+                <button
+                  type="submit"
+                  disabled={!inputValue.trim() || isLoading}
+                  className="w-10 h-10 rounded-full bg-[#3b82f6] text-white hover:scale-105 active:scale-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-md flex items-center justify-center shadow-blue-500/20"
+                >
+                  <Send className="w-5 h-5" />
+                </button>
+              </div>
             </form>
-            <p className="text-center mt-6 text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 opacity-60">Neural Agent calibrated to V2.1 Protocols • AI-MALL™ SYSTEM</p>
           </div>
+
         </div>
       </div>
     </div>

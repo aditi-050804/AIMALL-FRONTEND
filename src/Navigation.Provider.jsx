@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route, Outlet, Navigate, BrowserRouter } from 'react-router';
+import { Routes, Route, Outlet, Navigate, BrowserRouter, Link } from 'react-router';
 
 import Landing from './pages/Landing';
 import Login from './pages/Login';
@@ -88,9 +88,12 @@ const DashboardLayout = () => {
             <span className="font-bold text-lg text-primary uppercase tracking-tighter">AI MALL</span>
           </div>
 
-          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase">
+          <Link
+            to={AppRoute.PROFILE}
+            className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase hover:bg-primary/30 transition-colors"
+          >
             {user.name?.charAt(0) || 'U'}
-          </div>
+          </Link>
         </div>
 
         {/* Outlet for pages */}
@@ -125,6 +128,7 @@ const NavigateProvider = () => {
         <Route path={AppRoute.LANDING} element={<Landing />} />
         <Route path={AppRoute.LOGIN} element={<Login />} />
         <Route path={AppRoute.SIGNUP} element={<Signup />} />
+        <Route path={AppRoute.SERIES} element={<Series />} />
 // Vendor Register/Login routes removed per request
         <Route path={AppRoute.E_Verification} element={<VerificationForm />} />
         <Route path={AppRoute.FORGOT_PASSWORD} element={<ForgotPassword />} />
@@ -139,8 +143,8 @@ const NavigateProvider = () => {
           element={<DashboardLayout />}
         >
           <Route index element={<Navigate to="marketplace" replace />} />
-          <Route path="chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
-          <Route path="chat/:sessionId" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+          <Route path="chat" element={<Chat />} />
+          <Route path="chat/:sessionId" element={<Chat />} />
           <Route path="overview" element={<ProtectedRoute><DashboardOverview /></ProtectedRoute>} />
           <Route path="marketplace" element={<Marketplace />} />
           {/* <Route path="live-demos" element={
@@ -155,7 +159,7 @@ const NavigateProvider = () => {
           <Route path="invoices" element={<ProtectedRoute><Invoices /></ProtectedRoute>} />
           <Route path="notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
           <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="series" element={<Series />} />
+
           <Route path="security" element={
             <Suspense fallback={<div className="flex items-center justify-center h-full">Loading...</div>}>
               <SecurityAndGuidelines />

@@ -60,9 +60,7 @@ const Login = () => {
             animate={{ scale: 1, opacity: 1 }}
             className="inline-flex items-center justify-center w-24 h-24 bg-white/40 backdrop-blur-xl rounded-[32px] shadow-glass border border-white/60 mb-8 mx-auto group hover:rotate-12 transition-transform duration-500 ring-4 ring-white/20"
           >
-            <div className="w-14 h-14 rounded-[22px] bg-gradient-to-br from-[#d946ef] to-[#8b5cf6] flex items-center justify-center text-white font-black shadow-lg shadow-purple-500/20">
-              <span className="text-2xl">A</span>
-            </div>
+            <img src="/logo/Logo.png" alt="AI Mall Logo" className="w-20 h-20 object-contain drop-shadow-md" />
           </motion.div>
 
           <h2 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tighter mb-2">Secure <span className="text-[#8b5cf6]">Access.</span></h2>

@@ -134,7 +134,7 @@ const MyAgents = () => {
     };
 
     return (
-        <div className="flex-1 overflow-y-auto p-8 lg:p-12 no-scrollbar bg-transparent relative">
+        <div className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12 no-scrollbar bg-transparent relative">
             {/* Decorative Background Glows */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
                 <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-[#8b5cf6]/5 rounded-full blur-[120px] animate-pulse" />
@@ -142,34 +142,27 @@ const MyAgents = () => {
             </div>
 
             {/* Header Section */}
-            <header className="flex flex-col md:flex-row justify-between items-end md:items-center gap-10 mb-20 relative z-10">
+            <header className="flex flex-col md:flex-row justify-between items-end md:items-center gap-6 md:gap-10 mb-10 md:mb-20 relative z-10">
                 <div className="space-y-4">
-                    <div className="flex items-center gap-4">
-                        <div className="px-5 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                            <span className="text-emerald-700 text-[10px] font-black tracking-[0.3em] uppercase">Fleet Online</span>
-                        </div>
-                        <span className="text-gray-400 text-[10px] font-black tracking-[0.3em] uppercase opacity-60">Control Nexus v4.2</span>
-                    </div>
-                    <h1 className="text-5xl lg:text-7xl font-black text-gray-900 tracking-tighter leading-none">
-                        Deployed <span className="text-[#8b5cf6]">Nodes.</span>
+                    <h1 className="text-3xl md:text-5xl lg:text-7xl font-black text-gray-900 tracking-tighter leading-none">
+                        My <span className="text-[#8b5cf6]">Agents.</span>
                     </h1>
-                    <p className="text-gray-400 font-bold text-xl tracking-tight max-w-xl opacity-70">
-                        Managing your synchronized collection of intelligent autonomous entities.
+                    <p className="text-gray-400 font-bold text-lg md:text-xl tracking-tight max-w-xl opacity-70">
+                        Manage your collection of AI agents.
                     </p>
                 </div>
 
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3 md:gap-6 flex-wrap">
                     {/* Notification Badge */}
                     <button
                         onClick={handleInboxClick}
-                        className="relative px-6 py-4 bg-white/40 border border-white/60 rounded-[20px] flex items-center gap-3 hover:bg-white hover:scale-105 transition-all shadow-sm group"
+                        className="relative px-4 py-3 md:px-6 md:py-4 bg-white/40 border border-white/60 rounded-[20px] flex items-center gap-3 hover:bg-white hover:scale-105 transition-all shadow-sm group"
                     >
                         <div className="relative">
                             <MessageCircle size={20} className={`text-[#8b5cf6] ${unreadCount > 0 ? 'animate-pulse' : ''}`} />
                             {unreadCount > 0 && <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white" />}
                         </div>
-                        <div className="text-left">
+                        <div className="text-left hidden md:block">
                             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">Inbox</p>
                             <p className="text-xs font-black text-gray-900 leading-none">{unreadCount > 0 ? `${unreadCount} New Replies` : 'Check History'}</p>
                         </div>
@@ -182,18 +175,20 @@ const MyAgents = () => {
                                     loadAgents();
                                 }
                             }}
-                            className="px-8 py-6 bg-red-50 text-red-500 font-black rounded-[32px] shadow-sm transition-all hover:bg-red-500 hover:text-white hover:scale-105 active:scale-95 uppercase text-xs tracking-[0.3em] flex items-center gap-4"
+                            className="px-4 py-3 md:px-8 md:py-6 bg-red-50 text-red-500 font-black rounded-[24px] md:rounded-[32px] shadow-sm transition-all hover:bg-red-500 hover:text-white hover:scale-105 active:scale-95 uppercase text-[10px] md:text-xs tracking-[0.3em] flex items-center gap-2 md:gap-4"
                         >
-                            <Trash2 className="w-5 h-5" />
-                            Reset Fleet
+                            <Trash2 className="w-4 h-4 md:w-5 md:h-5" />
+                            <span className="hidden md:inline">Reset Fleet</span>
+                            <span className="md:hidden">Reset</span>
                         </button>
                     )}
                     <button
                         onClick={() => navigate(AppRoute.MARKETPLACE)}
-                        className="px-12 py-6 bg-gray-900 text-white font-black rounded-[32px] shadow-2xl transition-all hover:bg-[#8b5cf6] hover:scale-105 active:scale-95 uppercase text-xs tracking-[0.3em] flex items-center gap-4 group"
+                        className="px-6 py-3 md:px-12 md:py-6 bg-gray-900 text-white font-black rounded-[24px] md:rounded-[32px] shadow-2xl transition-all hover:bg-[#8b5cf6] hover:scale-105 active:scale-95 uppercase text-[10px] md:text-xs tracking-[0.3em] flex items-center gap-2 md:gap-4 group"
                     >
-                        <Zap className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                        Acquire New Entity
+                        <Zap className="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" />
+                        <span className="hidden md:inline">Acquire New Entity</span>
+                        <span className="md:hidden">New Agent</span>
                     </button>
                 </div>
             </header>
@@ -210,7 +205,7 @@ const MyAgents = () => {
                     <p className="text-[10px] font-black text-[#8b5cf6] uppercase tracking-[0.5em] animate-pulse">Syncing Core Registry...</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 relative z-10">
                     <AnimatePresence mode="popLayout">
                         {/* Agents Grid */}
                         {agents.map((agent, index) => (
@@ -221,16 +216,16 @@ const MyAgents = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.05 }}
                                 whileHover={{ y: -15 }}
-                                className="bg-white/40 backdrop-blur-3xl border border-white/80 rounded-[56px] p-10 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_-20px_rgba(139,92,246,0.15)] transition-all duration-700 group relative overflow-hidden flex flex-col h-full border-b-4 border-b-white/50"
+                                className="bg-white/40 backdrop-blur-3xl border border-white/80 rounded-[40px] md:rounded-[56px] p-6 md:p-10 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_-20px_rgba(139,92,246,0.15)] transition-all duration-700 group relative overflow-hidden flex flex-col h-full border-b-4 border-b-white/50"
                             >
                                 {/* Decorative Glow */}
                                 <div className="absolute -top-32 -left-32 w-80 h-80 bg-[#8b5cf6]/5 rounded-full blur-[100px] group-hover:bg-[#8b5cf6]/10 transition-all duration-1000"></div>
 
-                                <div className="flex justify-between items-start mb-10 relative z-10">
-                                    <div className="w-24 h-24 bg-white rounded-[32px] p-1.5 flex items-center justify-center shadow-2xl border border-gray-50 group-hover:scale-110 transition-all duration-700 overflow-hidden">
+                                <div className="flex justify-between items-start mb-6 md:mb-10 relative z-10">
+                                    <div className="w-16 h-16 md:w-24 md:h-24 bg-white rounded-[24px] md:rounded-[32px] p-1.5 flex items-center justify-center shadow-2xl border border-gray-50 group-hover:scale-110 transition-all duration-700 overflow-hidden">
                                         <img
                                             src={agent.avatar || `https://ui-avatars.com/api/?name=${agent.agentName}&background=8b5cf6&color=fff`}
-                                            className="w-full h-full object-cover rounded-[24px]"
+                                            className="w-full h-full object-cover rounded-[18px] md:rounded-[24px]"
                                             alt={agent.agentName}
                                         />
                                     </div>

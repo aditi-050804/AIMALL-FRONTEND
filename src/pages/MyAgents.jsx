@@ -67,7 +67,7 @@ const MyAgents = () => {
             </div>
 
             {/* Header Section */}
-            <header className="flex flex-col md:flex-row justify-between items-end md:items-center gap-10 mb-20 relative z-10">
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-20 relative z-10">
                 <div className="space-y-4">
                     <h1 className="text-5xl lg:text-7xl font-black text-gray-900 tracking-tighter leading-none">
                         My <span className="text-[#8b5cf6]">Agents.</span>
@@ -77,7 +77,7 @@ const MyAgents = () => {
                     </p>
                 </div>
 
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-6 w-full justify-center md:w-auto">
                     <button
                         onClick={() => navigate(AppRoute.MARKETPLACE)}
                         className="px-12 py-6 bg-gray-900 text-white font-black rounded-[32px] shadow-2xl transition-all hover:bg-[#8b5cf6] hover:scale-105 active:scale-95 uppercase text-xs tracking-[0.3em] flex items-center gap-4 group"
