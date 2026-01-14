@@ -75,9 +75,20 @@ const AdminOverview = () => {
     };
 
     const fetchStats = async () => {
+        // Fetching stats...
         try {
-            const data = await apiService.getAdminOverviewStats();
-            setStatsData(data);
+            const [data, allVendorsData] = await Promise.all([
+                apiService.getAdminOverviewStats(),
+                apiService.getAllVendors('approved')
+            ]);
+
+            const approvedCount = allVendorsData?.count || 0;
+
+            setStatsData({
+                ...data,
+                // Add activeVendors count to the stats data state
+                activeVendors: approvedCount
+            });
         } catch (err) {
             console.error("Failed to fetch admin overview stats:", err);
         } finally {
@@ -159,6 +170,25 @@ const AdminOverview = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {/* Pending Approvals - NEW */}
+                    <motion.div
+                        whileHover={{ y: -3 }}
+                        className="bg-white/40 backdrop-blur-2xl border border-white/60 rounded-[24px] p-5 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] transition-all group"
+                    >
+                        <div className="flex justify-between items-start mb-3">
+                            <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest group-hover:text-[#8b5cf6] transition-colors">Pending Approvals</span>
+                            <div className="flex items-center gap-1 text-[10px] font-bold text-amber-500 bg-amber-50 px-2 py-0.5 rounded-md">
+                                <Activity className="w-2.5 h-2.5" /> Action
+                            </div>
+                        </div>
+                        <div className="flex items-end justify-between">
+                            <p className="text-3xl font-black text-gray-900 tracking-tighter">{statsData?.pendingApprovals || 0}</p>
+                            <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#8b5cf6] transition-colors">
+                                <CheckCircle className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
+                            </div>
+                        </div>
+                    </motion.div>
+
                     {/* Total Users */}
                     <motion.div
                         whileHover={{ y: -3 }}
@@ -185,16 +215,23 @@ const AdminOverview = () => {
                         </div>
                     </motion.div>
 
-                    {/* Active Agents */}
+                    {/* Registered Vendors */}
                     <motion.div
                         whileHover={{ y: -3 }}
                         className="bg-white/40 backdrop-blur-2xl border border-white/60 rounded-[24px] p-5 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] transition-all group"
                     >
                         <div className="flex justify-between items-start mb-3">
-                            <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest group-hover:text-[#8b5cf6] transition-colors">Active Agents</span>
+                            <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest group-hover:text-[#8b5cf6] transition-colors">Registered Vendors</span>
+                            <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-500 bg-emerald-50 px-2 py-0.5 rounded-md">
+                                <Activity className="w-2.5 h-2.5" /> Active
+                            </div>
                         </div>
                         <div className="flex items-end justify-between">
-                            <p className="text-3xl font-black text-gray-900 tracking-tighter">{statsData?.activeAgents || 0}</p>
+                            <p className="text-3xl font-black text-gray-900 tracking-tighter">{statsData?.activeVendors || 0}</p>
+                            <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#8b5cf6] transition-colors">
+                                <ShieldCheck className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
+                            </div>
+
                         </div>
                     </motion.div>
 
@@ -207,7 +244,11 @@ const AdminOverview = () => {
                             <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest group-hover:text-[#8b5cf6] transition-colors">Total Revenue</span>
                         </div>
                         <div className="flex items-end justify-between">
-                            <p className="text-3xl font-black text-gray-900 tracking-tighter">₹{statsData?.totalRevenue || 0}</p>
+                            <p className="text-3xl font-black text-gray-900 tracking-tighter">₹{statsData?.totalRevenue?.toLocaleString() || '0'}</p>
+                            <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#8b5cf6] transition-colors">
+                                <DollarSign className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
+                            </div>
+
                         </div>
                     </motion.div>
                 </div>

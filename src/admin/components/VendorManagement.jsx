@@ -69,6 +69,7 @@ const VendorManagement = () => {
         const matchesSearch = v.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             v.email?.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesFilter && matchesSearch;
+
     });
 
     const getStatusColor = (status) => {
@@ -149,6 +150,7 @@ const VendorManagement = () => {
                                 <th className="px-6 py-3 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Contact Email</th>
                                 <th className="px-6 py-3 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Joined Date</th>
                                 <th className="px-6 py-3 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Apps</th>
+
                                 <th className="px-6 py-3 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Actions</th>
                             </tr>
                         </thead>
@@ -156,6 +158,7 @@ const VendorManagement = () => {
                             {filteredVendors.length > 0 ? (
                                 filteredVendors.map((vendor) => (
                                     <tr key={vendor._id || vendor.id} className="hover:bg-white/40 transition-colors group">
+
                                         <td className="px-6 py-3">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#d946ef] to-[#8b5cf6] flex items-center justify-center text-white font-black shadow-lg">
@@ -190,6 +193,7 @@ const VendorManagement = () => {
                                                 className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
                                                 title="Message Vendor"
                                             >
+
                                                 <MessageSquare size={14} />
                                             </button>
                                         </td>
