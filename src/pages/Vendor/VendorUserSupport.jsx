@@ -137,8 +137,9 @@ const VendorUserSupport = () => {
             >
                 <div className="px-10 py-8 border-b border-gray-100 bg-white/40 flex items-center justify-between">
                     <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#8b5cf6] to-[#d946ef] flex items-center justify-center text-white shadow-lg shadow-purple-500/30">
-                            <MessageSquare size={24} />
+                        <div className="w-16 h-16 rounded-[24px] bg-gradient-to-br from-[#6366f1] via-[#8b5cf6] to-[#d946ef] flex items-center justify-center text-white shadow-[0_20px_40px_-10px_rgba(139,92,246,0.5)] border border-white/20 relative overflow-hidden group">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <MessageSquare size={28} className="relative z-10" />
                         </div>
                         <h2 className="text-lg font-black text-gray-900 uppercase tracking-tighter">User Messages</h2>
                     </div>
@@ -245,7 +246,7 @@ const VendorUserSupport = () => {
                             </button>
 
                             <div className="mb-10 flex items-center gap-6">
-                                <div className="w-16 h-16 rounded-[24px] bg-gradient-to-br from-[#8b5cf6] to-[#d946ef] flex items-center justify-center text-white shadow-xl">
+                                <div className="w-16 h-16 rounded-[24px] bg-gradient-to-br from-[#6366f1] via-[#8b5cf6] to-[#d946ef] flex items-center justify-center text-white shadow-[0_20px_40px_-10px_rgba(139,92,246,0.5)] border border-white/20">
                                     <MessageSquare size={32} />
                                 </div>
                                 <div>
