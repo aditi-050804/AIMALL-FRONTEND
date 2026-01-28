@@ -140,7 +140,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-5 bg-[#3b82f6] hover:bg-[#2563eb] text-white rounded-[24px] font-black text-[14px] uppercase tracking-widest shadow-[0_15px_30px_-5px_rgba(59,130,246,0.5)] hover:shadow-[0_20px_40px_-5px_rgba(59,130,246,0.6)] transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2"
+              className="w-full py-5 bg-[#8B5CF6] hover:bg-[#7c3aed] text-white rounded-[24px] font-black text-[14px] uppercase tracking-widest shadow-[0_15px_30px_-5px_rgba(139,92,246,0.4)] hover:shadow-[0_20px_40px_-5px_rgba(139,92,246,0.5)] transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -153,8 +153,8 @@ const Login = () => {
           {/* Signup Redirect */}
           <div className="mt-12 text-center relative z-10">
             <p className="text-[11px] text-gray-400 font-bold uppercase tracking-widest mb-6 opacity-60">Don't have an account?</p>
-            <Link to="/signup" className="inline-block px-10 py-4 bg-gray-900 text-white rounded-[20px] text-[10px] font-black uppercase tracking-[0.25em] hover:bg-black transition-all transform hover:scale-105 active:scale-95 shadow-lg">
-              Sign Up
+            <Link to="/signup" className="w-full py-5 bg-[#8B5CF6] hover:bg-[#7c3aed] rounded-[24px] font-black text-[14px] uppercase tracking-widest shadow-[0_15px_30px_-5px_rgba(139,92,246,0.4)] hover:shadow-[0_20px_40px_-5px_rgba(139,92,246,0.5)] transition-all duration-300 transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2">
+              <Sparkles size={18} className="text-white" /> <span className="text-white">Sign Up</span>
             </Link>
           </div>
         </motion.div>

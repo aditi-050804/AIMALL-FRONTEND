@@ -11,14 +11,26 @@ export default function VerificationForm() {
     const [verificationCode, setVerificationCode] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [resendLoading, setResendLoading] = useState(false);
+    const [resendCooldown, setResendCooldown] = useState(0);
+    const [successMessage, setSuccessMessage] = useState('');
 
     const email = getUserData("user")?.email || "User";
     const navigator = useNavigate();
+
+    // Cooldown timer effect
+    React.useEffect(() => {
+        if (resendCooldown > 0) {
+            const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [resendCooldown]);
 
     const handleVerify = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
+        setSuccessMessage('');
 
         axios.post(apis.emailVerificationApi, { code: verificationCode, email }).then((res) => {
             console.log(res);
@@ -32,6 +44,25 @@ export default function VerificationForm() {
         }).finally(() => {
             setLoading(false);
         })
+    };
+
+    const handleResendOTP = async () => {
+        if (resendCooldown > 0) return;
+
+        setResendLoading(true);
+        setError('');
+        setSuccessMessage('');
+
+        try {
+            const response = await axios.post(`${apis.emailVerificationApi}/resend`, { email });
+            setSuccessMessage('Verification code resent! Check your email.');
+            setResendCooldown(60); // 60 second cooldown
+        } catch (err) {
+            console.error('Resend OTP error:', err);
+            setError(err.response?.data?.error || 'Failed to resend code. Please try again.');
+        } finally {
+            setResendLoading(false);
+        }
     };
 
     return (
@@ -90,11 +121,23 @@ export default function VerificationForm() {
                         </motion.div>
                     )}
 
+                    {/* Success Message */}
+                    {successMessage && (
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="mb-8 p-5 rounded-3xl bg-green-50/50 border border-green-100/50 flex items-center gap-4 text-green-600 text-[11px] font-black uppercase tracking-wider"
+                        >
+                            <CheckCircle className="w-5 h-5 text-green-500" />
+                            {successMessage}
+                        </motion.div>
+                    )}
+
                     {/* Form */}
                     <form onSubmit={handleVerify} className="space-y-8 relative z-10">
                         <div className="space-y-3 text-center">
                             <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.25em]">
-                                Enter Transmission Code
+                                Enter Verification Code
                             </label>
 
                             <div className="relative group/input">
@@ -114,20 +157,24 @@ export default function VerificationForm() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-5 bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] hover:from-[#c026d3] hover:to-[#7c3aed] text-white rounded-[24px] font-black text-[14px] uppercase tracking-widest shadow-[0_15px_30px_-5px_rgba(168,85,247,0.4)] hover:shadow-[0_20px_40px_-5px_rgba(168,85,247,0.5)] transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50"
+                            className="w-full py-5 bg-[#8B5CF6] hover:bg-[#7c3aed] text-white rounded-[24px] font-black text-[14px] uppercase tracking-widest shadow-[0_15px_30px_-5px_rgba(139,92,246,0.4)] hover:shadow-[0_20px_40px_-5px_rgba(139,92,246,0.5)] transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50"
                         >
                             {loading ? (
                                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                             ) : (
-                                <> <CheckCircle size={18} /> Authenticate </>
+                                <> <CheckCircle size={18} /> Verify </>
                             )}
                         </button>
                     </form>
 
                     <div className="mt-8 text-center text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                        Signal lost?{' '}
-                        <button className="text-[#8b5cf6] hover:text-[#7c3aed] transition-colors font-black ml-1 uppercase hover:blur-[0.5px]">
-                            Retransmit Code
+                        Didn't receive code?{' '}
+                        <button
+                            onClick={handleResendOTP}
+                            disabled={resendLoading || resendCooldown > 0}
+                            className="text-[#8b5cf6] hover:text-[#7c3aed] transition-colors font-black ml-1 uppercase hover:blur-[0.5px] disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {resendLoading ? 'Sending...' : resendCooldown > 0 ? `Wait ${resendCooldown}s` : 'Resend Code'}
                         </button>
                     </div>
                 </motion.div>
