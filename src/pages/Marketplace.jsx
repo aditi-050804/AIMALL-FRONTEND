@@ -354,7 +354,7 @@ const Marketplace = () => {
                             className="w-full h-full object-cover opacity-90 transition-opacity duration-1000 group-hover:opacity-100"
                             style={{ objectPosition: '100% center' }}
                         >
-                            <source src="/video/robotgirl.mp4" type="video/mp4" />
+                            <source src="/videos/robotgirl.mp4" type="video/mp4" />
                         </video>
                         {/* Gradient Mask for seamless white integration */}
                         {/* Gradient Mask for seamless integration */}
