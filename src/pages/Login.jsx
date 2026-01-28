@@ -35,7 +35,9 @@ const Login = () => {
     }).catch((err) => {
       console.log(err.response?.data?.error);
       setError(true)
-      setMessage(err.response?.data?.error || "Something went Wrong")
+      const errorMsg = err.response?.data?.error || "Something went Wrong";
+      const detailMsg = err.response?.data?.details ? ` (${err.response.data.details})` : "";
+      setMessage(errorMsg + detailMsg);
     }).finally(() => {
       setLoading(false)
     })
