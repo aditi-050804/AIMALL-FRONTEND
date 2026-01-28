@@ -56,6 +56,11 @@ const Marketplace = () => {
     const { t } = useLanguage();
 
     useEffect(() => {
+        if (!user) {
+            navigate(AppRoute.LOGIN);
+            return;
+        }
+
         const fetchData = async () => {
             // Only show loader if we genuinely have no content
             if (agents.length === 0) {

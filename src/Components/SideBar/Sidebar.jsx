@@ -36,12 +36,12 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   // User Data & Role Logic
   const [currentUserData] = useRecoilState(userData);
-  const user = currentUserData?.user || { name: "User", email: "user@example.com", role: "user" };
-  const userRole = (user.role === 'admin' || user.role === 'Admin') ? 'admin' : user.role;
-  // Check both role and email for admin access (matching backend logic)
-  const isAdminView = userRole === 'admin' || user.email === 'admin@uwo24.com';
   const token = localStorage.getItem('token');
   const isLoggedIn = !!token;
+  const user = (isLoggedIn && currentUserData?.user) ? currentUserData.user : { name: "Guest", email: "", role: "guest" };
+  const userRole = (user.role === 'admin' || user.role === 'Admin') ? 'admin' : user.role;
+  // Check both role and email for admin access, but ONLY if logged in
+  const isAdminView = isLoggedIn && (userRole === 'admin' || user.email === 'admin@uwo24.com');
   const theme = useRecoilValue(themeState);
   const isDark = !isAdminView && theme === 'Dark';
 

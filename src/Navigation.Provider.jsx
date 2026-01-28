@@ -156,7 +156,7 @@ const NavigateProvider = () => {
           <Route path="chat" element={<Chat />} />
           <Route path="chat/:sessionId" element={<Chat />} />
           <Route path="overview" element={<ProtectedRoute><DashboardOverview /></ProtectedRoute>} />
-          <Route path="marketplace" element={<Marketplace />} />
+          <Route path="marketplace" element={<ProtectedRoute><Marketplace /></ProtectedRoute>} />
           <Route path="admin-support" element={<ProtectedRoute><AdminSupport /></ProtectedRoute>} />
           {/* <Route path="live-demos" element={
             <Suspense fallback={<div className="flex items-center justify-center h-full"><p className="text-subtext">Loading...</p></div>}>
