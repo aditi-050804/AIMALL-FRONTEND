@@ -66,10 +66,12 @@ export const AppRoute = {
   RESET_PASSWORD: "/reset-password/:token",
 };
 
-// Use environment variable for API URL (configured in .env file)
-// export const API = "https://ai-mall-backend.onrender.com/api";
-//export const API = "http://localhost:8080/api";
-export const API = "https://aimall-backend.onrender.com/api";
+// Environment detection
+const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+
+export const API = isLocal
+  ? "http://localhost:8080/api"
+  : "https://aimall-backend.onrender.com/api";
 
 export const apis = {
   emailVerificationApi: `${API}/email_varification`,
@@ -88,5 +90,5 @@ export const apis = {
   chatAgent: `${API}/chat`,
   aibiz: `${API}/aibiz`,
   support: `${API}/support`,
-  BASE_URL: "https://aimall-backend.onrender.com",
+  BASE_URL: isLocal ? "http://localhost:8080" : "https://aimall-backend.onrender.com",
 };
