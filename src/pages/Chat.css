@@ -1,0 +1,20 @@
+/* Force white text in dark mode for Chat headings */
+.dark-mode-white-text {
+    color: #FFFFFF !important;
+}
+
+.dark-mode-heading {
+    color: #FFFFFF !important;
+    font-weight: 900 !important;
+}
+
+/* Additional specificity to override body color inheritance */
+h2.dark-mode-white-text,
+h3.dark-mode-white-text {
+    color: #FFFFFF !important;
+}
+
+h2.dark-mode-heading {
+    color: #FFFFFF !important;
+    font-weight: 900 !important;
+}

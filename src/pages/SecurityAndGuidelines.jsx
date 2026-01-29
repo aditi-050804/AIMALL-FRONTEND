@@ -4,28 +4,30 @@ import { Shield, Lock, FileText, Scale, Eye, AlertTriangle, ChevronRight, Sparkl
 import ReportModal from '../Components/ReportModal/ReportModal';
 import { useRecoilValue } from 'recoil';
 import { themeState } from '../userStore/userData';
+import { useLanguage } from '../context/LanguageContext';
 
 const SecurityAndGuidelines = () => {
     const theme = useRecoilValue(themeState);
     const isDark = theme === 'Dark';
+    const { t } = useLanguage();
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
     const sections = [
         {
             id: 1,
-            title: "Data Privacy & Protection",
+            title: t('secDataPrivacy'),
             icon: <Lock className="w-6 h-6 text-[#8b5cf6]" />,
             content: (
                 <div className="space-y-6">
                     <p className={`${isDark ? 'text-slate-400' : 'text-gray-500'} font-medium transition-colors`}>AI-Mall™ is committed to safeguarding user data in accordance with global protocols, including GDPR and CCPA.</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                         <div className={`p-6 ${isDark ? 'bg-slate-800/40 border-white/5 hover:bg-slate-800' : 'bg-white/40 border-white/80 hover:bg-white'} rounded-[32px] transition-all border shadow-sm`}>
-                            <h4 className={`font-black ${isDark ? 'text-white' : 'text-gray-900'} text-sm uppercase tracking-wider mb-2 transition-colors`}>1.1 Data Collection</h4>
-                            <p className="text-xs text-gray-400 leading-relaxed font-bold">Usage metadata, device identifiers, and neural link permissions are collected solely for operational efficiency.</p>
+                            <h4 className={`font-black ${isDark ? 'text-white' : 'text-gray-900'} text-sm uppercase tracking-wider mb-2 transition-colors`}>{t('secDataCollection')}</h4>
+                            <p className="text-xs text-gray-400 leading-relaxed font-bold">{t('secDataCollectionDesc')}</p>
                         </div>
                         <div className={`p-6 ${isDark ? 'bg-slate-800/40 border-white/5 hover:bg-slate-800' : 'bg-white/40 border-white/80 hover:bg-white'} rounded-[32px] transition-all border shadow-sm`}>
-                            <h4 className={`font-black ${isDark ? 'text-white' : 'text-gray-900'} text-sm uppercase tracking-wider mb-2 transition-colors`}>1.2 Data Sharing</h4>
-                            <p className="text-xs text-gray-400 leading-relaxed font-bold">AI-Mall™ never auctions personal data to third-party entities. All exchanges are strictly for core system functionality.</p>
+                            <h4 className={`font-black ${isDark ? 'text-white' : 'text-gray-900'} text-sm uppercase tracking-wider mb-2 transition-colors`}>{t('secDataSharing')}</h4>
+                            <p className="text-xs text-gray-400 leading-relaxed font-bold">{t('secDataSharingDesc')}</p>
                         </div>
                     </div>
                 </div>
@@ -33,7 +35,7 @@ const SecurityAndGuidelines = () => {
         },
         {
             id: 2,
-            title: "Acceptable Neural Conduct",
+            title: t('secAcceptableConduct'),
             icon: <Shield className="w-6 h-6 text-[#8b5cf6]" />,
             content: (
                 <div className="space-y-4">
@@ -56,7 +58,7 @@ const SecurityAndGuidelines = () => {
         },
         {
             id: 3,
-            title: "AI Response Disclaimer",
+            title: t('secDisclaimer'),
             icon: <Scale className="w-6 h-6 text-[#8b5cf6]" />,
             content: (
                 <div className={`p-8 ${isDark ? 'bg-amber-500/10 border-amber-500/10' : 'bg-amber-500/5 border-amber-500/10'} border rounded-[40px] relative overflow-hidden transition-colors`}>
@@ -67,7 +69,7 @@ const SecurityAndGuidelines = () => {
                         "Neural outputs are provided as-is. Decisions made based on AI transmissions are the sole responsibility of the operator."
                     </p>
                     <p className={`${isDark ? 'text-amber-500/60' : 'text-amber-700'} text-xs font-medium opacity-80 relative z-10 transition-colors`}>
-                        Operators are encouraged to verify critical data through secondary diagnostic arrays.
+                        Operator are encouraged to verify critical data through secondary diagnostic arrays.
                     </p>
                 </div>
             )
@@ -88,9 +90,9 @@ const SecurityAndGuidelines = () => {
                             <span className={`px-5 py-2 ${isDark ? 'bg-purple-900/40 border-purple-800/40' : 'bg-[#8b5cf6]/10 border-[#8b5cf6]/20'} text-[#8b5cf6] rounded-full text-[10px] font-black uppercase tracking-[0.3em] mb-6 inline-block border transition-colors`}>
                                 Global Protocols v2.1
                             </span>
-                            <h1 className={`text-5xl lg:text-6xl font-black ${isDark ? 'text-white' : 'text-gray-900'} tracking-tighter mb-6 leading-none transition-colors`}>Security & <span className="text-[#8b5cf6]">Guidelines.</span></h1>
+                            <h1 className={`text-5xl lg:text-6xl font-black ${isDark ? 'text-white' : 'text-gray-900'} tracking-tighter mb-6 leading-none transition-colors`}>{t('secHeading')}</h1>
                             <p className={`text-lg lg:text-xl ${isDark ? 'text-slate-400' : 'text-gray-500'} font-medium max-w-2xl leading-relaxed transition-colors`}>
-                                Establishing the framework for lawful use, data protection, and operational security within the AI-Mall™ biosphere.
+                                {t('secSubheading')}
                             </p>
 
                             <div className="flex flex-wrap gap-4 mt-10">
@@ -137,9 +139,9 @@ const SecurityAndGuidelines = () => {
                             <div className="w-14 h-14 rounded-2xl bg-[#8b5cf6]/10 flex items-center justify-center">
                                 <Sparkles size={24} />
                             </div>
-                            <h3 className={`text-2xl font-black ${isDark ? 'text-white' : 'text-gray-900'} uppercase tracking-tight transition-colors`}>Support Node</h3>
+                            <h3 className={`text-2xl font-black ${isDark ? 'text-white' : 'text-gray-900'} uppercase tracking-tight transition-colors`}>{t('secSupportNode')}</h3>
                         </div>
-                        <p className={`${isDark ? 'text-slate-400' : 'text-gray-500'} font-medium mb-10 leading-relaxed transition-colors`}>Encountering anomalies or need manual intervention? Our neural support array is standing by.</p>
+                        <p className={`${isDark ? 'text-slate-400' : 'text-gray-500'} font-medium mb-10 leading-relaxed transition-colors`}>{t('secSupportDesc')}</p>
 
                         <div className="space-y-4">
                             <a href="tel:+918358990909" className={`flex items-center justify-between p-6 ${isDark ? 'bg-slate-800 border-white/5 hover:bg-slate-700' : 'bg-white/60 border-white/80 hover:bg-white'} border rounded-[32px] hover:scale-[1.02] transition-all group shadow-sm transition-colors`}>
@@ -165,16 +167,16 @@ const SecurityAndGuidelines = () => {
                                 <div className={`w-14 h-14 rounded-2xl ${isDark ? 'bg-red-500/20' : 'bg-red-500/10'} flex items-center justify-center transition-colors`}>
                                     <AlertTriangle size={24} />
                                 </div>
-                                <h3 className={`text-2xl font-black ${isDark ? 'text-white' : 'text-gray-900'} uppercase tracking-tight transition-colors`}>Incident Report</h3>
+                                <h3 className={`text-2xl font-black ${isDark ? 'text-white' : 'text-gray-900'} uppercase tracking-tight transition-colors`}>{t('secIncidentReport')}</h3>
                             </div>
-                            <p className={`${isDark ? 'text-slate-400' : 'text-gray-500'} font-medium mb-8 leading-relaxed transition-colors`}>Report visual artifacts, logic errors, or security perimeters breaches directly to our core engineering team.</p>
+                            <p className={`${isDark ? 'text-slate-400' : 'text-gray-500'} font-medium mb-8 leading-relaxed transition-colors`}>{t('secIncidentDesc')}</p>
                         </div>
 
                         <button
                             onClick={() => setIsReportModalOpen(true)}
                             className="w-full py-6 bg-gray-900 text-white rounded-[32px] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-black hover:scale-[1.02] transition-all active:scale-95"
                         >
-                            Open Diagnosis Form
+                            {t('secOpenDiagnosis')}
                         </button>
                     </div>
                 </div>

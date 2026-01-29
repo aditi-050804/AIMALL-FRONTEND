@@ -48,18 +48,21 @@ const UserManagement = () => {
             user.email.toLowerCase().includes(searchTerm.toLowerCase());
 
         const isAdmin = user.role?.toLowerCase() === 'admin' || user.email === 'admin@uwo24.com';
-        const isAISA = user.platform === 'AISA' || user.email?.includes('aisa'); // Fallback check
+        const isAISA = user.platform === 'AISA' || user.email?.includes('aisa');
+        const isASeries = user.platform === 'A-SERIES' || user.platform === 'ASERIES';
+        const isAIMall = user.platform === 'AI-MALL' || user.platform === 'AIMALL' || (!user.platform && !isAISA && !isASeries);
 
         if (viewMode === 'ASERIES') {
-            return matchesSearch && isAdmin;
+            // Show A-SERIES users AND all admins
+            return matchesSearch && (isASeries || isAdmin);
         }
 
         if (viewMode === 'AISA') {
             return matchesSearch && !isAdmin && isAISA;
         }
 
-        // AI-MALL view: Everyone who isn't an AISA user (Admins are now included here too)
-        return matchesSearch && !isAISA;
+        // AI-MALL view: Show AI-MALL users AND all admins
+        return matchesSearch && (isAIMall || isAdmin);
     });
 
     const handleDeleteUser = async (userId) => {
@@ -96,18 +99,18 @@ const UserManagement = () => {
             }}
             className="space-y-4 pb-24"
         >
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="flex flex-col md:flex-row md:items-center gap-6">
+            <div className="flex flex-col gap-6">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                     <div>
                         <h2 className="text-2xl font-black text-gray-900 tracking-tighter mb-1">
-                            {viewMode === 'ASERIES' ? 'A-SERIES' : viewMode === 'AISA' ? 'AISA' : 'AI-MALL'} User Management
+                            {viewMode === 'ASERIES' ? <>A-SERIES<sup className="text-sm font-black ml-0.5">TM</sup></> : viewMode === 'AISA' ? <>AISA<sup className="text-sm font-black ml-0.5">TM</sup></> : <>AI-MALL<sup className="text-sm font-black ml-0.5">TM</sup></>} User Management
                         </h2>
                         <p className="text-gray-500 font-medium text-xs">
-                            {viewMode === 'ASERIES' ? 'Manage platform system users and admins' : viewMode === 'AISA' ? 'Manage AISA platform specific users' : 'Manage platform users, vendors, and roles'}
+                            {viewMode === 'ASERIES' ? 'Manage platform system users and admins' : viewMode === 'AISA' ? <>Manage AISA<sup className="text-[8px] font-black ml-0.5">TM</sup> platform specific users</> : 'Manage platform users, vendors, and roles'}
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-2 p-1.5 bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[24px] shadow-sm">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 p-1.5 bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[24px] shadow-sm self-start lg:self-auto">
                         <button
                             onClick={() => setViewMode('ASERIES')}
                             className={`flex items-center gap-2 px-6 py-2.5 rounded-[18px] text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${viewMode === 'ASERIES'
@@ -116,7 +119,7 @@ const UserManagement = () => {
                                 }`}
                         >
                             <Layers className="w-4 h-4" />
-                            A SERIES
+                            A SERIES<sup className="text-[10px] font-black -ml-1">TM</sup>
                         </button>
                         <button
                             onClick={() => setViewMode('AISA')}
@@ -126,7 +129,7 @@ const UserManagement = () => {
                                 }`}
                         >
                             <Bot className="w-4 h-4" />
-                            AISA
+                            AISA<sup className="text-[10px] font-black -ml-1">TM</sup>
                         </button>
                         <button
                             onClick={() => setViewMode('AIMALL')}
@@ -136,21 +139,23 @@ const UserManagement = () => {
                                 }`}
                         >
                             <ShoppingBag className="w-4 h-4" />
-                            AI MALL
+                            AI MALL<sup className="text-[10px] font-black -ml-1">TM</sup>
                         </button>
                     </div>
                 </div>
 
-                <div className="relative group w-full md:w-80">
+                <div className="relative group w-full max-w-md">
                     <div className="absolute -inset-1 bg-gradient-to-r from-[#d946ef]/20 to-[#8b5cf6]/20 rounded-[24px] blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <input
-                        type="text"
-                        placeholder="Search users..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="relative w-full bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[20px] px-5 py-3 pl-10 focus:outline-none focus:ring-4 focus:ring-[#8b5cf6]/10 transition-all font-medium text-xs text-gray-900 placeholder-gray-400"
-                    />
-                    <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#8b5cf6] transition-colors" />
+                    <div className="relative flex items-center bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[20px] px-4 py-3 focus-within:ring-4 focus-within:ring-[#8b5cf6]/10 transition-all">
+                        <Search className="w-4 h-4 text-gray-400 group-focus-within:text-[#8b5cf6] transition-colors flex-shrink-0" />
+                        <input
+                            type="text"
+                            placeholder="Search users..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="flex-1 bg-transparent outline-none ml-3 font-medium text-sm text-gray-900 placeholder-gray-400"
+                        />
+                    </div>
                 </div>
             </div>
 

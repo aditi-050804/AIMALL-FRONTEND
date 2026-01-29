@@ -3,8 +3,10 @@ import { MessageSquare, Loader2, Clock, CheckCircle, AlertCircle, User, Mail, Se
 import apiService from '../../services/apiService';
 
 import { useToast } from '../../Components/Toast/ToastContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 const VendorManagement = () => {
+    const { t } = useLanguage();
     const toast = useToast();
     const [tickets, setTickets] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -103,27 +105,27 @@ const VendorManagement = () => {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h2 className="text-2xl font-bold text-[#1E293B]">Vendor Support</h2>
-                    <p className="text-sm text-subtext">Manage vendor support tickets and issues</p>
+                    <h2 className="text-2xl font-bold text-[#1E293B]">{t("vendorSupport") || "Vendor Support"}</h2>
+                    <p className="text-sm text-subtext">{t("manageVendorInquiries") || "Manage vendor support tickets and issues"}</p>
                 </div>
                 <div className="flex gap-2">
                     <button
                         onClick={() => setFilter('all')}
                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${filter === 'all' ? 'bg-primary text-white' : 'bg-white border border-[#E0E4E8] text-subtext hover:bg-slate-50'}`}
                     >
-                        All ({tickets.length})
+                        {t("all") || "All"} ({tickets.length})
                     </button>
                     <button
                         onClick={() => setFilter('open')}
                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${filter === 'open' ? 'bg-amber-500 text-white' : 'bg-white border border-[#E0E4E8] text-subtext hover:bg-slate-50'}`}
                     >
-                        Open ({tickets.filter(t => t.status === 'open').length})
+                        {t("open") || "Open"} ({tickets.filter(t => t.status === 'open').length})
                     </button>
                     <button
                         onClick={() => setFilter('resolved')}
                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${filter === 'resolved' ? 'bg-green-500 text-white' : 'bg-white border border-[#E0E4E8] text-subtext hover:bg-slate-50'}`}
                     >
-                        Resolved ({tickets.filter(t => t.status === 'resolved').length})
+                        {t("resolved") || "Resolved"} ({tickets.filter(t => t.status === 'resolved').length})
                     </button>
                 </div>
             </div>
@@ -132,12 +134,12 @@ const VendorManagement = () => {
                 <table className="w-full text-left text-sm">
                     <thead className="bg-[#F8F9FB] border-b border-[#E0E4E8]">
                         <tr>
-                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider">Ticket ID</th>
-                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider">User</th>
-                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider">Type</th>
-                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider">Description</th>
-                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider">Status</th>
-                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider text-right">Actions</th>
+                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider">{t("ticketId") || "Ticket ID"}</th>
+                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider">{t("user") || "User"}</th>
+                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider">{t("type") || "Type"}</th>
+                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider">{t("description") || "Description"}</th>
+                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider">{t("status") || "Status"}</th>
+                            <th className="px-6 py-4 text-[10px] font-bold text-subtext uppercase tracking-wider text-right">{t("actions") || "Actions"}</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-[#E0E4E8]">
@@ -168,7 +170,7 @@ const VendorManagement = () => {
                                     <td className="px-6 py-4">
                                         <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold border ${getStatusColor(ticket.status)} uppercase`}>
                                             {getStatusIcon(ticket.status)}
-                                            {ticket.status}
+                                            {t(ticket.status) || ticket.status}
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 text-right">
@@ -178,14 +180,14 @@ const VendorManagement = () => {
                                                 className="px-3 py-2 bg-blue-500 text-white rounded-xl text-xs font-bold hover:bg-blue-600 transition-all flex items-center gap-1"
                                             >
                                                 <Mail className="w-3 h-3" />
-                                                Reply
+                                                {t("reply") || "Reply"}
                                             </button>
                                             {ticket.status !== 'resolved' && (
                                                 <button
                                                     onClick={() => handleResolve(ticket._id)}
                                                     className="px-3 py-2 bg-green-500 text-white rounded-xl text-xs font-bold hover:bg-green-600 transition-all"
                                                 >
-                                                    Resolve
+                                                    {t("resolve") || "Resolve"}
                                                 </button>
                                             )}
                                         </div>
@@ -199,7 +201,7 @@ const VendorManagement = () => {
                                         <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center">
                                             <MessageSquare className="w-8 h-8 text-slate-300" />
                                         </div>
-                                        <p className="text-sm font-medium text-subtext">No vendor support tickets found.</p>
+                                        <p className="text-sm font-medium text-subtext">{t("noVendorTickets") || "No vendor support tickets found."}</p>
                                     </div>
                                 </td>
                             </tr>

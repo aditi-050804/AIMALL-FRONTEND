@@ -1,0 +1,96 @@
+/* Global Typography System */
+html {
+    transition: font-size 0.3s ease;
+}
+
+/* Font Size Overrides (Affects rem units globally) */
+html[data-font-size="small"] {
+    font-size: 14px;
+}
+
+html[data-font-size="medium"] {
+    font-size: 16px;
+    /* Default */
+}
+
+html[data-font-size="large"] {
+    font-size: 18px;
+}
+
+html[data-font-size="extra-large"] {
+    font-size: 20px;
+}
+
+/* Font Style Variables */
+html[data-font-style="inter"] {
+    --app-font-family: 'Inter', sans-serif;
+}
+
+html[data-font-style="times-new-roman"] {
+    --app-font-family: 'Times New Roman', Times, serif;
+}
+
+html[data-font-style="california"] {
+    /* Using a premium serif combination for 'California' aesthetic */
+    --app-font-family: 'Apple Garamond', 'Baskerville', 'Times New Roman', serif;
+}
+
+html[data-font-style="poppins"] {
+    --app-font-family: 'Poppins', sans-serif;
+}
+
+html[data-font-style="roboto"] {
+    --app-font-family: 'Roboto', sans-serif;
+}
+
+html[data-font-style="georgia"] {
+    --app-font-family: 'Georgia', serif;
+}
+
+html[data-font-style="arial"] {
+    --app-font-family: 'Arial', sans-serif;
+}
+
+html[data-font-style="verdana"] {
+    --app-font-family: 'Verdana', sans-serif;
+}
+
+html[data-font-style="tahoma"] {
+    --app-font-family: 'Tahoma', sans-serif;
+}
+
+html[data-font-style="trebuchet-ms"] {
+    --app-font-family: 'Trebuchet MS', sans-serif;
+}
+
+html[data-font-style="impact"] {
+    --app-font-family: 'Impact', sans-serif;
+}
+
+html[data-font-style="courier-new"] {
+    --app-font-family: 'Courier New', monospace;
+}
+
+html[data-font-style="garamond"] {
+    --app-font-family: 'Garamond', serif;
+}
+
+/* Force Global Font Application */
+body,
+#root,
+button,
+input,
+textarea,
+select {
+    font-family: var(--app-font-family, 'Inter', sans-serif) !important;
+}
+
+/* Ensure headings also respect the choice */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--app-font-family, 'Inter', sans-serif) !important;
+}

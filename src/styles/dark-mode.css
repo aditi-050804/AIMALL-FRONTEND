@@ -1,0 +1,278 @@
+/* Soft Dark Mode Color Palette Overrides */
+body.dark-mode {
+    background-color: #1a2235 !important;
+    /* Soft Midnight Blue */
+    color: #cbd5e1 !important;
+    /* Softer white (Slate-300) */
+}
+
+/* Sidebar Differentiation (Darker than main content) */
+body.dark-mode .sidebar-main-container {
+    background-color: #0f172a !important;
+    /* Deepest blue/black */
+    border-right: 1px solid rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Soften global text */
+body.dark-mode,
+body.dark-mode * {
+    color: #cbd5e1 !important;
+}
+
+/* Headings - Brighter but not pure white */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #f1f5f9 !important;
+    font-weight: 800 !important;
+}
+
+/* Input fields - Softer background */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    color: #f1f5f9 !important;
+    background-color: #1e293b !important;
+    border-color: rgba(139, 92, 246, 0.15) !important;
+}
+
+/* Cards and containers - Layered depth */
+body.dark-mode [class*="card"],
+body.dark-mode [class*="modal"],
+body.dark-mode [class*="panel"],
+body.dark-mode .bg-surface,
+body.dark-mode .bg-white\/40 {
+    background-color: #242f49 !important;
+    /* Lighter than body for depth */
+    border-color: rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(20px) !important;
+}
+
+/* Specific Page Containers */
+body.dark-mode .chat-container,
+body.dark-mode .marketplace-container,
+body.dark-mode .notifications-container {
+    background-color: #1a2235 !important;
+}
+
+/* Tables */
+body.dark-mode th {
+    color: #f1f5f9 !important;
+    background-color: #1e293b !important;
+}
+
+body.dark-mode td {
+    border-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Specific overrides for muted text */
+body.dark-mode .text-gray-400,
+body.dark-mode .text-gray-500,
+body.dark-mode .text-gray-600,
+body.dark-mode .text-gray-700,
+body.dark-mode .text-subtext {
+    color: #94a3b8 !important;
+    /* Slate-400 */
+}
+
+/* Icons should be visible and match softer white */
+body.dark-mode svg,
+body.dark-mode i {
+    color: inherit !important;
+}
+
+/* Selection */
+body.dark-mode ::selection {
+    background-color: #8B5CF6 !important;
+    color: #FFFFFF !important;
+}
+
+/* Code blocks */
+body.dark-mode code,
+body.dark-mode pre {
+    background-color: #0f172a !important;
+    color: #e2e8f0 !important;
+    border-color: rgba(139, 92, 246, 0.1) !important;
+}
+
+/* Alerts and notifications */
+body.dark-mode [class*="alert"],
+body.dark-mode [class*="notification"] {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+/* Override any remaining pure black text */
+body.dark-mode [style*="color: rgb(0, 0, 0)"],
+body.dark-mode [style*="color: #000"],
+body.dark-mode [style*="color: black"] {
+    color: #cbd5e1 !important;
+}
+
+/* ========================================
+   MARKETPLACE HERO CARD EXCEPTION
+   Keep light/white even in dark mode
+   ======================================== */
+body.dark-mode .marketplace-hero-card {
+    background-color: white !important;
+    box-shadow: 0 0 50px rgba(139, 92, 246, 0.4), 0 0 100px rgba(139, 92, 246, 0.15) !important;
+    border-color: rgba(139, 92, 246, 0.3) !important;
+}
+
+/* Don't apply white background to video containers and gradient overlays */
+body.dark-mode .marketplace-hero-card>div:not(.absolute) {
+    background-color: transparent !important;
+}
+
+body.dark-mode .marketplace-hero-card h1,
+body.dark-mode .marketplace-hero-card h2,
+body.dark-mode .marketplace-hero-card h3,
+body.dark-mode .marketplace-hero-card p,
+body.dark-mode .marketplace-hero-card span {
+    color: #1A1A1A !important;
+}
+
+body.dark-mode .marketplace-hero-card .marketplace-title {
+    color: #8B5CF6 !important;
+}
+
+/* Force visibility for images and videos in marketplace hero card */
+body.dark-mode .marketplace-hero-card img,
+body.dark-mode .marketplace-hero-card video {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    filter: none !important;
+    background-color: transparent !important;
+}
+
+body.dark-mode .marketplace-hero-card video {
+    opacity: 0.9 !important;
+}
+
+/* Keep gradient overlays transparent */
+body.dark-mode .marketplace-hero-card .absolute {
+    background-color: transparent !important;
+}
+
+/* Force TM symbol to be black */
+body.dark-mode .marketplace-hero-card sup,
+.marketplace-hero-card sup {
+    color: #000000 !important;
+    opacity: 1 !important;
+}
+
+/* Specific glowing blue links for Footer */
+.footer-glow-link {
+    color: #3b82f6 !important;
+}
+
+body.dark-mode .footer-glow-link {
+    color: #FFFFFF !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Specific glowing purple links for Footer */
+.footer-glow-purple {
+    color: #8b5cf6 !important;
+}
+
+body.dark-mode .footer-glow-purple {
+    color: #FFFFFF !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3) !important;
+}
+
+.footer-glow-link:hover,
+.footer-glow-purple:hover {
+    filter: brightness(1.2);
+}
+
+/* Generic glowing white text for Footer descriptions */
+body.dark-mode .footer-text-glow {
+    color: #FFFFFF !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Force glowing icons in How It Works */
+.how-it-works-icon {
+    color: #3b82f6 !important;
+}
+
+body.dark-mode .how-it-works-icon {
+    color: #3b82f6 !important;
+    filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.9)) !important;
+}
+
+/* Sidebar Theme System for Dark Mode */
+body.dark-mode .sidebar-purple-btn {
+    background-color: #8B5CF6 !important;
+    /* Reverted to Purple */
+    border-color: #8B5CF6 !important;
+    color: #FFFFFF !important;
+    opacity: 1 !important;
+}
+
+body.dark-mode .sidebar-purple-btn.sidebar-active {
+    background: linear-gradient(135deg, #8b5cf6, #ec4899, #3b82f6) !important;
+    /* Purple -> Pink -> Blue */
+    border-color: transparent !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3) !important;
+    opacity: 1 !important;
+}
+
+body.dark-mode .sidebar-purple-btn:hover {
+    background: linear-gradient(135deg, #8b5cf6, #ec4899, #3b82f6) !important;
+    /* Purple -> Pink -> Blue */
+    border-color: transparent !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3) !important;
+    filter: brightness(1.1) !important;
+}
+
+/* Ensure icons and text are pure white */
+body.dark-mode .sidebar-purple-btn *,
+body.dark-mode .sidebar-purple-btn svg,
+body.dark-mode .sidebar-purple-btn span {
+    color: #FFFFFF !important;
+    opacity: 1 !important;
+}
+
+/* Specific Exception: Profile initial turns black on hover */
+body.dark-mode .sidebar-purple-btn:hover .profile-initial {
+    color: #000000 !important;
+}
+
+/* Force Delete Button to be Red in all modes */
+.chat-delete-btn,
+body.dark-mode div.group .chat-delete-btn,
+body.dark-mode .chat-delete-btn svg,
+svg.chat-delete-icon {
+    color: #ef4444 !important;
+    /* text-red-500 */
+    fill: none;
+}
+
+.chat-delete-btn:hover,
+body.dark-mode div.group .chat-delete-btn:hover,
+body.dark-mode .chat-delete-btn:hover svg {
+    color: #dc2626 !important;
+    /* text-red-600 */
+}
+
+/* Agent Card Text - Unified White in Dark Mode */
+body.dark-mode .agent-name-text {
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    /* Bold */
+}
+
+body.dark-mode .agent-desc-text {
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    /* Semi-Bold */
+    opacity: 0.9 !important;
+}

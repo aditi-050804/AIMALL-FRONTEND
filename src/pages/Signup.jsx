@@ -22,6 +22,8 @@ const Signup = () => {
     e.preventDefault();
     axios.post(apis.signUp, payLoad).then((res) => {
       setUserData(res.data)
+      // Set active session flag for new user
+      sessionStorage.setItem('activeSession', 'true');
       navigate(AppRoute.E_Verification);
     }).catch((err) => {
       console.log(err);

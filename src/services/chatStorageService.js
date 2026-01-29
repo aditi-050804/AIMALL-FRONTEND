@@ -19,18 +19,27 @@ export const chatStorageService = {
     } catch (error) {
       console.warn("Backend unavailable. Using LocalStorage fallback.");
       const sessions = [];
+      const currentUser = getUserData()?.user;
+
+      if (!currentUser) return [];
 
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key?.startsWith("chat_meta_")) {
           const sessionId = key.replace("chat_meta_", "");
-          const meta = JSON.parse(localStorage.getItem(key) || "{}");
-
-          sessions.push({
-            sessionId,
-            title: meta.title || "New Chat",
-            lastModified: meta.lastModified || Date.now(),
-          });
+          try {
+            const meta = JSON.parse(localStorage.getItem(key) || "{}");
+            // Only return sessions belonging to the current user
+            if (meta.userId === currentUser.id) {
+              sessions.push({
+                sessionId,
+                title: meta.title || "New Chat",
+                lastModified: meta.lastModified || Date.now(),
+              });
+            }
+          } catch (e) {
+            console.error("Error parsing chat meta", e);
+          }
         }
       }
 
@@ -77,6 +86,9 @@ export const chatStorageService = {
       console.error("Error saving message:", error);
 
       // --- LocalStorage fallback ---
+      const currentUser = getUserData()?.user;
+      if (!currentUser) return;
+
       const historyKey = `chat_history_${sessionId}`;
       const metaKey = `chat_meta_${sessionId}`;
 
@@ -93,6 +105,7 @@ export const chatStorageService = {
         const meta = {
           title: title || existingMeta.title || "New Chat",
           lastModified: Date.now(),
+          userId: currentUser.id
         };
 
         localStorage.setItem(metaKey, JSON.stringify(meta));

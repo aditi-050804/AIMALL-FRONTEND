@@ -86,6 +86,7 @@ const Admin = () => {
         management: [
             { id: "overview", label: "Overview", icon: Activity },
             { id: "agents", label: "AI-MALL", icon: ShoppingBag },
+            /*
             {
                 id: "finance",
                 label: "Revenue & Payouts",
@@ -96,6 +97,7 @@ const Admin = () => {
                     { id: "transactions", label: "Transaction History" }
                 ]
             },
+            */
             { id: "complaints", label: "User Support", icon: AlertTriangle },
             { id: "users", label: "User Management", icon: Users },
 
@@ -112,8 +114,8 @@ const Admin = () => {
             case "users": return <UserManagement />;
             case "vendors": return <VendorManagement />;
             case "agents": return <AgentManagement />;
-            case "finance":
-                return activeSubTab === "transactions" ? <TransactionHistory /> : <Financials />;
+            // case "finance":
+            //    return activeSubTab === "transactions" ? <TransactionHistory /> : <Financials />;
             case "complaints": return <AdminSupport />;
             case "roles": return <AccessControl />;
             case "settings": return <PlatformSettings />;
@@ -275,7 +277,7 @@ const Admin = () => {
                         {!isCompact ? (
                             <div className="flex items-center justify-between w-full">
                                 <div className="flex items-center gap-4 min-w-0">
-                                    <div className="w-10 h-10 rounded-[16px] bg-gradient-to-br from-[#d946ef] to-[#8b5cf6] flex items-center justify-center text-white shadow-2xl shadow-[#8b5cf6]/20 shrink-0 transform -rotate-6">
+                                    <div className="w-10 h-10 rounded-[16px] bg-[#8b5cf6] flex items-center justify-center text-white shadow-xl shadow-[#8b5cf6]/40 shrink-0 transform -rotate-6">
                                         <Command className="w-5 h-5" />
                                     </div>
                                     <div className="flex flex-col min-w-0">

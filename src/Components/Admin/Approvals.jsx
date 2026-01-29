@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, XCircle, Clock, FileText, Loader2, AlertCircle } from 'lucide-react';
 import apiService from '../../services/apiService';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Approvals = () => {
+    const { t } = useLanguage();
     const [pendingAgents, setPendingAgents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [processingId, setProcessingId] = useState(null);
@@ -86,12 +88,12 @@ const Approvals = () => {
         <div className="space-y-12 animate-fade-in-up">
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Approvals & <span className="text-brand-dark">Verification</span></h2>
-                    <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-2">Identity & Integrity Audit</p>
+                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">{t("approvals") || "Approvals"} & <span className="text-brand-dark">{t("verification") || "Verification"}</span></h2>
+                    <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-2">{t("identityIntegrityAudit") || "Identity & Integrity Audit"}</p>
                 </div>
                 <div className="glass-pill px-6 py-3 flex items-center gap-3">
                     <Clock className="w-4 h-4 text-brand-dark" />
-                    <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{pendingAgents.length} Pending Cases</span>
+                    <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{pendingAgents.length} {t("pendingCases") || "Pending Cases"}</span>
                 </div>
             </div>
 
@@ -109,10 +111,10 @@ const Approvals = () => {
                                     <div>
                                         <h3 className="text-xl font-black text-slate-900 tracking-tight group-hover:text-brand-dark transition-colors">{agent.agentName}</h3>
                                         <div className="flex items-center gap-4 mt-2">
-                                            <span className="bg-brand-light/50 text-brand-dark px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest">{agent.category}</span>
+                                            <span className="bg-brand-light/50 text-brand-dark px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest">{t(agent.category.toLowerCase()) || agent.category}</span>
                                             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
                                                 <div className="w-1 h-1 bg-slate-300 rounded-full" />
-                                                Source: External Vendor
+                                                {t("source") || "Source"}: {t("externalVendor") || "External Vendor"}
                                             </span>
                                         </div>
                                     </div>
@@ -124,14 +126,14 @@ const Approvals = () => {
                                         disabled={processingId === (agent._id || agent.id)}
                                         className="btn-purple py-4 px-8 text-[10px]"
                                     >
-                                        {processingId === (agent._id || agent.id) ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Authorize'}
+                                        {processingId === (agent._id || agent.id) ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : (t("authorize") || 'Authorize')}
                                     </button>
                                     <button
                                         onClick={() => { setSelectedAgent(agent); setShowRejectModal(true); }}
                                         disabled={processingId === (agent._id || agent.id)}
                                         className="px-8 py-4 bg-slate-900 text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-red-500 transition-all transform hover:scale-105 active:scale-95 shadow-xl shadow-slate-900/10"
                                     >
-                                        Dismiss
+                                        {t("dismiss") || "Dismiss"}
                                     </button>
                                 </div>
                             </div>
@@ -148,8 +150,8 @@ const Approvals = () => {
                         <div className="w-20 h-20 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-8 animate-float">
                             <CheckCircle className="w-10 h-10 text-brand-dark" />
                         </div>
-                        <h3 className="text-2xl font-black text-slate-900 tracking-tight">Queue Depleted</h3>
-                        <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-2">No pending verification cycles</p>
+                        <h3 className="text-2xl font-black text-slate-900 tracking-tight">{t("queueDepleted") || "Queue Depleted"}</h3>
+                        <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-2">{t("noPendingVerifications") || "No pending verification cycles"}</p>
                     </div>
                 )}
             </div>
@@ -162,8 +164,8 @@ const Approvals = () => {
                             <div className="w-20 h-20 bg-green-50 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-sm">
                                 <CheckCircle className="w-10 h-10 text-[#22C55E]" />
                             </div>
-                            <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Final Approval</h2>
-                            <p className="text-sm text-slate-500 font-medium mb-8">Authorize this agent for public distribution? You may append a system notice for the vendor.</p>
+                            <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-4">{t("finalApproval") || "Final Approval"}</h2>
+                            <p className="text-sm text-slate-500 font-medium mb-8">{t("authorizeAgentDesc") || "Authorize this agent for public distribution? You may append a system notice for the vendor."}</p>
 
                             <textarea
                                 value={approvalMessage}
@@ -177,14 +179,14 @@ const Approvals = () => {
                                     onClick={() => setShowApproveModal(false)}
                                     className="flex-1 px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-all"
                                 >
-                                    Regress
+                                    {t("regress") || "Regress"}
                                 </button>
                                 <button
                                     onClick={handleApprove}
                                     disabled={processingId}
                                     className="flex-1 btn-purple py-4 shadow-2xl"
                                 >
-                                    Verify Case
+                                    {t("verifyCase") || "Verify Case"}
                                 </button>
                             </div>
                         </div>

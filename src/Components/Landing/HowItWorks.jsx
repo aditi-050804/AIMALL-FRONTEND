@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Search, Zap, BarChart2, Layers } from 'lucide-react';
+import { useRecoilValue } from 'recoil';
+import { themeState } from '../../userStore/userData';
 
 const steps = [
     { id: 1, title: '1. Browse', desc: 'Find tools at our market items resources', icon: <Search size={28} /> },
@@ -10,6 +12,8 @@ const steps = [
 
 const HowItWorks = () => {
     const containerRef = useRef(null);
+    const theme = useRecoilValue(themeState);
+    const isDark = theme === 'Dark';
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -37,20 +41,28 @@ const HowItWorks = () => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-400/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-16 relative z-10">
-                <h2 className="text-3xl font-bold mb-12 text-[#1A1A1A] text-center">How It Works</h2>
+                <h2 className={`text-3xl font-bold mb-12 text-center ${isDark ? 'text-white' : 'text-[#1A1A1A]'}`}>How It Works</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {steps.map((step, index) => (
                         <div
                             key={step.id}
                             style={{ transitionDelay: `${index * 150}ms` }}
-                            className="step-card opacity-0 translate-y-12 group bg-white/30 backdrop-blur-xl border border-white/60 rounded-[30px] py-10 px-8 flex flex-col items-center text-center transition-all duration-700 ease-out shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:bg-white/50 hover:shadow-[0_20px_40px_-10px_rgba(168,85,247,0.15)] hover:-translate-y-2 cursor-pointer"
+                            className={`step-card opacity-0 translate-y-12 group backdrop-blur-xl border rounded-[30px] py-10 px-8 flex flex-col items-center text-center transition-all duration-700 ease-out shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-2 cursor-pointer ${isDark
+                                ? 'bg-white/10 border-white/20 hover:bg-white/20 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.05)]'
+                                : 'bg-white/30 border-white/60 hover:bg-white/50 hover:shadow-[0_20px_40px_-10px_rgba(168,85,247,0.15)]'
+                                }`}
                         >
-                            <div className="w-20 h-20 rounded-[24px] bg-gradient-to-br from-blue-50 to-purple-50 group-hover:from-blue-100 group-hover:to-purple-100 text-[#3B82F6] group-hover:text-[#8B5CF6] flex items-center justify-center mb-6 shadow-sm transition-colors duration-500">
+                            <div
+                                className={`w-20 h-20 rounded-[24px] flex items-center justify-center mb-6 shadow-sm transition-all duration-500 how-it-works-icon ${isDark
+                                    ? 'bg-white/10 group-hover:bg-white/20'
+                                    : 'bg-gradient-to-br from-blue-50 to-purple-50 group-hover:from-blue-100 group-hover:to-purple-100'
+                                    }`}
+                            >
                                 {step.icon}
                             </div>
-                            <h3 className="text-xl font-bold mb-4 text-[#1A1A1A]">{step.title}</h3>
-                            <p className="text-sm text-[#666] leading-relaxed font-medium">{step.desc}</p>
+                            <h3 className={`text-xl font-bold mb-4 ${isDark ? 'text-white' : 'text-[#1A1A1A]'}`}>{step.title}</h3>
+                            <p className={`text-sm leading-relaxed font-medium ${isDark ? 'text-white/60' : 'text-[#666]'}`}>{step.desc}</p>
                         </div>
                     ))}
                 </div>

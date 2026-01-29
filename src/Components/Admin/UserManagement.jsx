@@ -3,8 +3,10 @@ import { Ban, Search, User, Loader2, Bot, ShieldCheck, ChevronDown, ChevronUp } 
 import apiService from '../../services/apiService';
 
 import { useToast } from '../../Components/Toast/ToastContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 const UserManagement = () => {
+    const { t } = useLanguage();
     const toast = useToast();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -66,15 +68,15 @@ const UserManagement = () => {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h2 className="text-xl font-bold text-[#1E293B]">User Management</h2>
-                    <p className="text-sm text-subtext">Manage platform users and view subscriptions</p>
+                    <h2 className="text-xl font-bold text-[#1E293B]">{t("userManagement") || "User Management"}</h2>
+                    <p className="text-sm text-subtext">{t("manageUsersDesc") || "Manage platform users and view subscriptions"}</p>
                 </div>
                 <div className="flex gap-2">
                     <div className="relative">
                         <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-subtext" />
                         <input
                             type="text"
-                            placeholder="Search users..."
+                            placeholder={t("searchUsers") || "Search users..."}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="pl-9 pr-4 py-2 bg-white border border-[#E0E4E8] rounded-xl text-sm outline-none w-64 focus:ring-2 focus:ring-primary/10"
@@ -87,12 +89,12 @@ const UserManagement = () => {
                 <table className="w-full text-left text-sm">
                     <thead>
                         <tr className="bg-[#F8F9FB] border-b border-[#E0E4E8] text-[11px] font-bold text-subtext uppercase tracking-wider">
-                            <th className="px-6 py-4">User</th>
-                            <th className="px-6 py-4">Role</th>
-                            <th className="px-6 py-4">Subscribed Agents</th>
-                            <th className="px-6 py-4">Status</th>
-                            <th className="px-6 py-4 text-right">Total Spent</th>
-                            <th className="px-6 py-4 text-right">Actions</th>
+                            <th className="px-6 py-4">{t("user") || "User"}</th>
+                            <th className="px-6 py-4">{t("role") || "Role"}</th>
+                            <th className="px-6 py-4">{t("subscribedAgents") || "Subscribed Agents"}</th>
+                            <th className="px-6 py-4">{t("status") || "Status"}</th>
+                            <th className="px-6 py-4 text-right">{t("totalSpent") || "Total Spent"}</th>
+                            <th className="px-6 py-4 text-right">{t("actions") || "Actions"}</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-[#E0E4E8]">
@@ -113,7 +115,7 @@ const UserManagement = () => {
                                     <td className="px-6 py-4">
                                         <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${user.role === 'admin' ? 'bg-purple-50 text-purple-700 border-purple-100' : 'bg-slate-50 text-slate-600 border-slate-100'} uppercase`}>
                                             {user.role === 'admin' && <ShieldCheck className="w-3 h-3" />}
-                                            {user.role}
+                                            {user.role === 'admin' ? t("admin") || "admin" : t("userRole") || "user"}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4">
@@ -157,7 +159,7 @@ const UserManagement = () => {
                                     </td>
                                     <td className="px-6 py-4">
                                         <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border uppercase ${user.isBlocked ? 'bg-red-50 text-red-600 border-red-100' : (user.status === 'Active' ? 'bg-green-50 text-green-600 border-green-100' : 'bg-amber-50 text-amber-600 border-amber-100')}`}>
-                                            {user.isBlocked ? 'Blocked' : user.status}
+                                            {user.isBlocked ? t("blocked") || "Blocked" : (t(user.status.toLowerCase()) || user.status)}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 text-right font-bold text-[#1E293B]">

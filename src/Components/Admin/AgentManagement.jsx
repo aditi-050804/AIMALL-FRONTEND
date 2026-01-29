@@ -3,8 +3,10 @@ import { Activity, Loader2, Edit2, EyeOff } from 'lucide-react';
 import apiService from '../../services/apiService';
 import CreateAppModal from './CreateAppModal';
 import AppDetails from './AppDetails';
+import { useLanguage } from '../../context/LanguageContext';
 
 const AgentManagement = () => {
+    const { t } = useLanguage();
     const [statsData, setStatsData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showCreateModal, setShowCreateModal] = useState(false);
@@ -78,7 +80,7 @@ const AgentManagement = () => {
         <div className="space-y-10 pb-12">
             {/* Page Header */}
             <div>
-                <h1 className="text-3xl font-bold text-[#1E293B]">My Apps</h1>
+                <h1 className="text-3xl font-bold text-[#1E293B]">{t("myApps") || "My Apps"}</h1>
             </div>
 
             {/* Success Message */}
@@ -89,15 +91,15 @@ const AgentManagement = () => {
                             <Activity className="w-6 h-6" />
                         </div>
                         <div>
-                            <h3 className="text-lg font-bold text-green-900">Success!</h3>
-                            <p className="text-green-700">App "{newAppName}" has been created successfully and added to your inventory.</p>
+                            <h3 className="text-lg font-bold text-green-900">{t("success") || "Success!"}</h3>
+                            <p className="text-green-700">{t("appCreatedSuccess", { name: newAppName }) || `App "${newAppName}" has been created successfully and added to your inventory.`}</p>
                         </div>
                     </div>
                     <button
                         onClick={() => setShowSuccess(false)}
                         className="text-green-700 hover:text-green-900 font-bold text-sm"
                     >
-                        Dismiss
+                        {t("dismiss") || "Dismiss"}
                     </button>
                 </div>
             )}
@@ -105,22 +107,22 @@ const AgentManagement = () => {
             {/* Your Apps Card */}
             <div className="bg-white border border-[#E0E4E8] rounded-3xl overflow-hidden shadow-sm">
                 <div className="p-6 border-b border-[#E0E4E8] flex items-center justify-between">
-                    <h4 className="text-xl font-bold text-[#1E293B]">Your Apps</h4>
+                    <h4 className="text-xl font-bold text-[#1E293B]">{t("yourApps") || "Your Apps"}</h4>
                     <button
                         onClick={() => setShowCreateModal(true)}
                         className="bg-primary text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-primary/90 transition-all active:scale-95 flex items-center gap-2 shadow-lg shadow-primary/20"
                     >
-                        <span className="text-lg leading-none">+</span> New App
+                        <span className="text-lg leading-none">+</span> {t("newApp") || "New App"}
                     </button>
                 </div>
 
                 <table className="w-full text-left">
                     <thead>
                         <tr className="bg-[#F8F9FB] text-[10px] text-subtext font-bold uppercase tracking-wider">
-                            <th className="px-8 py-5">App Name</th>
-                            <th className="px-8 py-5">Pricing</th>
-                            <th className="px-8 py-5 text-center">Status</th>
-                            <th className="px-8 py-5 text-right">Quick Actions</th>
+                            <th className="px-8 py-5">{t("appName") || "App Name"}</th>
+                            <th className="px-8 py-5">{t("pricing") || "Pricing"}</th>
+                            <th className="px-8 py-5 text-center">{t("status") || "Status"}</th>
+                            <th className="px-8 py-5 text-right">{t("quickActions") || "Quick Actions"}</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-[#E0E4E8]">

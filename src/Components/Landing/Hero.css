@@ -1,0 +1,8 @@
+/* Landing Page Hero Section - Force dark text on light background */
+.hero-heading-dark {
+    color: #111827 !important;
+}
+
+.hero-subtext-dark {
+    color: #1F2937 !important;
+}

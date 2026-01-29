@@ -12,8 +12,10 @@ import {
 import { useRecoilState } from 'recoil';
 import { userData } from '../../userStore/userData'; // Corrected path
 import apiService from '../../services/apiService'; // Corrected path
+import { useLanguage } from '../../context/LanguageContext';
 
 const AdminSupport = () => {
+    const { t } = useLanguage();
     const [currentUserData] = useRecoilState(userData);
     const user = currentUserData?.user || { role: 'user' };
 
@@ -101,15 +103,15 @@ const AdminSupport = () => {
                 <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-6 text-red-500 animate-pulse">
                     <Shield size={40} />
                 </div>
-                <h2 className="text-2xl font-black text-slate-900 mb-2">Access Permissions Update Required</h2>
+                <h2 className="text-2xl font-black text-slate-900 mb-2">{t("accessPermissionsUpdateRequired") || "Access Permissions Update Required"}</h2>
                 <p className="text-slate-500 max-w-md mb-8 font-medium">
-                    Your account capabilities have changed. Please refresh your secure session to access the Admin Console.
+                    {t("accessPermissionsUpdateMsg") || "Your account capabilities have changed. Please refresh your secure session to access the Admin Console."}
                 </p>
                 <button
                     onClick={() => { localStorage.clear(); window.location.href = '/login'; }}
                     className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest transition-all hover:scale-105 shadow-xl"
                 >
-                    Update Session (Log Out)
+                    {t("updateSession") || "Update Session (Log Out)"}
                 </button>
             </div>
         );
@@ -120,8 +122,8 @@ const AdminSupport = () => {
             {/* Header */}
             <div className="flex justify-between items-end mb-8 shrink-0">
                 <div>
-                    <h2 className="text-2xl font-bold text-[#1E293B]">User Support</h2>
-                    <p className="text-subtext text-sm">Manage user inquiries and support tickets</p>
+                    <h2 className="text-2xl font-bold text-[#1E293B]">{t("userSupport") || "User Support"}</h2>
+                    <p className="text-subtext text-sm">{t("manageInquiriesDesc") || "Manage user inquiries and support tickets"}</p>
                 </div>
             </div>
 
@@ -132,7 +134,7 @@ const AdminSupport = () => {
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
                         <input
                             type="text"
-                            placeholder="Search users or tickets..."
+                            placeholder={t("searchTickets") || "Search users or tickets..."}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/10 transition-all placeholder:font-medium"
@@ -144,12 +146,12 @@ const AdminSupport = () => {
                     <table className="w-full">
                         <thead className="bg-slate-50 sticky top-0 z-10">
                             <tr>
-                                <th className="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">User</th>
-                                <th className="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Type</th>
-                                <th className="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Message Preview</th>
-                                <th className="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Date</th>
-                                <th className="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</th>
-                                <th className="px-8 py-5 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">Actions</th>
+                                <th className="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">{t("user") || "User"}</th>
+                                <th className="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">{t("type") || "Type"}</th>
+                                <th className="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">{t("messagePreview") || "Message Preview"}</th>
+                                <th className="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">{t("date") || "Date"}</th>
+                                <th className="px-8 py-5 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">{t("status") || "Status"}</th>
+                                <th className="px-8 py-5 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">{t("actions") || "Actions"}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
@@ -170,7 +172,7 @@ const AdminSupport = () => {
                                         </td>
                                         <td className="px-8 py-5">
                                             <span className="px-3 py-1 bg-purple-50 text-purple-600 rounded-lg text-[10px] font-black uppercase tracking-wider border border-purple-100">
-                                                UserSupport
+                                                {t("userSupportType") || "UserSupport"}
                                             </span>
                                         </td>
                                         <td className="px-8 py-5">
@@ -186,7 +188,7 @@ const AdminSupport = () => {
                                         <td className="px-8 py-5">
                                             <span className="flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-[10px] font-black uppercase tracking-wider w-fit border border-amber-100">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                                                Open
+                                                {t("open") || "Open"}
                                             </span>
                                         </td>
                                         <td className="px-8 py-5 text-right">
@@ -205,7 +207,7 @@ const AdminSupport = () => {
                                     <td colSpan="6" className="text-center py-20">
                                         <div className="flex flex-col items-center opacity-40">
                                             <MessageSquare size={48} className="text-slate-300 mb-4" />
-                                            <p className="font-black text-slate-400 uppercase tracking-widest">No Active Tickets</p>
+                                            <p className="font-black text-slate-400 uppercase tracking-widest">{t("noActiveTickets") || "No Active Tickets"}</p>
                                         </div>
                                     </td>
                                 </tr>

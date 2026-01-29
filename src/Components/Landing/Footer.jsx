@@ -140,6 +140,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { MapPin, Mail, Phone } from 'lucide-react';
+import { useRecoilValue } from 'recoil';
+import { themeState } from '../../userStore/userData';
 import LinkedinIcon from '../../assets/social-icons/linkedin.webp';
 import TwitterIcon from '../../assets/social-icons/twitter.webp';
 import FacebookIcon from '../../assets/social-icons/facebook.webp';
@@ -151,6 +153,8 @@ import SecurityGuidelinesModal from './SecurityGuidelinesModal';
 const Footer = () => {
     const [isHelpCenterOpen, setIsHelpCenterOpen] = useState(false);
     const [isSecurityOpen, setIsSecurityOpen] = useState(false);
+    const theme = useRecoilValue(themeState);
+    const isDark = theme === 'Dark';
 
     return (
         <>
@@ -158,37 +162,40 @@ const Footer = () => {
             <SecurityGuidelinesModal isOpen={isSecurityOpen} onClose={() => setIsSecurityOpen(false)} />
 
             <footer
-                className="
+                className={`
                 relative mt-20
-                bg-[linear-gradient(135deg,rgba(59,130,246,0.12),rgba(139,92,246,0.12))]
                 backdrop-blur-[16px]
-                border-t border-white/35
+                border-t 
                 pt-24 pb-10
                 rounded-t-[80px]
                 shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.08)]
-                overflow-hidden
-                "
+                overflow-hidden transition-colors duration-700
+                ${isDark
+                        ? 'bg-white/5 border-white/10'
+                        : 'bg-[linear-gradient(135deg,rgba(59,130,246,0.12),rgba(139,92,246,0.12))] border-white/35'
+                    }
+                `}
             >
                 {/* Background Blobs */}
                 <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
-                    <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-cyan-400/20 rounded-full blur-[120px] mix-blend-multiply animate-blob"></div>
-                    <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-fuchsia-400/20 rounded-full blur-[120px] mix-blend-multiply animate-blob animation-delay-2000"></div>
-                    <div className="absolute top-[20%] right-[20%] w-[400px] h-[400px] bg-purple-400/20 rounded-full blur-[120px] mix-blend-multiply animate-blob animation-delay-4000"></div>
+                    <div className={`absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-multiply animate-blob ${isDark ? 'bg-cyan-900/40' : 'bg-cyan-400/20'}`}></div>
+                    <div className={`absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-multiply animate-blob animation-delay-2000 ${isDark ? 'bg-fuchsia-900/40' : 'bg-fuchsia-400/20'}`}></div>
+                    <div className={`absolute top-[20%] right-[20%] w-[400px] h-[400px] rounded-full blur-[120px] mix-blend-multiply animate-blob animation-delay-4000 ${isDark ? 'bg-purple-900/40' : 'bg-purple-400/20'}`}></div>
                 </div>
 
                 {/* Shimmer Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent w-[200%] animate-[shimmer_10s_infinite_linear] pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent w-[200%] animate-[shimmer_10s_infinite_linear] pointer-events-none"></div>
 
                 <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-16 relative z-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                    <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 mb-16">
 
                         {/* Brand */}
                         <div className="space-y-2">
                             <img src="/logo/Logo.png" alt="AI Mall Logo" className="w-16 h-16 object-contain" />
-                            <p className="text-slate-600 text-sm leading-relaxed font-medium">
-                                AI-MALL — India's First AI App Marketplace.<br />
-                                100 AI Apps | AI-MALL | Partner Integrations<br />
-                                Powered by UWO™
+                            <p className={`text-sm leading-relaxed font-medium ${isDark ? 'footer-text-glow' : 'text-slate-600'}`}>
+                                AI-MALL<sup className="text-xs font-black ml-0.5">TM</sup> — India's First AI App Marketplace.<br />
+                                100 AI Apps | AI-MALL<sup className="text-xs font-black ml-0.5">TM</sup> | Partner Integrations<br />
+                                Powered by UWO<sup className="text-xs font-black ml-0.5">TM</sup>
                             </p>
 
                             <div className="flex gap-3 pt-2">
@@ -218,7 +225,7 @@ const Footer = () => {
 
                         {/* Explore */}
                         <div>
-                            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-6">Explore</h3>
+                            <h3 className={`text-sm font-bold uppercase tracking-wider mb-6 ${isDark ? 'text-white' : 'text-slate-900'}`}>Explore</h3>
                             <ul className="space-y-4">
                                 {[
                                     { name: 'Marketplace', link: '/dashboard/marketplace' },
@@ -228,7 +235,7 @@ const Footer = () => {
                                     <li key={i}>
                                         <Link
                                             to={item.link}
-                                            className="text-slate-500 hover:text-blue-600 font-medium transition-all duration-300 hover:translate-x-2 inline-block"
+                                            className="footer-glow-link font-bold transition-all duration-300 hover:translate-x-2 inline-block"
                                         >
                                             {item.name}
                                         </Link>
@@ -239,12 +246,12 @@ const Footer = () => {
 
                         {/* Support */}
                         <div>
-                            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-6">Support</h3>
+                            <h3 className={`text-sm font-bold uppercase tracking-wider mb-6 ${isDark ? 'text-white' : 'text-slate-900'}`}>Support</h3>
                             <ul className="space-y-4">
                                 <li>
                                     <button
                                         onClick={() => setIsHelpCenterOpen(true)}
-                                        className="text-blue-500 hover:text-blue-600 font-medium transition-all duration-300 hover:translate-x-2"
+                                        className="footer-glow-purple font-bold transition-all duration-300 hover:translate-x-2"
                                     >
                                         Help Center
                                     </button>
@@ -252,7 +259,7 @@ const Footer = () => {
                                 <li>
                                     <button
                                         onClick={() => setIsSecurityOpen(true)}
-                                        className="text-blue-500 hover:text-blue-600 font-medium transition-all duration-300 hover:translate-x-2"
+                                        className="footer-glow-purple font-bold transition-all duration-300 hover:translate-x-2"
                                     >
                                         Security & Guidelines
                                     </button>
@@ -262,36 +269,43 @@ const Footer = () => {
 
                         {/* Contact */}
                         <div>
-                            <h3 className="text-sm font-bold text-blue-900 uppercase tracking-wider mb-6">Contact</h3>
+                            <h3 className={`text-sm font-bold uppercase tracking-wider mb-6 ${isDark ? 'text-white' : 'text-blue-900'}`}>Contact</h3>
                             <ul className="space-y-5">
-                                <li className="flex gap-3 text-blue-500">
-                                    <MapPin size={20} className="text-blue-500" />
+                                <li className="flex gap-3">
+                                    <MapPin size={20} className="footer-glow-link" />
                                     <a
                                         href="https://www.google.com/maps/place/Jabalpur,+Madhya+Pradesh/"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="hover:text-blue-700"
+                                        className="footer-glow-link font-bold transition-all"
                                     >
                                         Jabalpur, Madhya Pradesh
                                     </a>
                                 </li>
-                                <li className="flex gap-3 text-blue-500">
-                                    <Mail size={20} className="text-blue-500" />
-                                    <a href="mailto:admin@uwo24.com" className="hover:text-blue-700">
+                                <li className="flex gap-3">
+                                    <Mail size={20} className="footer-glow-link" />
+                                    <a
+                                        href="mailto:admin@uwo24.com"
+                                        className="footer-glow-link font-bold transition-all"
+                                    >
                                         admin@uwo24.com
                                     </a>
                                 </li>
-                                <li className="flex gap-3 text-blue-500">
-                                    <Phone size={20} className="text-blue-500" />
-                                    <span className="hover:text-blue-700">+91 83589 90909</span>
+                                <li className="flex gap-3">
+                                    <Phone size={20} className="footer-glow-purple" />
+                                    <span
+                                        className="footer-glow-purple font-bold transition-all"
+                                    >
+                                        +91 83589 90909
+                                    </span>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
                     {/* Bottom */}
-                    <div className="pt-8 border-t border-white/30 text-sm font-bold text-black text-center drop-shadow-[0_2px_8px_rgba(255,255,255,0.35)]">
-                        © 2026 AI Mall. All rights reserved. Partnered with UWO-LINK™.
+                    <div className={`pt-8 border-t text-sm font-bold text-center drop-shadow-[0_2px_8px_rgba(255,255,255,0.1)] ${isDark ? 'border-white/10 footer-text-glow' : 'border-white/30 text-black'}`}>
+                        © 2026 AI Mall<sup className="text-xs font-black ml-0.5">TM</sup>. All rights reserved. Partnered with UWO<sup className="text-xs font-black ml-0.5">TM</sup>-LINK.
                     </div>
 
                 </div>

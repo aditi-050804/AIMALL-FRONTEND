@@ -18,8 +18,10 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import apiService from '../../services/apiService';
 import CreateAppModal from './CreateAppModal';
+import { useLanguage } from '../../context/LanguageContext';
 
 const AdminOverview = () => {
+    const { t } = useLanguage();
     const [statsData, setStatsData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showCreateModal, setShowCreateModal] = useState(false);
@@ -57,7 +59,7 @@ const AdminOverview = () => {
                 <div className="w-16 h-16 rounded-[24px] bg-[#8b5cf6]/20 flex items-center justify-center animate-spin">
                     <Loader2 className="w-8 h-8 text-[#8b5cf6]" />
                 </div>
-                <p className="text-[10px] font-black text-[#8b5cf6] uppercase tracking-[0.4em]">Synchronizing Nexus</p>
+                <p className="text-[10px] font-black text-[#8b5cf6] uppercase tracking-[0.4em]">{t("syncingNexus") || "Synchronizing Nexus"}</p>
             </div>
         );
     }
@@ -73,17 +75,17 @@ const AdminOverview = () => {
                 <div>
                     <div className="flex items-center gap-3 mb-4">
                         <Sparkles className="w-5 h-5 text-[#8b5cf6]" />
-                        <span className="text-[10px] font-black text-[#8b5cf6] uppercase tracking-[0.4em]">Strategic Oversight</span>
+                        <span className="text-[10px] font-black text-[#8b5cf6] uppercase tracking-[0.4em]">{t("strategicOversight") || "Strategic Oversight"}</span>
                     </div>
-                    <h1 className="text-5xl lg:text-6xl font-black text-gray-900 tracking-tighter leading-none mb-3">Control <span className="text-[#8b5cf6]">Center.</span></h1>
-                    <p className="text-gray-500 font-medium text-lg max-w-xl">Deep telemetry across all neural nodes and financial pathways.</p>
+                    <h1 className="text-5xl lg:text-6xl font-black text-gray-900 tracking-tighter leading-none mb-3">{t("control") || "Control"} <span className="text-[#8b5cf6]">{t("center") || "Center"}.</span></h1>
+                    <p className="text-gray-500 font-medium text-lg max-w-xl">{t("deepTelemetry") || "Deep telemetry across all neural nodes and financial pathways."}</p>
                 </div>
 
                 <div className="relative group w-full lg:w-96">
                     <div className="absolute -inset-1 bg-gradient-to-r from-[#d946ef]/20 to-[#8b5cf6]/20 rounded-[28px] blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <input
                         type="text"
-                        placeholder="SEARCH PROTOCOLS..."
+                        placeholder={t("searchProtocols") || "SEARCH PROTOCOLS..."}
                         className="relative w-full bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[24px] px-8 py-5 pl-14 focus:outline-none focus:ring-4 focus:ring-[#8b5cf6]/10 transition-all font-black text-xs uppercase tracking-widest text-gray-900"
                     />
                     <Search className="w-5 h-5 absolute left-6 top-1/2 -translate-y-1/2 text-[#8b5cf6] opacity-40 group-focus-within:opacity-100" />
@@ -98,15 +100,15 @@ const AdminOverview = () => {
                         className="bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[56px] p-12 h-[520px] relative overflow-hidden group shadow-[0_40px_80px_-20px_rgba(0,0,0,0.05)]"
                     >
                         <div className="flex items-center justify-between mb-12">
-                            <h3 className="text-3xl font-black text-gray-900 tracking-tight">Ecosystem <span className="text-[#8b5cf6]">Vitals</span></h3>
+                            <h3 className="text-3xl font-black text-gray-900 tracking-tight">{t("ecosystem") || "Ecosystem"} <span className="text-[#8b5cf6]">{t("vitals") || "Vitals"}</span></h3>
                             <div className="flex gap-8">
                                 <div className="flex items-center gap-3">
                                     <div className="w-2.5 h-2.5 rounded-full bg-[#8b5cf6] shadow-[0_0_10px_rgba(139,92,246,0.5)]" />
-                                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Active Units</span>
+                                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{t("activeUnits") || "Active Units"}</span>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <div className="w-2.5 h-2.5 rounded-full bg-[#d946ef] shadow-[0_0_10px_rgba(217,70,239,0.5)]" />
-                                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Revenue Flow</span>
+                                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{t("revenueFlow") || "Revenue Flow"}</span>
                                 </div>
                             </div>
                         </div>
@@ -161,13 +163,13 @@ const AdminOverview = () => {
                                     </div>
                                 </div>
                             </div>
-                            <h3 className="text-3xl font-black text-gray-900 tracking-tight mb-2 uppercase">Root Master</h3>
-                            <p className="text-[10px] font-black text-[#8b5cf6] uppercase tracking-[0.4em] mb-10 opacity-70">Unified Security Level 10</p>
+                            <h3 className="text-3xl font-black text-gray-900 tracking-tight mb-2 uppercase">{t("rootMaster") || "Root Master"}</h3>
+                            <p className="text-[10px] font-black text-[#8b5cf6] uppercase tracking-[0.4em] mb-10 opacity-70">{t("unifiedSecurity") || "Unified Security Level 10"}</p>
                         </div>
 
                         <div className="w-full space-y-4">
                             <div className="flex items-center justify-between p-6 bg-white/40 rounded-[32px] border border-white/60">
-                                <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Global Balance</span>
+                                <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{t("globalBalance") || "Global Balance"}</span>
                                 <span className="text-xl font-black text-gray-900 tracking-tight">$24,942.00</span>
                             </div>
                             <button
@@ -175,7 +177,7 @@ const AdminOverview = () => {
                                 className="w-full py-6 bg-gray-900 text-white rounded-[32px] font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-[#8b5cf6] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3"
                             >
                                 <ShoppingBag size={18} />
-                                Provision Agent
+                                {t("provisionAgent") || "Provision Agent"}
                             </button>
                         </div>
                     </motion.div>
@@ -188,9 +190,9 @@ const AdminOverview = () => {
                     <div className="flex items-center justify-between mb-12">
                         <div className="flex items-center gap-4">
                             <Globe size={24} className="text-[#8b5cf6]" />
-                            <h3 className="text-3xl font-black text-gray-900 tracking-tight uppercase">Vendor Matrix</h3>
+                            <h3 className="text-3xl font-black text-gray-900 tracking-tight uppercase">{t("vendorMatrix") || "Vendor Matrix"}</h3>
                         </div>
-                        <button className="px-6 py-2.5 bg-white/60 border border-white/80 rounded-2xl text-[10px] font-black text-gray-900 uppercase tracking-widest hover:bg-white transition-all shadow-sm">Audit All</button>
+                        <button className="px-6 py-2.5 bg-white/60 border border-white/80 rounded-2xl text-[10px] font-black text-gray-900 uppercase tracking-widest hover:bg-white transition-all shadow-sm">{t("auditAll") || "Audit All"}</button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {[
@@ -206,7 +208,7 @@ const AdminOverview = () => {
                                     </div>
                                     <div>
                                         <p className="font-black text-gray-900 text-sm tracking-tight">{vendor.name}</p>
-                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">{vendor.sales} Transactions</p>
+                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">{vendor.sales} {t("transactions") || "Transactions"}</p>
                                     </div>
                                 </div>
                                 <div className="bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20">
@@ -220,7 +222,7 @@ const AdminOverview = () => {
                 <div className="lg:col-span-1 bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[56px] p-12 flex flex-col">
                     <div className="flex items-center gap-4 mb-12">
                         <Activity size={24} className="text-[#8b5cf6]" />
-                        <h3 className="text-3xl font-black text-gray-900 tracking-tight uppercase">Health</h3>
+                        <h3 className="text-3xl font-black text-gray-900 tracking-tight uppercase">{t("systemHealth") || "Health"}</h3>
                     </div>
                     <div className="flex-1 space-y-6">
                         {[

@@ -45,3 +45,18 @@ export const themeState = atom({
   key: 'themeState',
   default: localStorage.getItem('theme') || 'Light'
 })
+
+export const fontSizeState = atom({
+  key: 'fontSizeState',
+  default: localStorage.getItem('fontSize') || 'Medium'
+})
+
+export const fontStyleState = atom({
+  key: 'fontStyleState',
+  default: localStorage.getItem('fontStyle') || 'Inter'
+})
+
+export const chatHistoryState = atom({
+  key: 'chatHistoryState',
+  default: localStorage.getItem('chatHistory') || 'ON'
+})

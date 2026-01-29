@@ -29,7 +29,7 @@ import ForgotPassword from './pages/ForgotPassword.jsx';
 import ResetPassword from './pages/ResetPassword.jsx';
 import VendorRegister from './pages/VendorRegister.jsx';
 import VendorLogin from './pages/VendorLogin.jsx';
-import { themeState } from './userStore/userData';
+import { themeState, fontSizeState, fontStyleState } from './userStore/userData';
 import { useRecoilValue } from 'recoil';
 
 import { lazy, Suspense } from 'react';
@@ -65,6 +65,8 @@ const AuthenticatRoute = ({ children }) => {
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const theme = useRecoilValue(themeState);
+  const fontSize = useRecoilValue(fontSizeState);
+  const fontStyle = useRecoilValue(fontStyleState);
   const isDark = theme === 'Dark';
 
   const user = JSON.parse(
@@ -72,13 +74,24 @@ const DashboardLayout = () => {
   );
   const isAdmin = user.role === 'admin' || user.role === 'Admin' || user.email === 'admin@uwo24.com';
 
+  // No global typography effect here anymore, it's in AppWrapper
+  React.useEffect(() => {
+    if (isDark) {
+      document.body.style.color = '#E6E9F2';
+      document.body.style.backgroundColor = '#131c31';
+    } else {
+      document.body.style.color = '#1A1A1A';
+      document.body.style.backgroundColor = '';
+    }
+  }, [isDark]);
+
   return (
-    <div className={`fixed inset-0 flex bg-transparent ${isDark ? 'text-white' : 'text-slate-900'} overflow-hidden font-sans h-[100dvh] transition-colors duration-700`}>
+    <div className={`fixed inset-0 flex bg-transparent ${isDark ? 'text-[#E6E9F2]' : 'text-slate-900'} overflow-hidden font-sans h-[100dvh] transition-colors duration-700`}>
       {/* Background Dreamy Orbs */}
-      <div className={`fixed inset-0 -z-10 transition-all duration-700 ${isDark ? 'bg-[#020617]' : 'bg-gradient-to-br from-[#f8fafc] via-[#eef2ff] to-[#fce7f3]'}`}>
-        <div className={`absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full ${isDark ? 'bg-purple-900/10' : 'bg-purple-200/30'} blur-[120px] transition-colors duration-700`}></div>
-        <div className={`absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full ${isDark ? 'bg-blue-900/10' : 'bg-blue-200/30'} blur-[120px] transition-colors duration-700`}></div>
-        <div className={`absolute top-[40%] left-[30%] w-[40%] h-[40%] rounded-full ${isDark ? 'bg-pink-900/10' : 'bg-pink-200/20'} blur-[100px] transition-colors duration-700`}></div>
+      <div className={`fixed inset-0 -z-10 transition-all duration-700 ${isDark ? 'bg-[#131c31]' : 'bg-gradient-to-br from-[#f8fafc] via-[#eef2ff] to-[#fce7f3]'}`}>
+        <div className={`absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full ${isDark ? 'bg-purple-900/20' : 'bg-purple-200/30'} blur-[120px] transition-colors duration-700`}></div>
+        <div className={`absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full ${isDark ? 'bg-blue-900/20' : 'bg-blue-200/30'} blur-[120px] transition-colors duration-700`}></div>
+        <div className={`absolute top-[40%] left-[30%] w-[40%] h-[40%] rounded-full ${isDark ? 'bg-pink-900/20' : 'bg-pink-200/20'} blur-[100px] transition-colors duration-700`}></div>
       </div>
 
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
@@ -125,6 +138,30 @@ const PlaceholderPage = ({ title }) => (
   </div>
 );
 
+const AppWrapper = ({ children }) => {
+  const theme = useRecoilValue(themeState);
+  const fontSize = useRecoilValue(fontSizeState);
+  const fontStyle = useRecoilValue(fontStyleState);
+  const isDark = theme === 'Dark';
+
+  React.useEffect(() => {
+    if (isDark) {
+      document.body.classList.add('dark-mode');
+      // For legacy components using document.documentElement.classList
+      document.documentElement.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      document.documentElement.classList.remove('dark');
+    }
+
+    // Apply Typography
+    document.documentElement.setAttribute('data-font-size', fontSize.toLowerCase().replace(/\s+/g, '-'));
+    document.documentElement.setAttribute('data-font-style', fontStyle.toLowerCase().replace(/\s+/g, '-'));
+  }, [isDark, fontSize, fontStyle]);
+
+  return children;
+}
+
 // ------------------------------
 // App Router
 // ------------------------------
@@ -132,69 +169,71 @@ const PlaceholderPage = ({ title }) => (
 const NavigateProvider = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Public Routes */}
-        <Route path={AppRoute.LANDING} element={<Landing />} />
-        <Route path={AppRoute.LOGIN} element={<Login />} />
-        <Route path={AppRoute.SIGNUP} element={<Signup />} />
-        <Route path={AppRoute.SERIES} element={<Series />} />
-        <Route path="/vendor-register" element={<VendorRegister />} />
-        <Route path="/vendor-login" element={<VendorLogin />} />
-        <Route path={AppRoute.E_Verification} element={<VerificationForm />} />
-        <Route path={AppRoute.FORGOT_PASSWORD} element={<ForgotPassword />} />
-        <Route path={AppRoute.RESET_PASSWORD} element={<ResetPassword />} />
-        <Route path="/agentsoon" element={<ComingSoon />}></Route>
-        {/* agents */}
-        <Route path='/agents/aibiz' element={<AiBiz />}></Route>
-        <Route path='/agents/aibase/*' element={<AiBase />}></Route>
-        {/* Dashboard (Protected) */}
-        <Route
-          path={AppRoute.DASHBOARD}
-          element={<DashboardLayout />}
-        >
-          <Route index element={<Navigate to="marketplace" replace />} />
-          <Route path="chat" element={<Chat />} />
-          <Route path="chat/:sessionId" element={<Chat />} />
-          <Route path="overview" element={<ProtectedRoute><DashboardOverview /></ProtectedRoute>} />
-          <Route path="marketplace" element={<ProtectedRoute><Marketplace /></ProtectedRoute>} />
-          <Route path="admin-support" element={<ProtectedRoute><AdminSupport /></ProtectedRoute>} />
-          {/* <Route path="live-demos" element={
+      <AppWrapper>
+        <Routes>
+          {/* Public Routes */}
+          <Route path={AppRoute.LANDING} element={<Landing />} />
+          <Route path={AppRoute.LOGIN} element={<Login />} />
+          <Route path={AppRoute.SIGNUP} element={<Signup />} />
+          <Route path={AppRoute.SERIES} element={<Series />} />
+          <Route path="/vendor-register" element={<VendorRegister />} />
+          <Route path="/vendor-login" element={<VendorLogin />} />
+          <Route path={AppRoute.E_Verification} element={<VerificationForm />} />
+          <Route path={AppRoute.FORGOT_PASSWORD} element={<ForgotPassword />} />
+          <Route path={AppRoute.RESET_PASSWORD} element={<ResetPassword />} />
+          <Route path="/agentsoon" element={<ComingSoon />}></Route>
+          {/* agents */}
+          <Route path='/agents/aibiz' element={<AiBiz />}></Route>
+          <Route path='/agents/aibase/*' element={<AiBase />}></Route>
+          {/* Dashboard (Protected) */}
+          <Route
+            path={AppRoute.DASHBOARD}
+            element={<DashboardLayout />}
+          >
+            <Route index element={<Navigate to="marketplace" replace />} />
+            <Route path="chat" element={<Chat />} />
+            <Route path="chat/:sessionId" element={<Chat />} />
+            <Route path="overview" element={<ProtectedRoute><DashboardOverview /></ProtectedRoute>} />
+            <Route path="marketplace" element={<ProtectedRoute><Marketplace /></ProtectedRoute>} />
+            <Route path="admin-support" element={<ProtectedRoute><AdminSupport /></ProtectedRoute>} />
+            {/* <Route path="live-demos" element={
             <Suspense fallback={<div className="flex items-center justify-center h-full"><p className="text-subtext">Loading...</p></div>}>
               <LiveDemoPage />
             </Suspense>
           } /> */}
-          <Route path="agents" element={<ProtectedRoute><MyAgents /></ProtectedRoute>} />
-          <Route path="automations" element={<ProtectedRoute><Automations /></ProtectedRoute>} />
-          <Route path="admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
-          <Route path="settings" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
-          <Route path="invoices" element={<ProtectedRoute><Invoices /></ProtectedRoute>} />
-          <Route path="notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
-          <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="userprofile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+            <Route path="agents" element={<ProtectedRoute><MyAgents /></ProtectedRoute>} />
+            <Route path="automations" element={<ProtectedRoute><Automations /></ProtectedRoute>} />
+            <Route path="admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+            <Route path="settings" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+            <Route path="invoices" element={<ProtectedRoute><Invoices /></ProtectedRoute>} />
+            <Route path="notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+            <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="userprofile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
 
-          <Route path="security" element={
-            <Suspense fallback={<div className="flex items-center justify-center h-full">Loading...</div>}>
-              <SecurityAndGuidelines />
-            </Suspense>
-          } />
-        </Route>
+            <Route path="security" element={
+              <Suspense fallback={<div className="flex items-center justify-center h-full">Loading...</div>}>
+                <SecurityAndGuidelines />
+              </Suspense>
+            } />
+          </Route>
 
 
-        {/* Vendor Dashboard Routes (Public for MVP/Testing) */}
-        <Route path="/vendor" element={<VendorLayout />}>
-          <Route index element={<Navigate to="overview" replace />} />
-          <Route path="overview" element={<VendorOverview />} />
-          <Route path="apps" element={<VendorApps />} />
-          <Route path="apps/:appId" element={<VendorAppDetail />} />
-          <Route path="revenue" element={<VendorRevenue />} />
-          <Route path="settings" element={<VendorSettings />} />
-          <Route path="user-support" element={<VendorUserSupport />} />
-          <Route path="admin-support" element={<VendorAdminSupport />} />
-        </Route>
+          {/* Vendor Dashboard Routes (Public for MVP/Testing) */}
+          <Route path="/vendor" element={<VendorLayout />}>
+            <Route index element={<Navigate to="overview" replace />} />
+            <Route path="overview" element={<VendorOverview />} />
+            <Route path="apps" element={<VendorApps />} />
+            <Route path="apps/:appId" element={<VendorAppDetail />} />
+            <Route path="revenue" element={<VendorRevenue />} />
+            <Route path="settings" element={<VendorSettings />} />
+            <Route path="user-support" element={<VendorUserSupport />} />
+            <Route path="admin-support" element={<VendorAdminSupport />} />
+          </Route>
 
-        {/* Catch All */}
-        <Route path="*" element={<Navigate to={AppRoute.LANDING} replace />} />
-      </Routes>
+          {/* Catch All */}
+          <Route path="*" element={<Navigate to={AppRoute.LANDING} replace />} />
+        </Routes>
+      </AppWrapper>
     </BrowserRouter >
   );
 };

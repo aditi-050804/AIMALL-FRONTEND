@@ -31,6 +31,9 @@ const Login = () => {
       setUserRecoil({ user: res.data })
       localStorage.setItem("userId", res.data.id)
       localStorage.setItem("token", res.data.token)
+      // Set active session flag to prevent auto-logout
+      sessionStorage.setItem('activeSession', 'true');
+
 
     }).catch((err) => {
       console.log(err.response?.data?.error);

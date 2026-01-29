@@ -23,22 +23,25 @@ import Approvals from "../Components/Admin/Approvals";
 import UserManagement from "../Components/Admin/UserManagement";
 import VendorManagement from "../Components/Admin/VendorManagement";
 import AgentManagement from "../Components/Admin/AgentManagement";
-import Financials from "../Components/Admin/Financials";
-import TransactionHistory from "../Components/Admin/TransactionHistory";
+//import Financials from "../Components/Admin/Financials";
+//import TransactionHistory from "../Components/Admin/TransactionHistory";
 import Complaints from "../Components/Admin/Complaints";
 import AccessControl from "../Components/Admin/AccessControl";
 import PlatformSettings from "../Components/Admin/PlatformSettings";
 import AdminSupport from "../Components/Admin/Support";
+import { useLanguage } from "../context/LanguageContext";
 
 const Admin = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("overview");
   const [activeSubTab, setActiveSubTab] = useState("overview");
   const [isRevenueExpanded, setIsRevenueExpanded] = useState(true);
 
   const navigation = {
     management: [
-      { id: "overview", label: "Control Center", icon: Activity },
-      { id: "agents", label: "App Registry", icon: ShoppingBag },
+      { id: "overview", label: t("controlCenter") || "Control Center", icon: Activity },
+      { id: "agents", label: t("appRegistry") || "App Registry", icon: ShoppingBag },
+      /*
       {
         id: "finance",
         label: "Economy Hub",
@@ -49,14 +52,15 @@ const Admin = () => {
           { id: "transactions", label: "Trace Logs" }
         ]
       },
-      { id: "complaints", label: "Neural Support", icon: AlertTriangle },
-      { id: "users", label: "User Identities", icon: Users },
-      { id: "vendors", label: "Vendor Nodes", icon: UserCheck },
+      */
+      { id: "complaints", label: t("neuralSupport") || "Neural Support", icon: AlertTriangle },
+      { id: "users", label: t("userIdentities") || "User Identities", icon: Users },
+      { id: "vendors", label: t("vendorNodes") || "Vendor Nodes", icon: UserCheck },
     ],
     governance: [
-      { id: "approvals", label: "Nexus Approvals", icon: CheckCircle },
-      { id: "roles", label: "Access Security", icon: Shield },
-      { id: "settings", label: "Core Protocol", icon: Settings },
+      { id: "approvals", label: t("nexusApprovals") || "Nexus Approvals", icon: CheckCircle },
+      { id: "roles", label: t("accessSecurity") || "Access Security", icon: Shield },
+      { id: "settings", label: t("coreProtocol") || "Core Protocol", icon: Settings },
     ]
   };
 
@@ -67,8 +71,8 @@ const Admin = () => {
       case "users": return <UserManagement />;
       case "vendors": return <VendorManagement />;
       case "agents": return <AgentManagement />;
-      case "finance":
-        return activeSubTab === "transactions" ? <TransactionHistory /> : <Financials />;
+      // case "finance":
+      //   return activeSubTab === "transactions" ? <TransactionHistory /> : <Financials />;
       case "complaints": return <AdminSupport />;
       case "roles": return <AccessControl />;
       case "settings": return <PlatformSettings />;
@@ -151,21 +155,21 @@ const Admin = () => {
             <Command className="w-7 h-7" />
           </div>
           <div className="flex flex-col">
-            <span className="font-black text-2xl tracking-tighter text-gray-900 leading-none">AI MALL<span className="text-[#8b5cf6]">.</span></span>
+            <span className="font-black text-2xl tracking-tighter text-gray-900 leading-none">AI MALL<sup className="text-xs font-black ml-0.5 text-gray-400">TM</sup><span className="text-[#8b5cf6]">.</span></span>
             <span className="text-[9px] font-black text-[#8b5cf6] uppercase tracking-[0.3em] mt-1 opacity-70">Admin Core v2.1</span>
           </div>
         </div>
 
         <div className="flex-1 overflow-y-auto px-6 space-y-12 py-8 no-scrollbar">
           <div>
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6 px-6 opacity-60">Fleet Ops</p>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6 px-6 opacity-60">{t("fleetOps") || "Fleet Ops"}</p>
             <div className="space-y-2">
               {navigation.management.map(item => <NavItem key={item.id} item={item} />)}
             </div>
           </div>
 
           <div>
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6 px-6 opacity-60">Nexus Meta</p>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6 px-6 opacity-60">{t("nexusMeta") || "Nexus Meta"}</p>
             <div className="space-y-2">
               {navigation.governance.map(item => <NavItem key={item.id} item={item} />)}
             </div>
@@ -175,7 +179,7 @@ const Admin = () => {
         <div className="p-8">
           <button className="w-full h-16 flex items-center justify-center gap-4 px-6 bg-red-50 text-red-500 rounded-[28px] hover:bg-red-500 hover:text-white transition-all shadow-sm group active:scale-95">
             <LogOut className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Deactivate Token</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t("deactivateToken") || "Deactivate Token"}</span>
           </button>
         </div>
       </aside>
@@ -188,16 +192,16 @@ const Admin = () => {
               <LayoutDashboard size={20} />
             </div>
             <div>
-              <h2 className="text-sm font-black text-gray-900 uppercase tracking-widest">Protocol Stream</h2>
-              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">Status: <span className="text-emerald-500">Nominal 100%</span></p>
+              <h2 className="text-sm font-black text-gray-900 uppercase tracking-widest">{t("protocolStream") || "Protocol Stream"}</h2>
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">{t("status") || "Status"}: <span className="text-emerald-500">{t("nominal") || "Nominal"} 100%</span></p>
             </div>
           </div>
 
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-5 bg-white/40 backdrop-blur-3xl px-8 py-4 rounded-[32px] border border-white/60 shadow-glass transform hover:scale-105 transition-all cursor-pointer group">
               <div className="text-right hidden sm:block">
-                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest opacity-60">System Overlord</p>
-                <p className="text-base font-black text-gray-900 tracking-tight group-hover:text-[#8b5cf6] transition-colors uppercase">Super User</p>
+                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest opacity-60">{t("systemOverlord") || "System Overlord"}</p>
+                <p className="text-base font-black text-gray-900 tracking-tight group-hover:text-[#8b5cf6] transition-colors uppercase">{t("superUser") || "Super User"}</p>
               </div>
               <div className="w-14 h-14 rounded-[20px] bg-gray-900 flex items-center justify-center text-white font-black shadow-2xl relative">
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-[#8b5cf6] rounded-full border-2 border-white animate-pulse" />

@@ -158,7 +158,7 @@ const AgentManagement = () => {
                 <div className="flex flex-col md:flex-row md:items-center gap-6">
                     <div>
                         <h1 className="text-2xl font-black text-gray-900 tracking-tighter mb-1">
-                            {viewMode === 'ASERIES' ? 'A-SERIES' : 'AI-MALL'} Agents
+                            {viewMode === 'ASERIES' ? <>A-SERIES<sup className="text-xs font-black ml-0.5 relative -top-1">TM</sup></> : <>AI-MALL<sup className="text-xs font-black ml-0.5 relative -top-1">TM</sup></>} Agents
                         </h1>
                         <p className="text-gray-500 font-medium text-xs">
                             {viewMode === 'ASERIES' ? 'Manage your a series agent inventory and deployments' : 'Manage your AI agent inventory and deployments'}
@@ -174,7 +174,7 @@ const AgentManagement = () => {
                                 }`}
                         >
                             <Layers className="w-4 h-4" />
-                            A SERIES
+                            A SERIES<sup className="text-[10px] font-black -ml-1">TM</sup>
                         </button>
                         <button
                             onClick={() => setViewMode('AIMALL')}
@@ -184,7 +184,7 @@ const AgentManagement = () => {
                                 }`}
                         >
                             <ShoppingBag className="w-4 h-4" />
-                            AI MALL
+                            AI MALL<sup className="text-[10px] font-black -ml-1">TM</sup>
                         </button>
                     </div>
                 </div>
@@ -230,14 +230,16 @@ const AgentManagement = () => {
             <div className="bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[32px] overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.05)]">
                 <div className="p-5 border-b border-white/60 bg-white/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="relative group w-full md:w-96">
-                        <input
-                            type="text"
-                            placeholder="Search agents..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-white/40 backdrop-blur-md border border-white/60 rounded-[16px] py-2.5 pl-12 pr-4 text-sm font-medium focus:ring-4 focus:ring-[#8b5cf6]/10 focus:border-[#8b5cf6]/30 transition-all outline-none placeholder:text-gray-400"
-                        />
-                        <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#8b5cf6] transition-colors" />
+                        <div className="flex items-center w-full bg-white/40 backdrop-blur-md border border-white/60 rounded-[16px] px-4 py-2.5 focus-within:ring-4 focus-within:ring-[#8b5cf6]/10 focus-within:border-[#8b5cf6]/30 transition-all">
+                            <Search className="w-5 h-5 text-gray-400 group-focus-within:text-[#8b5cf6] transition-colors flex-shrink-0" />
+                            <input
+                                type="text"
+                                placeholder="Search agents..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="flex-1 bg-transparent outline-none ml-3 text-sm font-medium text-gray-900 placeholder-gray-400 placeholder:text-gray-400"
+                            />
+                        </div>
                     </div>
 
                     <div className="flex gap-3 relative z-20">
