@@ -261,14 +261,6 @@ const Sidebar = ({ isOpen, onClose }) => {
               </div>
             </div>
           </Link>
-
-          {/* Close Button (Mobile Only) */}
-          <button
-            onClick={onClose}
-            className={`md:hidden p-2 rounded-xl ${isDark ? 'hover:bg-white/10 text-[#6F76A8] hover:text-[#E6E9F2]' : 'hover:bg-white/40 text-gray-400 hover:text-gray-900'} transition-colors z-20`}
-          >
-            <X size={20} />
-          </button>
         </div>
 
         {/* Navigation Menu */}
