@@ -214,7 +214,7 @@ const Notifications = () => {
                                 exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
                                 transition={{ delay: idx * 0.1, type: "spring", stiffness: 100 }}
                                 key={notif._id}
-                                className={`${isDark ? 'bg-[#242f49] shadow-[0_20px_40px_rgba(0,0,0,0.3)]' : 'bg-white/40 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.02)]'} backdrop-blur-3xl p-3 md:p-10 rounded-2xl md:rounded-[56px] border transition-all flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-10 hover:shadow-[0_40px_80px_-20px_rgba(139,92,246,0.15)] group relative overflow-hidden ${!notif.isRead ? (isDark ? 'border-[#8B5CF6]/40 shadow-[0_0_20px_rgba(139,92,246,0.1)]' : 'border-[#8b5cf6]/40 ring-1 ring-[#8b5cf6]/10') : (isDark ? 'border-white/5' : 'border-white/60')
+                                className={`${isDark ? 'bg-[#242f49] shadow-[0_20px_40px_rgba(0,0,0,0.3)]' : 'bg-white/40 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.02)]'} backdrop-blur-3xl p-3 md:p-10 rounded-xl md:rounded-[56px] border transition-all flex flex-row items-start md:items-start gap-3 md:gap-10 hover:shadow-[0_40px_80px_-20px_rgba(139,92,246,0.15)] group relative overflow-hidden ${!notif.isRead ? (isDark ? 'border-[#8B5CF6]/40 shadow-[0_0_20px_rgba(139,92,246,0.1)]' : 'border-[#8b5cf6]/40 ring-1 ring-[#8b5cf6]/10') : (isDark ? 'border-white/5' : 'border-white/60')
                                     }`}
                             >
                                 {!notif.isRead && (
@@ -228,7 +228,7 @@ const Notifications = () => {
                                     />
                                 )}
 
-                                <div className={`w-12 h-12 md:w-20 md:h-20 shrink-0 rounded-2xl md:rounded-[32px] flex items-center justify-center shadow-2xl border ${isDark ? 'border-white/5' : 'border-white'} transition-all duration-700 group-hover:rotate-6 ${notif.type === 'ALERT' ? (isDark ? 'bg-red-900/20' : 'bg-red-50') :
+                                <div className={`w-10 h-10 md:w-20 md:h-20 shrink-0 rounded-xl md:rounded-[32px] flex items-center justify-center shadow-2xl border ${isDark ? 'border-white/5' : 'border-white'} transition-all duration-700 group-hover:rotate-6 ${notif.type === 'ALERT' ? (isDark ? 'bg-red-900/20' : 'bg-red-50') :
                                     notif.type === 'SUCCESS' ? (isDark ? 'bg-emerald-900/20' : 'bg-emerald-50') : (isDark ? 'bg-[#1a2235]' : 'bg-white')
                                     }`}>
                                     {appIcons[notif.targetId] ? (
@@ -239,42 +239,42 @@ const Notifications = () => {
                                 </div>
 
                                 <div className="flex-1 space-y-3 md:space-y-4 w-full">
-                                    <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-2 md:gap-4">
-                                        <div className="space-y-1 text-center md:text-left">
-                                            <div className="flex items-center gap-3 justify-center md:justify-start">
-                                                <h3 className={`text-base md:text-2xl font-black tracking-tight uppercase transition-colors ${!notif.isRead ? (isDark ? 'text-[#E6E9F2]' : 'text-gray-900') : (isDark ? 'text-[#C7CBEA]' : 'text-gray-500')}`}>
+                                    <div className="flex flex-col md:flex-row justify-between items-start md:items-start gap-1.5 md:gap-4">
+                                        <div className="space-y-0.5 text-left">
+                                            <div className="flex items-center gap-3 justify-start">
+                                                <h3 className={`text-sm md:text-2xl font-black tracking-tight uppercase transition-colors ${!notif.isRead ? (isDark ? 'text-[#E6E9F2]' : 'text-gray-900') : (isDark ? 'text-[#C7CBEA]' : 'text-gray-500')}`}>
                                                     {getTranslatedTitle(notif.title)}
                                                 </h3>
                                             </div>
                                         </div>
-                                        <div className={`flex items-center gap-2 md:gap-3 ${isDark ? 'bg-[#131c31]' : 'bg-white/60'} px-3 md:px-5 py-1.5 md:py-2 rounded-xl md:rounded-2xl border ${isDark ? 'border-white/5' : 'border-white/80'} shadow-sm transition-colors`}>
-                                            <Clock className="w-3 h-3 md:w-4 md:h-4 text-[#8B5CF6]" />
-                                            <span className={`text-[10px] font-black ${isDark ? 'text-[#E6E9F2]' : 'text-gray-900'} uppercase tracking-widest transition-colors`}>
+                                        <div className={`flex items-center gap-2 md:gap-3 ${isDark ? 'bg-[#131c31]' : 'bg-white/60'} px-2 md:px-5 py-1 md:py-2 rounded-lg md:rounded-2xl border ${isDark ? 'border-white/5' : 'border-white/80'} shadow-sm transition-colors`}>
+                                            <Clock className="w-2.5 h-2.5 md:w-4 md:h-4 text-[#8B5CF6]" />
+                                            <span className={`text-[8px] md:text-[10px] font-black ${isDark ? 'text-[#E6E9F2]' : 'text-gray-900'} uppercase tracking-widest transition-colors`}>
                                                 {new Date(notif.createdAt).toLocaleDateString(language, { day: '2-digit', month: 'short' })}
                                             </span>
                                         </div>
                                     </div>
 
-                                    <p className={`text-xs md:text-lg font-bold leading-relaxed max-w-3xl text-center md:text-left transition-colors ${!notif.isRead ? (isDark ? 'text-[#E6E9F2]' : 'text-gray-600') : (isDark ? 'text-[#C7CBEA]' : 'text-gray-400')}`}>
+                                    <p className={`text-[10px] md:text-lg font-bold leading-relaxed max-w-3xl text-left transition-colors ${!notif.isRead ? (isDark ? 'text-[#E6E9F2]' : 'text-gray-600') : (isDark ? 'text-[#C7CBEA]' : 'text-gray-400')}`}>
                                         {translateMessage(notif.message)}
                                     </p>
 
-                                    <div className="flex flex-row items-center gap-2 md:gap-8 pt-2 md:pt-4 relative z-10 w-full">
+                                    <div className="flex flex-row items-center gap-3 md:gap-8 pt-1 md:pt-4 relative z-10 w-full justify-start">
                                         {!notif.isRead && (
                                             <button
                                                 onClick={() => markAsRead(notif._id)}
-                                                className={`w-fit md:w-auto text-xs md:text-[11px] font-black text-[#8B5CF6] flex items-center justify-center gap-2 md:gap-3 uppercase tracking-[0.2em] hover:bg-[#8B5CF6] hover:text-white px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl transition-all shadow-sm border ${isDark ? 'border-[#8B5CF6]/20 bg-[#131c31]' : 'border-[#8b5cf6]/20 bg-white'}`}
+                                                className={`w-fit md:w-auto text-[9px] md:text-[11px] font-black text-[#8B5CF6] flex items-center justify-center gap-2 md:gap-3 uppercase tracking-[0.2em] hover:bg-[#8B5CF6] hover:text-white px-2 py-1.5 md:px-6 md:py-3 rounded-lg md:rounded-2xl transition-all shadow-sm border ${isDark ? 'border-[#8B5CF6]/20 bg-[#131c31]' : 'border-[#8b5cf6]/20 bg-white'}`}
                                             >
-                                                <BadgeCheck className="w-4 h-4" /> {t('markAsRead')}
+                                                <BadgeCheck className="w-3.5 h-3.5" /> {t('markAsRead')}
                                             </button>
                                         )}
 
                                         <button
                                             onClick={() => deleteNotification(notif._id)}
-                                            className={`w-fit md:w-auto text-xs md:text-[11px] font-black ${isDark ? 'text-red-500' : 'text-red-500'} flex items-center justify-center gap-2 md:gap-3 uppercase tracking-[0.2em] px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl transition-all relative group/btn overflow-hidden`}
+                                            className={`w-fit md:w-auto text-[9px] md:text-[11px] font-black text-red-500 hover:text-red-600 flex items-center justify-center gap-2 md:gap-3 uppercase tracking-[0.2em] px-2 py-1.5 md:px-6 md:py-3 rounded-lg md:rounded-2xl transition-all relative group/btn overflow-hidden`}
                                         >
                                             <div className="absolute inset-0 bg-red-500 opacity-0 group-hover/btn:opacity-10 transition-opacity" />
-                                            <Trash2 className="w-4 h-4" /> {t('delete')}
+                                            <Trash2 className="w-3.5 h-3.5 text-red-500" /> {t('delete')}
                                         </button>
                                     </div>
                                 </div>
