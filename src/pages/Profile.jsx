@@ -510,27 +510,19 @@ const Profile = () => {
 
                             {/* Privacy & Security Section */}
                             <div className="space-y-8 pt-10 border-t border-white/5">
-                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                    <div className="flex items-center gap-3">
-                                        <Lock className="w-5 h-5 text-[#8B5CF6]" />
-                                        <h3 className={`text-sm font-black uppercase tracking-[0.2em] ${isDark ? 'text-[#6F76A8]' : 'text-gray-400'}`}>{t('privacySecurity')}</h3>
-                                    </div>
-                                    <button
-                                        onClick={handleLogOutAll}
-                                        className={`w-fit px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${isDark ? 'bg-red-500/10 border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white' : 'bg-red-50 border-red-100 text-red-500 hover:bg-red-600 hover:text-white hover:shadow-lg'} border`}
-                                    >
-                                        {t('logOutAll')}
-                                    </button>
+                                <div className="flex items-center gap-3">
+                                    <Lock className="w-5 h-5 text-[#8B5CF6]" />
+                                    <h3 className={`text-sm font-black uppercase tracking-[0.2em] ${isDark ? 'text-[#6F76A8]' : 'text-gray-400'}`}>{t('privacySecurity')}</h3>
                                 </div>
 
                                 <div className="grid grid-cols-1 gap-6">
                                     {/* Chat History Toggle */}
-                                    <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center p-5 md:p-8 gap-6 ${isDark ? 'bg-[#1a2235] border-white/5 shadow-inner' : 'bg-white/40 border-white'} border rounded-[28px] md:rounded-[32px] group`}>
-                                        <div className="flex items-center gap-4 md:gap-6">
-                                            <div className={`p-3 rounded-2xl ${isDark ? 'bg-[#8B5CF6]/20' : 'bg-[#8B5CF6]/10'}`}>
+                                    <div className={`flex flex-col items-center sm:flex-row justify-between p-6 md:p-8 gap-6 ${isDark ? 'bg-[#1a2235] border-white/5 shadow-inner' : 'bg-white/40 border-white'} border rounded-[28px] md:rounded-[32px] group text-center sm:text-left`}>
+                                        <div className="flex flex-col items-center sm:items-center sm:flex-row gap-4 md:gap-6">
+                                            <div className={`p-3 rounded-2xl ${isDark ? 'bg-[#8B5CF6]/20' : 'bg-[#8B5CF6]/10'} shrink-0`}>
                                                 <History className="w-5 h-5 md:w-6 md:h-6 text-[#8B5CF6]" />
                                             </div>
-                                            <div className="flex flex-col">
+                                            <div className="flex flex-col items-center sm:items-start">
                                                 <span className={`text-sm md:text-base font-black tracking-tight ${isDark ? 'text-[#f1f5f9]' : 'text-gray-900'}`}>{t('chatHistoryTitle')}</span>
                                                 <span className={`text-[10px] md:text-[11px] font-bold ${isDark ? 'text-[#6F76A8]' : 'text-gray-400'}`}>{t('chatHistoryDesc')}</span>
                                             </div>
@@ -606,6 +598,15 @@ const Profile = () => {
                                                     )}
                                                 </div>
                                             ))}
+                                        </div>
+
+                                        <div className="flex justify-center pt-4">
+                                            <button
+                                                onClick={handleLogOutAll}
+                                                className={`w-full sm:w-auto px-10 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all ${isDark ? 'bg-red-500/10 border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white' : 'bg-red-50 border-red-100 text-red-500 hover:bg-red-600 hover:text-white hover:shadow-xl'} border shadow-sm active:scale-95`}
+                                            >
+                                                {t('logOutAll')}
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
