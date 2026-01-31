@@ -567,10 +567,11 @@ const Profile = () => {
 
                                                 <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 md:gap-8 relative z-10 w-full sm:w-auto text-center sm:text-left">
                                                     <div className={`w-12 h-12 md:w-16 md:h-16 rounded-[18px] md:rounded-[22px] flex items-center justify-center transition-all duration-500 shrink-0 ${isDark
-                                                        ? 'bg-[#1e293b] text-[#8B5CF6] border-white/5 group-hover:bg-[#8B5CF6] group-hover:text-white group-hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]'
-                                                        : 'bg-white text-gray-900 border-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#ec4899] group-hover:to-[#8b5cf6] group-hover:text-white group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.2)]'
-                                                        } border shadow-inner`}>
-                                                        {session.type === 'Laptop' ? <Laptop size={22} className="md:w-7 md:h-7" /> : session.type === 'Mobile' ? <Smartphone size={22} className="md:w-7 md:h-7" /> : <Globe size={22} className="md:w-7 md:h-7" />}
+                                                        ? 'bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/20 group-hover:bg-[#8B5CF6] group-hover:text-white group-hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]'
+                                                        : 'bg-[#F5F3FF] text-[#8B5CF6] border-[#8B5CF6]/10 group-hover:bg-gradient-to-br group-hover:from-[#ec4899] group-hover:to-[#8b5cf6] group-hover:text-white group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.2)]'
+                                                        } border shadow-inner overflow-hidden relative`}>
+                                                        <div className={`absolute inset-0 opacity-10 ${isDark ? 'bg-gradient-to-br from-[#8B5CF6] to-transparent' : 'bg-gradient-to-br from-[#8B5CF6] to-white'}`} />
+                                                        {session.type === 'Laptop' ? <Laptop size={24} strokeWidth={2.5} className="md:w-8 md:h-8 relative z-10" /> : session.type === 'Mobile' ? <Smartphone size={24} strokeWidth={2.5} className="md:w-8 md:h-8 relative z-10" /> : <Globe size={24} strokeWidth={2.5} className="md:w-8 md:h-8 relative z-10" />}
                                                     </div>
                                                     <div className="flex flex-col gap-1.5 flex-1 min-w-0">
                                                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 md:gap-3">
