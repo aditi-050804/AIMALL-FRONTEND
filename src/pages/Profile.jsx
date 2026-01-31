@@ -567,10 +567,10 @@ const Profile = () => {
 
                                                 <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 md:gap-8 relative z-10 w-full sm:w-auto text-center sm:text-left">
                                                     <div className={`w-12 h-12 md:w-16 md:h-16 rounded-[18px] md:rounded-[22px] flex items-center justify-center transition-all duration-500 shrink-0 ${isDark
-                                                        ? 'bg-[#242f49] text-white border-white/10 group-hover:bg-[#8B5CF6] group-hover:text-white'
-                                                        : 'bg-white text-gray-900 border-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#ec4899] group-hover:to-[#8b5cf6] group-hover:text-white group-hover:shadow-lg'
-                                                        } border`}>
-                                                        {session.type === 'Laptop' ? <Laptop size={20} className="md:w-6 md:h-6" /> : session.type === 'Mobile' ? <Smartphone size={20} className="md:w-6 md:h-6" /> : <Globe size={20} className="md:w-6 md:h-6" />}
+                                                        ? 'bg-[#1e293b] text-[#8B5CF6] border-white/5 group-hover:bg-[#8B5CF6] group-hover:text-white group-hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]'
+                                                        : 'bg-white text-gray-900 border-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#ec4899] group-hover:to-[#8b5cf6] group-hover:text-white group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.2)]'
+                                                        } border shadow-inner`}>
+                                                        {session.type === 'Laptop' ? <Laptop size={22} className="md:w-7 md:h-7" /> : session.type === 'Mobile' ? <Smartphone size={22} className="md:w-7 md:h-7" /> : <Globe size={22} className="md:w-7 md:h-7" />}
                                                     </div>
                                                     <div className="flex flex-col gap-1.5 flex-1 min-w-0">
                                                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 md:gap-3">
@@ -590,18 +590,16 @@ const Profile = () => {
                                                     </div>
                                                 </div>
 
-                                                {!session.current && (
-                                                    <button
-                                                        onClick={() => handleTerminateSession(session.id)}
-                                                        className={`w-full sm:w-auto p-3 sm:p-4 rounded-xl sm:rounded-2xl transition-all relative z-10 flex items-center justify-center gap-2 font-black text-[9px] uppercase tracking-widest ${isDark
-                                                            ? 'bg-red-500/10 border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white shadow-lg shadow-red-500/10 border border-red-500/20'
-                                                            : 'bg-red-50 hover:bg-red-500 text-red-500 hover:text-white shadow-[0_8px_20px_rgba(239,68,68,0.1)]'
-                                                            }`}
-                                                    >
-                                                        <Trash2 size={16} className="md:w-[18px] md:h-[18px]" />
-                                                        <span className="sm:hidden">Terminate Session</span>
-                                                    </button>
-                                                )}
+                                                <button
+                                                    onClick={() => session.current ? handleLogout() : handleTerminateSession(session.id)}
+                                                    className={`w-full sm:w-auto p-3 sm:p-4 rounded-xl sm:rounded-2xl transition-all relative z-10 flex items-center justify-center gap-2 font-black text-[9px] uppercase tracking-widest ${isDark
+                                                        ? 'bg-red-500/10 border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white shadow-lg shadow-red-500/10 border border-red-500/20'
+                                                        : 'bg-red-50 hover:bg-red-500 text-red-500 hover:text-white shadow-[0_8px_20px_rgba(239,68,68,0.1)]'
+                                                        }`}
+                                                >
+                                                    <Trash2 size={16} className="md:w-[18px] md:h-[18px]" />
+                                                    <span className="sm:inline">{session.current ? t('signOut') : t('delete')}</span>
+                                                </button>
                                             </div>
                                         ))}
                                     </div>
