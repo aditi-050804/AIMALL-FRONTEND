@@ -85,7 +85,7 @@ const Admin = () => {
     const navigation = {
         management: [
             { id: "overview", label: "Overview", icon: Activity },
-            { id: "agents", label: "AI-MALL", icon: ShoppingBag },
+            { id: "agents", label: "AI-MALL™", icon: ShoppingBag },
             /*
             {
                 id: "finance",
@@ -196,7 +196,16 @@ const Admin = () => {
                         <div className={`p-1.5 rounded-lg transition-all ${isMainActive ? 'bg-[#8b5cf6] text-white' : 'bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-slate-400 group-hover:text-[#8b5cf6] dark:group-hover:text-[#8b5cf6]'}`}>
                             <item.icon className="w-3.5 h-3.5" />
                         </div>
-                        {!isCompact && <span className="uppercase tracking-widest text-[11px] whitespace-nowrap overflow-hidden text-ellipsis">{item.label}</span>}
+                        {!isCompact && (
+                            <span className="uppercase tracking-widest text-[11px] whitespace-nowrap overflow-hidden text-ellipsis">
+                                {item.label.includes('™') ? (
+                                    <>
+                                        {item.label.replace('™', '')}
+                                        <sup className="text-[9px] font-black ml-0.5 text-black dark:text-white">TM</sup>
+                                    </>
+                                ) : item.label}
+                            </span>
+                        )}
                     </div>
                     {item.hasSub && !isCompact && (
                         <motion.div animate={{ rotate: isRevenueExpanded ? 180 : 0 }}>
@@ -341,11 +350,7 @@ const Admin = () => {
                     </div>
 
                     <div className="flex items-center gap-8">
-                        <div
-                            className="relative group profile-dropdown-container"
-                            onMouseEnter={() => setIsProfileDropdownOpen(true)}
-                            onMouseLeave={() => setIsProfileDropdownOpen(false)}
-                        >
+                        <div className="relative group profile-dropdown-container">
                             <div
                                 onClick={() => setActiveTab('settings')}
                                 className="flex items-center gap-5 bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl px-1.5 py-1.5 rounded-[20px] border border-white/60 dark:border-white/10 shadow-glass transform hover:scale-105 transition-all cursor-pointer"
@@ -359,45 +364,6 @@ const Admin = () => {
                                     )}
                                 </div>
                             </div>
-
-                            <AnimatePresence>
-                                {isProfileDropdownOpen && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        className="absolute right-0 mt-3 w-56 bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl rounded-[24px] border border-white/60 dark:border-white/10 shadow-2xl p-2 z-50"
-                                    >
-                                        <div className="px-4 py-3 border-b border-gray-100 dark:border-slate-800 mb-2">
-                                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Logged in as</p>
-                                            <p className="text-sm font-black text-gray-900 dark:text-white tracking-tight truncate">{userProfile.name}</p>
-                                        </div>
-
-                                        <button
-                                            onClick={() => {
-                                                setActiveTab('settings');
-                                                setIsProfileDropdownOpen(false);
-                                            }}
-                                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-slate-400 hover:bg-[#8b5cf6] hover:text-white transition-all group"
-                                        >
-                                            <div className="p-2 bg-gray-100 dark:bg-slate-800 rounded-lg group-hover:bg-white/20 transition-colors">
-                                                <UserIcon size={14} />
-                                            </div>
-                                            <span className="text-xs font-black uppercase tracking-widest">My Profile</span>
-                                        </button>
-
-                                        <button
-                                            onClick={handleLogout}
-                                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-500 hover:text-white transition-all group mt-1"
-                                        >
-                                            <div className="p-2 bg-red-50 dark:bg-red-900/10 rounded-lg group-hover:bg-white/20 transition-colors">
-                                                <LogOut size={14} />
-                                            </div>
-                                            <span className="text-xs font-black uppercase tracking-widest">Sign Out</span>
-                                        </button>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
                         </div>
                     </div>
                 </header>

@@ -289,22 +289,15 @@ const Marketplace = () => {
                                     </div>
                                 </div>
                                 {/* Modal Footer */}
-                                <div className={`p-4 md:p-8 border-t ${isDark ? 'border-white/5 bg-[#12182B]' : 'border-gray-100 bg-white'} flex items-center justify-between gap-3 md:gap-4`}>
+                                <div className={`p-6 md:p-8 border-t ${isDark ? 'border-white/5 bg-[#12182B]' : 'border-gray-100 bg-white'} flex items-center justify-center w-full`}>
                                     <button
                                         onClick={() => setShowAgentInfo(false)}
-                                        className={`px-6 py-2.5 text-[10px] font-black uppercase tracking-widest ${isDark ? 'text-[#C7CBEA] hover:text-[#E6E9F2]' : 'text-gray-500 hover:text-black'} transition-all`}
+                                        className={`w-full md:w-auto md:px-14 py-4 rounded-[24px] text-[11px] font-black uppercase tracking-widest transition-all duration-300 transform active:scale-95 flex items-center justify-center shadow-lg ${isDark
+                                            ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 shadow-red-500/5'
+                                            : 'bg-red-50 text-red-500 hover:bg-red-100 border border-red-100 shadow-red-500/5'
+                                            }`}
                                     >
                                         {t('cancel')}
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            toggleBuy(selectedAgent._id);
-                                            setShowAgentInfo(false);
-                                        }}
-                                        className="flex-1 max-w-[280px] bg-[#8B5CF6] text-white py-3 px-8 rounded-[20px] font-black text-[10px] uppercase tracking-widest shadow-xl shadow-purple-500/20 hover:bg-[#7c3aed] transition-all active:scale-95 flex items-center justify-center gap-2"
-                                    >
-                                        <Zap size={14} fill="white" />
-                                        {t('subscribeNow')}
                                     </button>
                                 </div>
                             </motion.div>
@@ -319,7 +312,7 @@ const Marketplace = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     className={`marketplace-hero-card relative w-full min-h-[250px] md:min-h-[360px] mb-12 rounded-[60px] overflow-hidden bg-white shadow-[0_30px_100px_-20px_rgba(139,92,246,0.3),0_10px_30px_-5px_rgba(236,72,153,0.1)] border border-white/50 transition-all duration-700 flex items-center group hover:scale-[1.005] hover:shadow-[0_40px_120px_-10px_rgba(139,92,246,0.45)]`}
                 >
                     {/* Subtle Gradient Glowing Mixture (Blue, Purple, Pink) */}
@@ -353,14 +346,16 @@ const Marketplace = () => {
                         />
                     </div>
                     {/* Background Video Container - Extreme Right Alignment with Seamless Fade */}
-                    <div className="absolute top-0 right-0 h-full w-full md:w-[65%] pointer-events-none overflow-hidden select-none">
+                    <div className="absolute top-0 right-0 h-full w-full md:w-[65%] pointer-events-none overflow-hidden select-none bg-white">
                         <video
                             autoPlay
                             loop
                             muted
                             playsInline
-                            className="w-full h-full object-cover transition-opacity duration-1000 group-hover:opacity-100"
-                            style={{ objectPosition: '100% center', opacity: 1 }}
+                            preload="auto"
+                            poster="/login_img.png"
+                            className="w-full h-full object-cover transition-opacity duration-1000"
+                            style={{ objectPosition: '100% center' }}
                         >
                             <source src="/videos/robotgirl.mp4" type="video/mp4" />
                         </video>

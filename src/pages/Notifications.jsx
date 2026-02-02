@@ -44,7 +44,19 @@ const Notifications = () => {
     };
 
     const translateMessage = (msg) => {
+        if (!msg) return '';
         if (messageMap[msg]) return t(messageMap[msg]);
+
+        // Dynamic: Admin Response to Report
+        if (msg.includes("Admin has responded to your report")) {
+            const parts = msg.split(":");
+            const prefix = parts[0];
+            const content = parts.slice(1).join(":").trim();
+            const idMatch = prefix.match(/\(ID: ([^)]+)\)/);
+            const reportId = idMatch ? idMatch[1] : '';
+            const baseTitle = t('adminRespondedReport') || "Admin has responded to your report";
+            return reportId ? `${baseTitle} (ID: ${reportId}): ${content}` : `${baseTitle}: ${content}`;
+        }
 
         // Dynamic: Subscription Expiring
         if (msg.startsWith("Reminder: Your subscription for '")) {
@@ -271,10 +283,9 @@ const Notifications = () => {
 
                                         <button
                                             onClick={() => deleteNotification(notif._id)}
-                                            className={`w-fit md:w-auto text-[9px] md:text-[11px] font-black text-red-500 hover:text-red-600 flex items-center justify-center gap-2 md:gap-3 uppercase tracking-[0.2em] px-2 py-1.5 md:px-6 md:py-3 rounded-lg md:rounded-2xl transition-all relative group/btn overflow-hidden`}
+                                            className={`w-fit md:w-auto text-[9px] md:text-[11px] font-black !text-red-500 hover:!text-red-600 flex items-center justify-center gap-2 md:gap-3 uppercase tracking-[0.2em] px-2 py-1.5 md:px-6 md:py-3 rounded-lg md:rounded-2xl transition-all relative group/btn overflow-hidden border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 shadow-sm hover:shadow-[0_0_15px_rgba(239,68,68,0.2)]`}
                                         >
-                                            <div className="absolute inset-0 bg-red-500 opacity-0 group-hover/btn:opacity-10 transition-opacity" />
-                                            <Trash2 className="w-3.5 h-3.5 text-red-500" /> {t('delete')}
+                                            <Trash2 className="w-3.5 h-3.5 !text-red-500" /> {t('delete')}
                                         </button>
                                     </div>
                                 </div>

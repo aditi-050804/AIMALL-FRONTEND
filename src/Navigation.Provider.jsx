@@ -31,6 +31,7 @@ import VendorRegister from './pages/VendorRegister.jsx';
 import VendorLogin from './pages/VendorLogin.jsx';
 import { themeState, fontSizeState, fontStyleState } from './userStore/userData';
 import { useRecoilValue } from 'recoil';
+import { useLanguage } from './context/LanguageContext';
 
 import { lazy, Suspense } from 'react';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute.jsx';
@@ -64,6 +65,7 @@ const AuthenticatRoute = ({ children }) => {
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { t } = useLanguage();
   const theme = useRecoilValue(themeState);
   const fontSize = useRecoilValue(fontSizeState);
   const fontStyle = useRecoilValue(fontStyleState);
@@ -107,7 +109,7 @@ const DashboardLayout = () => {
             >
               <Menu className="w-6 h-6" />
             </button>
-            <span className="font-bold text-lg text-primary uppercase tracking-tighter">AI MALL<sup className="text-[10px] font-black ml-0.5">TM</sup></span>
+            <span className="font-bold text-lg text-primary uppercase tracking-tighter">{t('headerLogoText')}<sup className="text-[10px] font-black ml-0.5">{t('trademark')}</sup></span>
           </div>
 
           <Link

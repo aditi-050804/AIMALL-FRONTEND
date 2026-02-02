@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, ChevronDown, ChevronUp, Loader2, CheckCircle2 } from 'lucide-react';
+import { motion } from 'motion/react';
 import { apiService } from '../../services/apiService';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -170,65 +171,78 @@ const HelpCenterModal = ({ isOpen, onClose }) => {
                     )}
 
                     {activeTab === 'SUPPORT' && (
-                        <div className="space-y-4 md:space-y-6 animate-in slide-in-from-right-4 duration-300">
+                        <div className="space-y-6 animate-in slide-in-from-right-4 duration-300 relative">
                             {submitted ? (
-                                <div className="h-64 flex flex-col items-center justify-center text-center space-y-4">
-                                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center animate-bounce">
-                                        <CheckCircle2 size={32} />
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="h-64 flex flex-col items-center justify-center text-center space-y-6"
+                                >
+                                    <div className="relative">
+                                        <motion.div
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                                            className="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(34,197,94,0.3)]"
+                                        >
+                                            <CheckCircle2 size={40} />
+                                        </motion.div>
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: [0, 1, 0] }}
+                                            transition={{ duration: 1.5, repeat: Infinity }}
+                                            className="absolute -inset-4 bg-green-500/20 rounded-full -z-10"
+                                        />
                                     </div>
-                                    <div>
-                                        <h3 className="text-lg font-bold text-gray-900">{t('ticketInitialized') || 'Ticket Initialized!'}</h3>
-                                        <p className="text-sm text-gray-500">{t('ticketNotified') || 'Our support team has been notified.'}</p>
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="space-y-4">
                                     <div className="space-y-2">
-                                        <label className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">{t('issueCategory') || 'Issue Category'}</label>
-                                        <div className="relative">
-                                            <select
-                                                value={supportCategory}
-                                                onChange={(e) => setSupportCategory(e.target.value)}
-                                                className="w-full p-3 md:p-4 rounded-xl md:rounded-2xl bg-white/40 border border-white/40 text-sm md:text-base text-gray-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/20 appearance-none cursor-pointer"
-                                            >
-                                                <option value="General Inquiry">{t('inquiryGeneral')}</option>
-                                                <option value="Payment Issue">{t('inquiryPayment')}</option>
-                                                <option value="Refund Request">{t('inquiryRefund')}</option>
-                                                <option value="Technical Support">{t('inquiryTechnical')}</option>
-                                                <option value="Account Access">{t('inquiryAccount')}</option>
-                                                <option value="Other">{t('inquiryOther')}</option>
-                                            </select>
-                                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                        <h3 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">
+                                            {t('messageSent') || 'Message Sent Successfully!'}
+                                        </h3>
+                                        <p className="text-sm md:text-base text-gray-500 font-medium">
+                                            {t('supportTeamContact') || 'Our team will review your request and get back to you shortly.'}
+                                        </p>
+                                    </div>
+                                </motion.div>
+                            ) : (
+                                <div className="space-y-6">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-[0.2em] ml-2">
+                                            {t('details') || 'DETAILS'}
+                                        </label>
+                                        <div className="relative group/input">
+                                            <textarea
+                                                value={message}
+                                                onChange={(e) => setMessage(e.target.value)}
+                                                placeholder={t('specifyRequest') || "helo admin"}
+                                                className="w-full p-6 h-40 md:h-48 rounded-[32px] bg-white/60 border-2 border-purple-100 text-sm md:text-base text-gray-800 font-medium placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-300 transition-all resize-none shadow-glass-sm"
+                                            ></textarea>
                                         </div>
                                     </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">{t('caseDetails') || 'Case Details'}</label>
-                                        <textarea
-                                            value={message}
-                                            onChange={(e) => setMessage(e.target.value)}
-                                            placeholder={t('specifyRequest') || "Specify your request..."}
-                                            className="w-full p-3 md:p-4 h-32 md:h-40 rounded-xl md:rounded-2xl bg-white/40 border border-white/40 text-sm md:text-base text-gray-800 font-medium placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 resize-none"
-                                        ></textarea>
+                                    <div className="px-2">
+                                        <button
+                                            onClick={handleTicketSubmit}
+                                            disabled={loading || !message.trim()}
+                                            className="w-full py-5 bg-[#8B5CF6] hover:bg-[#7c3aed] text-white rounded-[24px] font-black text-[14px] uppercase tracking-widest shadow-[0_15px_30px_-5px_rgba(139,92,246,0.4)] hover:shadow-[0_20px_40px_-5px_rgba(139,92,246,0.5)] transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
+                                        >
+                                            {loading ? (
+                                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                            ) : (
+                                                <>
+                                                    <svg className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                                    </svg>
+                                                    {t('sendMessage') || 'SEND MESSAGE'}
+                                                </>
+                                            )}
+                                        </button>
                                     </div>
 
-                                    <button
-                                        onClick={handleTicketSubmit}
-                                        disabled={loading || !message.trim()}
-                                        className="w-full py-3 md:py-4 bg-white/50 hover:bg-white/70 border border-white/50 rounded-xl md:rounded-2xl text-gray-800 font-bold shadow-sm hover:shadow transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50"
-                                    >
-                                        {loading ? (
-                                            <>
-                                                <Loader2 className="animate-spin" size={18} />
-                                                {t('submitting') || 'SUBMITTING...'}
-                                            </>
-                                        ) : (
-                                            t('initializeTicket') || 'Initialize Ticket'
-                                        )}
-                                    </button>
-
-                                    <div className="text-center pt-2 md:pt-4">
-                                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest"> {t('directChannel') || 'Direct Channel'}: <a href="mailto:admin@uwo24.com" className="text-blue-500 hover:text-blue-600 block md:inline mt-1 md:mt-0 normal-case">admin@uwo24.com</a></p>
+                                    <div className="text-center pt-2">
+                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] opacity-60">
+                                            {t('directSupport') || 'DIRECT SUPPORT'}:
+                                            <a href="mailto:admin@uwo24.com" className="text-[#8B5CF6] hover:underline ml-2 normal-case font-bold">admin@uwo24.com</a>
+                                        </p>
                                     </div>
                                 </div>
                             )}
@@ -239,12 +253,12 @@ const HelpCenterModal = ({ isOpen, onClose }) => {
 
                 {/* Footer Dismiss */}
                 {!isOpen ? null : (
-                    <div className="p-4 border-t border-purple-100/30 bg-purple-50/20 text-center">
+                    <div className="p-6 text-center">
                         <button
                             onClick={onClose}
-                            className="px-8 py-2.5 bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all active:scale-95 border border-purple-200/50 shadow-sm"
+                            className="px-12 py-3 bg-gray-100 hover:bg-gray-200 text-gray-500 rounded-full text-[10px] font-black uppercase tracking-[0.3em] transition-all active:scale-95 border border-gray-200 shadow-sm"
                         >
-                            {t('dismiss') || 'Dismiss'}
+                            {t('dismiss') || 'DISMISS'}
                         </button>
                     </div>
                 )}

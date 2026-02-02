@@ -481,62 +481,79 @@ const Sidebar = ({ isOpen, onClose }) => {
                   ))}
                 </>
               ) : (
-                <div className="flex flex-col gap-8">
-                  <div className="space-y-4">
-                    <label className={`block text-[10px] font-black ${isDark ? 'text-[#6F76A8]' : 'text-slate-400'} uppercase tracking-widest ml-1`}>{t('issueCategory')}</label>
-                    <div className="relative group/select">
-                      <select
-                        value={issueType}
-                        onChange={(e) => setIssueType(e.target.value)}
-                        className={`w-full p-5 pr-12 rounded-[24px] ${isDark ? 'bg-[#131c31] border-white/10 text-[#E6E9F2]' : 'bg-white/60 border-white/80 text-slate-900'} border focus:border-[#8B5CF6]/50 focus:ring-4 focus:ring-[#8B5CF6]/5 outline-none appearance-none font-black text-sm transition-all`}
-                      >
-                        <option value="General Inquiry" className={isDark ? 'bg-[#131c31] text-[#E6E9F2]' : 'bg-white text-slate-900'}>{t('inquiryGeneral')}</option>
-                        <option value="Payment Issue" className={isDark ? 'bg-[#131c31] text-[#E6E9F2]' : 'bg-white text-slate-900'}>{t('inquiryPayment')}</option>
-                        <option value="Refund Request" className={isDark ? 'bg-[#131c31] text-[#E6E9F2]' : 'bg-white text-slate-900'}>{t('inquiryRefund')}</option>
-                        <option value="Technical Support" className={isDark ? 'bg-[#131c31] text-[#E6E9F2]' : 'bg-white text-slate-900'}>{t('inquiryTechnical')}</option>
-                        <option value="Account Access" className={isDark ? 'bg-[#131c31] text-[#E6E9F2]' : 'bg-white text-slate-900'}>{t('inquiryAccount')}</option>
-                        <option value="Other" className={isDark ? 'bg-[#131c31] text-[#E6E9F2]' : 'bg-white text-slate-900'}>{t('inquiryOther')}</option>
-                      </select>
-                      <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6F76A8] pointer-events-none group-focus-within/select:rotate-180 transition-transform" />
-                    </div>
-                  </div>
+                <div className="flex flex-col gap-8 relative">
+                  {sendStatus === 'success' ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="h-80 flex flex-col items-center justify-center text-center space-y-6"
+                    >
+                      <div className="relative">
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                          className="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(34,197,94,0.3)]"
+                        >
+                          <CheckCircle className="w-10 h-10" />
+                        </motion.div>
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: [0, 1, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                          className="absolute -inset-4 bg-green-500/20 rounded-full -z-10"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <h3 className={`text-xl md:text-2xl font-black ${isDark ? 'text-white' : 'text-gray-900'} tracking-tight`}>
+                          {t('messageSent') || 'Message Sent Successfully!'}
+                        </h3>
+                        <p className={`text-sm md:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'} font-medium`}>
+                          {t('supportTeamContact') || 'Our team will review your request and get back to you shortly.'}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <>
+                      <div className="space-y-4">
+                        <label className={`block text-[10px] font-black ${isDark ? 'text-[#6F76A8]' : 'text-slate-400'} uppercase tracking-[0.2em] ml-2`}>
+                          {t('details') || 'DETAILS'}
+                        </label>
+                        <textarea
+                          className={`w-full p-8 rounded-[32px] ${isDark ? 'bg-[#131c31] border-white/10 text-[#E6E9F2] placeholder-[#6F76A8]/50' : 'bg-white/60 border-white/80 text-slate-900 focus:placeholder-transparent'} border focus:border-[#8B5CF6]/50 focus:ring-4 focus:ring-[#8B5CF6]/5 outline-none resize-none font-medium min-h-[220px] transition-all shadow-glass-sm`}
+                          placeholder={t('specifyRequest') || "helo admin"}
+                          value={issueText}
+                          onChange={(e) => setIssueText(e.target.value)}
+                        />
+                      </div>
 
-                  <div className="space-y-4">
-                    <label className={`block text-[10px] font-black ${isDark ? 'text-[#6F76A8]' : 'text-slate-400'} uppercase tracking-widest ml-1`}>{t('caseDetails')}</label>
-                    <textarea
-                      className={`w-full p-6 rounded-[32px] ${isDark ? 'bg-[#131c31] border-white/10 text-[#E6E9F2] placeholder-[#6F76A8]/50' : 'bg-white/60 border-white/80 text-slate-900 focus:placeholder-transparent'} border focus:border-[#8B5CF6]/50 focus:ring-4 focus:ring-[#8B5CF6]/5 outline-none resize-none font-medium min-h-[180px] transition-all`}
-                      placeholder={t('specifyRequest')}
-                      value={issueText}
-                      onChange={(e) => setIssueText(e.target.value)}
-                    />
-                  </div>
+                      <div className="px-2">
+                        <button
+                          onClick={handleSupportSubmit}
+                          disabled={isSending || !issueText.trim()}
+                          className={`w-full py-5 ${isDark ? 'bg-[#8B5CF6] hover:bg-[#7c3aed] shadow-[0_15px_30px_-5px_rgba(139,92,246,0.4)]' : 'bg-[#8b5cf6] hover:bg-[#7c3aed] shadow-[0_15px_30px_-5px_rgba(139,92,246,0.4)]'} text-white rounded-[24px] font-black text-[14px] uppercase tracking-widest transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3 group`}
+                        >
+                          {isSending ? (
+                            <>
+                              <Loader2 className="animate-spin w-5 h-5" />
+                              {t('sending')}
+                            </>
+                          ) : (
+                            <>
+                              <svg className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                              </svg>
+                              {t('sendMessage') || 'SEND MESSAGE'}
+                            </>
+                          )}
+                        </button>
+                      </div>
 
-                  <button
-                    onClick={handleSupportSubmit}
-                    disabled={isSending || !issueText.trim()}
-                    className={`w-full py-6 mt-4 ${isDark ? 'bg-[#8B5CF6] hover:bg-[#7c3aed] shadow-[0_10px_30px_rgba(139,92,246,0.3)]' : 'bg-[#7c3aed] hover:bg-[#6d28d9] shadow-[0_10px_30px_rgba(124,58,237,0.2)]'} text-white rounded-[28px] font-black text-[14px] uppercase tracking-widest transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2`}
-                  >
-                    {isSending ? (
-                      <>
-                        <Loader2 className="animate-spin w-5 h-5" />
-                        {t('sending')}
-                      </>
-                    ) : sendStatus === 'success' ? (
-                      <>
-                        <CheckCircle className="w-5 h-5" />
-                        {t('ticketCreated')}
-                      </>
-                    ) : (
-                      <>
-                        <FileText className="w-5 h-5" />
-                        {t('sendMessage')}
-                      </>
-                    )}
-                  </button>
-
-                  <p className={`text-[10px] text-center font-black ${isDark ? 'text-[#6F76A8]' : 'text-slate-400'} uppercase tracking-widest mt-4`}>
-                    {t('directChannel')}: <a href="mailto:admin@uwo24.com" className={`${isDark ? 'text-[#8B5CF6]' : 'text-blue-600'} hover:underline normal-case`}>admin@uwo24.com</a>
-                  </p>
+                      <p className={`text-[10px] text-center font-black ${isDark ? 'text-[#6F76A8]' : 'text-slate-400'} uppercase tracking-[0.2em] mt-4 opacity-60`}>
+                        {t('directChannel')}: <a href="mailto:admin@uwo24.com" className={`text-[#8B5CF6] hover:underline normal-case font-bold ml-1`}>admin@uwo24.com</a>
+                      </p>
+                    </>
+                  )}
                 </div>
               )}
             </div>
