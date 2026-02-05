@@ -43,14 +43,14 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-[50px] pointer-events-none -mr-10 -mt-10 group-hover/logo:bg-purple-500/20 transition-all duration-700" />
                     <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-blue-500/10 rounded-full blur-[40px] pointer-events-none" />
 
-                    <div className="flex items-center gap-4 relative z-10">
+                    <Link to="/" className="flex items-center gap-4 relative z-10 hover:opacity-70 transition-opacity">
                         <div className="flex flex-col">
                             <div className="flex items-center gap-1.5">
                                 <span className="text-2xl font-black text-gray-900 tracking-tighter uppercase leading-none">AI MALL</span>
                                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse border-2 border-white" />
                             </div>
                         </div>
-                    </div>
+                    </Link>
 
                     {/* Close Button (Mobile Only) */}
                     <button

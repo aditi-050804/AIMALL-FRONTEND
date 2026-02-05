@@ -109,14 +109,16 @@ const DashboardLayout = () => {
             >
               <Menu className="w-6 h-6" />
             </button>
-            <span className="font-bold text-lg text-primary uppercase tracking-tighter">{t('headerLogoText')}<sup className="text-[10px] font-black ml-0.5">{t('trademark')}</sup></span>
+            <div className="flex items-center">
+              <span className="font-bold text-lg text-primary uppercase tracking-tighter">{t('headerLogoText')}<sup className="text-[10px] font-black ml-0.5">{t('trademark')}</sup></span>
+            </div>
           </div>
 
           <Link
             to={isAdmin ? AppRoute.SETTINGS : AppRoute.PROFILE}
-            className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase hover:bg-primary/30 transition-colors"
+            className="px-3 py-1.5 rounded-full bg-primary/10 whitespace-nowrap text-primary font-semibold text-[10px] uppercase tracking-widest hover:bg-primary/20 transition-all border border-primary/20"
           >
-            {user.name?.charAt(0) || 'U'}
+            HI! {isAdmin ? "ADMIN" : (user.name || "USER")}
           </Link>
         </div>
 

@@ -165,26 +165,26 @@ const AgentManagement = () => {
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-2 p-1.5 bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[24px] shadow-sm">
+                    <div className="flex items-center gap-1 p-1 bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[20px] shadow-sm">
                         <button
                             onClick={() => setViewMode('ASERIES')}
-                            className={`flex items-center gap-2 px-6 py-2.5 rounded-[18px] text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${viewMode === 'ASERIES'
-                                ? 'bg-[#8B5CF6] text-white shadow-lg shadow-[#8B5CF6]/20 scale-105'
+                            className={`flex items-center gap-2 px-5 py-2 rounded-[16px] text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${viewMode === 'ASERIES'
+                                ? 'bg-[#8B5CF6] text-white shadow-md shadow-[#8B5CF6]/20'
                                 : 'text-gray-400 hover:text-gray-900 hover:bg-white/40'
                                 }`}
                         >
-                            <Layers className="w-4 h-4" />
-                            A SERIES<sup className="text-[10px] font-black -ml-1">TM</sup>
+                            <Layers className="w-3.5 h-3.5" />
+                            A SERIES<sup className="text-[6px] font-black ml-0.5">TM</sup>
                         </button>
                         <button
                             onClick={() => setViewMode('AIMALL')}
-                            className={`flex items-center gap-2 px-6 py-2.5 rounded-[18px] text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${viewMode === 'AIMALL'
-                                ? 'bg-[#8B5CF6] text-white shadow-lg shadow-[#8B5CF6]/20 scale-105'
+                            className={`flex items-center gap-2 px-5 py-2 rounded-[16px] text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${viewMode === 'AIMALL'
+                                ? 'bg-[#8B5CF6] text-white shadow-md shadow-[#8B5CF6]/20'
                                 : 'text-gray-400 hover:text-gray-900 hover:bg-white/40'
                                 }`}
                         >
-                            <ShoppingBag className="w-4 h-4" />
-                            AI MALL<sup className="text-[10px] font-black -ml-1">TM</sup>
+                            <ShoppingBag className="w-3.5 h-3.5" />
+                            AI MALL<sup className="text-[6px] font-black ml-0.5">TM</sup>
                         </button>
                     </div>
                 </div>
@@ -258,7 +258,7 @@ const AgentManagement = () => {
                                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        className="absolute right-0 top-full mt-2 w-48 bg-white/90 backdrop-blur-2xl border border-white/60 rounded-2xl shadow-xl z-50 overflow-hidden p-1.5"
+                                        className="absolute left-0 md:left-auto md:right-0 top-full mt-2 w-48 bg-white/90 backdrop-blur-2xl border border-white/60 rounded-2xl shadow-xl z-50 overflow-hidden p-1.5"
                                     >
                                         {['All', 'Live', 'Draft', 'Coming Soon', 'Business OS', 'Sales & Marketing', 'HR & Finance', 'Productivity'].map((status) => (
                                             <button

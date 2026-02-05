@@ -267,7 +267,7 @@ const Notifications = () => {
                                         </div>
                                     </div>
 
-                                    <p className={`text-xs md:text-lg font-bold leading-relaxed max-w-3xl text-left transition-colors ${!notif.isRead ? (isDark ? 'text-[#E6E9F2]' : 'text-gray-600') : (isDark ? 'text-[#C7CBEA]' : 'text-gray-400')}`}>
+                                    <p className={`text-xs md:text-lg font-bold leading-relaxed max-w-3xl text-left transition-colors break-words break-all whitespace-pre-wrap ${!notif.isRead ? (isDark ? 'text-[#E6E9F2]' : 'text-gray-600') : (isDark ? 'text-[#C7CBEA]' : 'text-gray-400')}`}>
                                         {translateMessage(notif.message)}
                                     </p>
 

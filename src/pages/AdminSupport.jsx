@@ -13,7 +13,8 @@ import {
     Loader2,
     Send,
     ArrowLeft,
-    Trash2
+    Trash2,
+    X
 } from 'lucide-react';
 import { apiService } from '../services/apiService';
 
@@ -265,16 +266,23 @@ const AdminSupport = () => {
                 <div className={`
                     ${showDetailOnMobile ? 'flex' : 'hidden md:flex'}
                     flex-1 bg-white md:rounded-[3rem] shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden flex-col h-full
-                    ${showDetailOnMobile ? 'fixed inset-0 z-50 rounded-none' : ''}
+                    ${showDetailOnMobile ? 'fixed inset-0 z-[100] rounded-none' : ''}
                     md:relative md:inset-auto md:z-0
                 `}>
                     {selectedReport ? (
                         <>
                             {/* Detail Header */}
-                            <div className="p-6 md:p-8 border-b border-slate-50 flex flex-col md:flex-row justify-between items-start md:items-center shrink-0 gap-4">
+                            <div className="p-6 md:p-8 border-b border-slate-50 flex flex-col md:flex-row justify-between items-start md:items-center shrink-0 gap-4 relative">
+                                <button
+                                    onClick={handleBackToList}
+                                    className="md:hidden absolute top-4 right-4 p-2 bg-slate-100 rounded-full text-slate-500 hover:bg-slate-200 transition-colors z-10"
+                                >
+                                    <X size={20} />
+                                </button>
                                 <div className="flex items-center gap-4">
-                                    <button onClick={handleBackToList} className="md:hidden p-2 hover:bg-slate-100 rounded-full text-slate-500 transition-colors">
+                                    <button onClick={handleBackToList} className="md:hidden p-2 hover:bg-slate-100 rounded-full text-slate-500 transition-colors flex items-center gap-1">
                                         <ArrowLeft size={20} />
+                                        <span className="text-xs font-bold uppercase tracking-wider">Cancel</span>
                                     </button>
                                     <div>
                                         <div className="flex items-center gap-3 mb-1">
@@ -290,19 +298,24 @@ const AdminSupport = () => {
                                     </div>
                                 </div>
 
-                                <div className="text-left md:text-right w-full md:w-auto p-4 md:p-0 bg-slate-50 md:bg-transparent rounded-2xl md:rounded-none">
-                                    <div className="font-black text-base md:text-lg text-[#111827]">{selectedReport.userId?.name || 'Anonymous User'}</div>
-                                    <div className="text-[10px] md:text-[11px] font-bold text-slate-400">{selectedReport.userId?.email || 'No email provided'}</div>
+                                <div className="flex items-center justify-between text-left md:text-right w-full md:w-auto p-4 md:p-0 bg-slate-50 md:bg-transparent rounded-2xl md:rounded-none">
+                                    <div>
+                                        <div className="font-black text-base md:text-lg text-[#111827]">{selectedReport.userId?.name || 'Anonymous User'}</div>
+                                        <div className="text-[10px] md:text-[11px] font-bold text-slate-400">{selectedReport.userId?.email || 'No email provided'}</div>
+                                    </div>
+                                    <button onClick={handleBackToList} className="md:hidden p-2 bg-white rounded-full text-slate-500 shadow-sm border border-slate-100">
+                                        <ArrowLeft size={16} />
+                                    </button>
                                 </div>
                             </div>
 
-                            <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-4 shadow-inner bg-slate-50/30">
+                            <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 md:p-8 space-y-4 shadow-inner bg-slate-50/30">
                                 {/* Chat History */}
                                 <div className="space-y-4">
                                     {/* Original Message */}
                                     <div className="flex justify-start">
-                                        <div className="max-w-[85%] bg-white rounded-2xl rounded-tl-none p-4 shadow-sm border border-slate-100">
-                                            <p className="text-sm font-bold text-[#111827] leading-relaxed">
+                                        <div className="max-w-[85%] bg-white rounded-2xl rounded-tl-none p-4 shadow-sm border border-slate-100 overflow-hidden">
+                                            <p className="text-sm font-bold text-[#111827] leading-relaxed break-all whitespace-pre-wrap">
                                                 {selectedReport.description}
                                             </p>
                                         </div>
@@ -316,12 +329,12 @@ const AdminSupport = () => {
                                         messages.map((msg, idx) => (
                                             <div key={msg._id || idx} className={`flex ${msg.senderRole === 'admin' ? 'justify-end' : 'justify-start'}`}>
                                                 <div className={`
-                                                    max-w-[85%] p-4 rounded-2xl shadow-sm border
+                                                    max-w-[85%] p-4 rounded-2xl shadow-sm border overflow-hidden
                                                     ${msg.senderRole === 'admin'
                                                         ? 'bg-indigo-600 text-white border-indigo-500 rounded-tr-none'
                                                         : 'bg-white text-[#111827] border-slate-100 rounded-tl-none'}
                                                 `}>
-                                                    <p className="text-sm font-bold leading-relaxed">
+                                                    <p className="text-sm font-bold leading-relaxed break-all whitespace-pre-wrap">
                                                         {msg.message}
                                                     </p>
                                                 </div>
@@ -338,25 +351,25 @@ const AdminSupport = () => {
                             </div>
 
                             {/* Resolution Action */}
-                            <div className="p-6 md:p-8 border-t border-slate-100 bg-white">
-                                <div className="flex items-center gap-2 text-[#111827] mb-4">
+                            <div className="p-3 md:p-8 border-t border-slate-100 bg-white">
+                                <div className="flex items-center gap-2 text-[#111827] mb-1.5 md:mb-4">
                                     <h3 className="text-[10px] font-black uppercase tracking-[0.2em]">Resolution Action</h3>
                                 </div>
 
-                                <div className="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm mb-4">
+                                <div className="bg-white rounded-[1rem] md:rounded-[1.5rem] p-2 md:p-6 border border-slate-100 shadow-sm mb-2 md:mb-4">
                                     <textarea
                                         value={resolutionNote}
                                         onChange={(e) => setResolutionNote(e.target.value)}
                                         placeholder="Add notes about the resolution..."
-                                        className="w-full h-32 bg-transparent border-none outline-none text-[#111827] font-bold placeholder:text-slate-300 resize-none text-sm"
+                                        className="w-full h-14 md:h-20 bg-transparent border-none outline-none text-[#111827] font-bold placeholder:text-slate-300 resize-none text-sm"
                                     />
                                 </div>
 
-                                <div className="flex flex-col sm:flex-row items-stretch sm:justify-center gap-3 pt-2">
+                                <div className="flex flex-col sm:flex-row items-stretch sm:justify-center gap-3 pt-1 md:pt-2">
                                     <button
                                         disabled={actionLoading || !resolutionNote.trim()}
                                         onClick={handleSendResponse}
-                                        className="flex items-center justify-center gap-2 px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-indigo-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+                                        className="flex items-center justify-center gap-2 px-6 py-3 md:py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-indigo-100 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
                                     >
                                         <Send size={16} />
                                         Send Response

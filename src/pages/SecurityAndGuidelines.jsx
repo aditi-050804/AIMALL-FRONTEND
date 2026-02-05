@@ -144,13 +144,7 @@ const SecurityAndGuidelines = () => {
                         <p className={`${isDark ? 'text-slate-400' : 'text-gray-500'} font-medium mb-10 leading-relaxed transition-colors`}>{t('secSupportDesc')}</p>
 
                         <div className="space-y-4">
-                            <a href="tel:+918358990909" className={`flex items-center justify-between p-6 ${isDark ? 'bg-slate-800 border-white/5 hover:bg-slate-700' : 'bg-white/60 border-white/80 hover:bg-white'} border rounded-[32px] hover:scale-[1.02] transition-all group shadow-sm transition-colors`}>
-                                <div className="flex items-center gap-4">
-                                    <Phone size={18} className="text-[#8b5cf6]" />
-                                    <span className={`text-sm font-black ${isDark ? 'text-white' : 'text-gray-900'} uppercase tracking-widest transition-colors`}>+91 83589 90909</span>
-                                </div>
-                                <ChevronRight size={16} className={`${isDark ? 'text-slate-600' : 'text-gray-300'} group-hover:text-[#8b5cf6] transition-colors`} />
-                            </a>
+
                             <a href="mailto:support@ai-mall.in" className={`flex items-center justify-between p-6 ${isDark ? 'bg-slate-800 border-white/5 hover:bg-slate-700' : 'bg-white/60 border-white/80 hover:bg-white'} border rounded-[32px] hover:scale-[1.02] transition-all group shadow-sm transition-colors`}>
                                 <div className="flex items-center gap-4">
                                     <Mail size={18} className="text-[#8b5cf6]" />

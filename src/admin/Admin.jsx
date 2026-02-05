@@ -21,7 +21,7 @@ import {
     Menu
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate, useLocation, Link } from "react-router";
 
 // Sub-Components
 import AdminOverview from "./components/AdminOverview";
@@ -44,7 +44,7 @@ const Admin = () => {
     const [activeSubTab, setActiveSubTab] = useState("overview");
     const [isRevenueExpanded, setIsRevenueExpanded] = useState(true);
     const [userProfile, setUserProfile] = useState({ name: 'Admin', avatar: '' });
-    const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -290,22 +290,22 @@ const Admin = () => {
                                         <Command className="w-5 h-5" />
                                     </div>
                                     <div className="flex flex-col min-w-0">
-                                        <span className="font-black text-xl tracking-tighter text-gray-900 dark:text-white leading-none truncate">ADMIN<span className="text-[#8b5cf6]">.</span></span>
+                                        <span className="font-black text-xl tracking-tighter text-gray-900 dark:text-white leading-none truncate">ADMIN</span>
                                     </div>
                                 </div>
-
-                                {/* Close Button (Mobile Only) */}
-                                <button
-                                    onClick={() => setIsMobileSidebarOpen(false)}
-                                    className="lg:hidden p-2 rounded-xl hover:bg-white/40 dark:hover:bg-slate-800/40 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                                >
-                                    <X className="w-5 h-5" />
-                                </button>
                             </div>
                         ) : (
                             <div className="w-9 h-9 rounded-[14px] bg-gradient-to-br from-[#d946ef] to-[#8b5cf6] flex items-center justify-center text-white shadow-2xl shadow-[#8b5cf6]/20 shrink-0">
                                 <span className="font-black text-sm">A</span>
                             </div>
+                        )}
+                        {!isCompact && (
+                            <button
+                                onClick={() => setIsMobileSidebarOpen(false)}
+                                className="lg:hidden p-2 rounded-xl hover:bg-white/40 dark:hover:bg-slate-800/40 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
                         )}
                     </div>
 
@@ -349,22 +349,8 @@ const Admin = () => {
                         )}
                     </div>
 
-                    <div className="flex items-center gap-8">
-                        <div className="relative group profile-dropdown-container">
-                            <div
-                                onClick={() => setActiveTab('settings')}
-                                className="flex items-center gap-5 bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl px-1.5 py-1.5 rounded-[20px] border border-white/60 dark:border-white/10 shadow-glass transform hover:scale-105 transition-all cursor-pointer"
-                            >
-                                <div className="w-10 h-10 rounded-[14px] bg-gray-900 dark:bg-slate-800 flex items-center justify-center text-white font-black shadow-2xl relative overflow-hidden">
-                                    <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#8b5cf6] rounded-full border-2 border-white animate-pulse" />
-                                    {userProfile.avatar ? (
-                                        <img src={userProfile.avatar} alt="Profile" className="w-full h-full object-cover" />
-                                    ) : (
-                                        userProfile.name.charAt(0).toUpperCase()
-                                    )}
-                                </div>
-                            </div>
-                        </div>
+                    <div className="flex items-center justify-end">
+                        {/* Welcome message removed */}
                     </div>
                 </header>
 

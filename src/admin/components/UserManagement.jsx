@@ -102,8 +102,11 @@ const UserManagement = () => {
             <div className="flex flex-col gap-6">
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                     <div>
-                        <h2 className="text-2xl font-black text-gray-900 tracking-tighter mb-1">
-                            {viewMode === 'ASERIES' ? <>A-SERIES<sup className="text-sm font-black ml-0.5">TM</sup></> : viewMode === 'AISA' ? <>AISA<sup className="text-sm font-black ml-0.5">TM</sup></> : <>AI-MALL<sup className="text-sm font-black ml-0.5">TM</sup></>} User Management
+                        <h2 className="text-lg md:text-2xl font-black text-gray-900 tracking-tighter mb-1 flex flex-col md:block gap-1 md:gap-0">
+                            <span>
+                                {viewMode === 'ASERIES' ? <>A-SERIES<sup className="text-[10px] md:text-sm font-black ml-0.5">TM</sup></> : viewMode === 'AISA' ? <>AISA<sup className="text-[10px] md:text-sm font-black ml-0.5">TM</sup></> : <>AI-MALL<sup className="text-[10px] md:text-sm font-black ml-0.5">TM</sup></>}
+                            </span>
+                            <span className="md:ml-2">User Management</span>
                         </h2>
                         <p className="text-gray-500 font-medium text-xs">
                             {viewMode === 'ASERIES' ? 'Manage platform system users and admins' : viewMode === 'AISA' ? <>Manage AISA<sup className="text-[8px] font-black ml-0.5">TM</sup> platform specific users</> : 'Manage platform users, vendors, and roles'}

@@ -156,14 +156,7 @@ const Footer = () => {
                                         admin@uwo24.com
                                     </a>
                                 </li>
-                                <li className="flex gap-3 group cursor-pointer">
-                                    <Phone size={20} className="footer-glow-purple group-hover:text-[#8b5cf6] transition-all duration-300" />
-                                    <span
-                                        className="footer-glow-purple font-bold transition-all group-hover:translate-x-1"
-                                    >
-                                        +91 83589 90909
-                                    </span>
-                                </li>
+
                             </ul>
                         </div>
                     </div>

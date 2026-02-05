@@ -107,16 +107,19 @@ const Login = () => {
               <label className={`text-[10px] font-black uppercase tracking-[0.25em] ml-2 ${isDark ? 'text-purple-300' : 'text-gray-400'}`}>
                 {t('emailAddress')}
               </label>
-              <div className="relative group/input">
-                <Mail className={`absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors ${isDark ? 'text-purple-400 group-focus-within/input:text-white' : 'text-gray-400 group-focus-within/input:text-[#8b5cf6]'}`} />
+              <div className={`relative group/input flex items-center border rounded-[24px] transition-all focus-within:ring-4 ${isDark
+                ? 'bg-white/5 border-white/10 focus-within:ring-purple-500/20'
+                : 'bg-white/60 border-white/80 focus-within:ring-[#8b5cf6]/10 shadow-sm'
+                }`}>
+                <Mail className={`ml-6 w-5 h-5 shrink-0 transition-colors ${isDark ? 'text-purple-400 group-focus-within/input:text-white' : 'text-gray-400 group-focus-within/input:text-[#8b5cf6]'}`} />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t('emailPlaceholder')}
-                  className={`w-full border rounded-[24px] py-5 pl-16 pr-8 transition-all font-medium focus:outline-none focus:ring-4 ${isDark
-                    ? 'bg-white/5 border-white/10 text-white placeholder-white/20 focus:ring-purple-500/20'
-                    : 'bg-white/60 border-white/80 text-gray-900 placeholder-gray-400 focus:ring-[#8b5cf6]/10 shadow-sm'
+                  className={`w-full bg-transparent border-none outline-none py-5 px-4 font-medium ${isDark
+                    ? 'text-white placeholder-white/20'
+                    : 'text-gray-900 placeholder-gray-400'
                     }`}
                   required
                 />
@@ -128,8 +131,11 @@ const Login = () => {
               <label className={`text-[10px] font-black uppercase tracking-[0.25em] ml-2 ${isDark ? 'text-purple-300' : 'text-gray-400'}`}>
                 {t('password')}
               </label>
-              <div className="relative group/input flex items-center">
-                <div className="absolute left-6 inset-y-0 flex items-center pointer-events-none">
+              <div className={`relative group/input flex items-center border rounded-[24px] transition-all focus-within:ring-4 ${isDark
+                ? 'bg-white/5 border-white/10 focus-within:ring-purple-500/20'
+                : 'bg-white/60 border-white/80 focus-within:ring-[#8b5cf6]/10 shadow-sm'
+                }`}>
+                <div className="pl-6 flex items-center pointer-events-none">
                   <Lock className={`w-5 h-5 transition-colors ${isDark ? 'text-purple-400 group-focus-within/input:text-white' : 'text-gray-400 group-focus-within/input:text-[#8b5cf6]'}`} />
                 </div>
                 <input
@@ -137,13 +143,13 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder={t('passwordPlaceholder')}
-                  className={`w-full border rounded-[24px] py-5 pl-16 pr-14 transition-all font-medium focus:outline-none focus:ring-4 ${isDark
-                    ? 'bg-white/5 border-white/10 text-white placeholder-white/20 focus:ring-purple-500/20'
-                    : 'bg-white/60 border-white/80 text-gray-900 placeholder-gray-400 focus:ring-[#8b5cf6]/10 shadow-sm'
+                  className={`w-full bg-transparent border-none outline-none py-5 px-4 font-medium ${isDark
+                    ? 'text-white placeholder-white/20'
+                    : 'text-gray-900 placeholder-gray-400'
                     }`}
                   required
                 />
-                <div className="absolute right-4 inset-y-0 flex items-center">
+                <div className="pr-4 flex items-center">
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}

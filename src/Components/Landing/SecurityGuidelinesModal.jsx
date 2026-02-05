@@ -177,9 +177,7 @@ const SecurityGuidelinesModal = ({ isOpen, onClose }) => {
                         <a href="#" className="px-4 py-2 bg-blue-500/10 text-blue-600 text-xs font-bold rounded-lg hover:bg-blue-500/20 transition-colors flex items-center gap-2 border border-blue-500/10">
                             📧 {t('openForm') || "Open Form"}
                         </a>
-                        <a href="tel:+918358990909" className="px-4 py-2 bg-pink-500/10 text-pink-600 text-xs font-bold rounded-lg hover:bg-pink-500/20 transition-colors flex items-center gap-2 border border-pink-500/10">
-                            📞 +91 83589 90909
-                        </a>
+
                     </div>
                 </div>
             )

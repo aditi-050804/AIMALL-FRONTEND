@@ -73,13 +73,13 @@ const AdminOverview = () => {
                     <p className="text-gray-500 font-medium text-sm">Welcome back, AI-MALL<sup className="text-xs ml-0.5">TM</sup> Here’s what’s happening today.</p>
                 </div>
 
-                <div className="relative group w-full lg:w-80">
+                <div className="group w-full lg:w-80 flex items-center bg-white/40 backdrop-blur-md border border-white/60 rounded-[16px] px-3 transition-all focus-within:ring-4 focus-within:ring-[#8b5cf6]/10">
+                    <Search className="w-4 h-4 text-gray-400 group-focus-within:text-[#8b5cf6] transition-colors shrink-0 mr-2" />
                     <input
                         type="text"
                         placeholder="Search..."
-                        className="w-full bg-white/40 backdrop-blur-md border border-white/60 rounded-[16px] px-3 py-2.5 pl-9 focus:outline-none focus:ring-4 focus:ring-[#8b5cf6]/10 transition-all font-medium text-sm text-gray-900 placeholder-gray-400"
+                        className="w-full bg-transparent border-none outline-none py-2.5 font-medium text-sm text-gray-900 placeholder-gray-400"
                     />
-                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#8b5cf6] transition-colors" />
                 </div>
             </div>
 
@@ -209,19 +209,7 @@ const AdminOverview = () => {
                             <p className="text-2xl font-black text-gray-900 tracking-tighter">₹{statsData?.financials?.netEarnings || 0}</p>
                         </div>
 
-                        <div className="pl-5 border-l border-gray-200/50 flex flex-col justify-between py-1">
-                            <div>
-                                <p className="text-[11px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Status</p>
-                                <span className="inline-block bg-orange-100/80 text-orange-600 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider backdrop-blur-sm">{statsData?.financials?.status || 'N/A'}</span>
-                            </div>
-                            <div className="mt-2">
-                                <p className="text-[11px] font-black text-gray-400 uppercase tracking-widest mb-1">Next Payout</p>
-                                <p className="font-bold text-gray-900 text-sm flex items-center gap-2">
-                                    {statsData?.financials?.nextPayout || 'Pending Sales'}
-                                    <span className={`w-1.5 h-1.5 rounded-full ${statsData?.financials?.grossSales > 0 ? 'bg-green-500 animate-pulse' : 'bg-gray-300'}`}></span>
-                                </p>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
