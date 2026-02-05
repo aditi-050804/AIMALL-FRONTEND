@@ -182,13 +182,7 @@ const UserProfile = () => {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button
-                            onClick={() => navigate(AppRoute.INVOICES)}
-                            className={`w-16 h-16 rounded-[24px] ${isDark ? 'bg-slate-900/60 border-white/5' : 'bg-white/60 border-white'} text-gray-400 hover:text-[#8b5cf6] hover:bg-white transition-all shadow-sm flex items-center justify-center group/btn border`}
-                            title="View Financial Registry"
-                        >
-                            <CreditCard size={22} className="group-hover:scale-110 transition-transform" />
-                        </button>
+                        {/* Financial Registry button removed as per user request */}
                     </div>
                 </header>
 

@@ -133,6 +133,7 @@ const AdminSupport = () => {
         const matchesSearch =
             r.userId?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             r.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            r.latestMessage?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             r._id.toLowerCase().includes(searchTerm.toLowerCase());
 
         const matchesStatus =
@@ -226,7 +227,7 @@ const AdminSupport = () => {
                                     </div>
 
                                     <h3 className="text-[15px] font-bold text-[#111827] mb-4 line-clamp-2 min-h-[40px]">
-                                        {report.description}
+                                        {report.latestMessage || report.description}
                                     </h3>
 
                                     <div className="flex items-center justify-between pt-4 border-t border-slate-50">

@@ -65,6 +65,16 @@ const Sidebar = ({ isOpen, onClose }) => {
   const [issueText, setIssueText] = useState("");
   const [activeTab, setActiveTab] = useState("faq");
   const [issueType, setIssueType] = useState("General Inquiry");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const issueOptionsMap = {
+    "General Inquiry": "inquiryGeneral",
+    "Payment Issue": "inquiryPayment",
+    "Refund Request": "inquiryRefund",
+    "Technical Support": "inquiryTechnical",
+    "Account Access": "inquiryAccount",
+    "Other": "inquiryOther"
+  };
 
   const issueOptions = [
     "General Inquiry",
@@ -515,6 +525,48 @@ const Sidebar = ({ isOpen, onClose }) => {
                     </motion.div>
                   ) : (
                     <>
+                      <div className="space-y-4">
+                        <label className={`block text-[10px] font-black ${isDark ? 'text-[#6F76A8]' : 'text-slate-400'} uppercase tracking-[0.2em] ml-2`}>
+                          {t('issueCategory') || 'ISSUE CATEGORY'}
+                        </label>
+                        <div className="relative group/input">
+                          <button
+                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                            className={`w-full px-6 py-4 rounded-[32px] ${isDark ? 'bg-[#131c31] border-white/10 text-[#E6E9F2]' : 'bg-white/60 border-white/80 text-slate-900'} border focus:border-[#8B5CF6]/50 transition-all shadow-glass-sm flex justify-between items-center`}
+                          >
+                            <span className="font-medium text-left">{t(issueOptionsMap[issueType]) || issueType}</span>
+                            <ChevronDown size={20} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''} ${isDark ? 'text-[#6F76A8]' : 'text-slate-400'}`} />
+                          </button>
+
+                          <AnimatePresence>
+                            {isDropdownOpen && (
+                              <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className={`absolute top-full left-0 right-0 mt-2 z-50 overflow-hidden rounded-[24px] border ${isDark ? 'bg-[#1a2235] border-white/10' : 'bg-white border-purple-100'} shadow-xl max-h-60 overflow-y-auto custom-scrollbar`}
+                              >
+                                {issueOptions.map((option) => (
+                                  <button
+                                    key={option}
+                                    onClick={() => {
+                                      setIssueType(option);
+                                      setIsDropdownOpen(false);
+                                    }}
+                                    className={`w-full px-6 py-3 text-left font-medium text-sm transition-colors ${issueType === option
+                                      ? (isDark ? 'bg-[#8B5CF6]/20 text-[#8B5CF6]' : 'bg-purple-50 text-purple-600')
+                                      : (isDark ? 'text-gray-300 hover:bg-white/5' : 'text-gray-600 hover:bg-purple-50/50')
+                                      }`}
+                                  >
+                                    {t(issueOptionsMap[option]) || option}
+                                  </button>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </div>
+
                       <div className="space-y-4">
                         <label className={`block text-[10px] font-black ${isDark ? 'text-[#6F76A8]' : 'text-slate-400'} uppercase tracking-[0.2em] ml-2`}>
                           {t('details') || 'DETAILS'}

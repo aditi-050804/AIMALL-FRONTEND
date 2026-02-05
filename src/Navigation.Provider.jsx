@@ -13,7 +13,7 @@ import DashboardOverview from './pages/DashboardOverview';
 import Automations from './pages/Automations';
 import Admin from './admin/Admin';
 // Vendor Auth imports removed
-import Invoices from './pages/Invoices';
+// import Invoices from './pages/Invoices';
 import Notifications from './pages/Notifications';
 import UserProfile from './pages/UserProfile';
 import Profile from './pages/Profile';
@@ -49,7 +49,7 @@ import VendorAdminSupport from './pages/Vendor/VendorAdminSupport';
 import VendorAppDetail from './pages/Vendor/VendorAppDetail';
 import VendorTransactions from './pages/Vendor/VendorTransactions';
 
-const LiveDemoPage = lazy(() => import('./pages/LiveDemoPage'));
+// const LiveDemoPage = lazy(() => import('./pages/LiveDemoPage'));
 const SecurityAndGuidelines = lazy(() => import('./pages/SecurityAndGuidelines'));
 const TransactionHistory = lazy(() => import('./Components/Admin/TransactionHistory'));
 
@@ -207,7 +207,7 @@ const NavigateProvider = () => {
             <Route path="automations" element={<ProtectedRoute><Automations /></ProtectedRoute>} />
             <Route path="admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
             <Route path="settings" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
-            <Route path="invoices" element={<ProtectedRoute><Invoices /></ProtectedRoute>} />
+            {/* <Route path="invoices" element={<ProtectedRoute><Invoices /></ProtectedRoute>} /> */}
             <Route path="notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
             <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="userprofile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />

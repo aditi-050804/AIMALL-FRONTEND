@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { ArrowLeft, Mail, Loader, CheckCircle, AlertCircle, RefreshCcw, Lock, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import axios from 'axios';
+import { apis } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 const ForgotPassword = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const navigate = useNavigate();
     const [step, setStep] = useState(1); // 1: Email, 2: OTP, 3: New Password
     const [email, setEmail] = useState('');
@@ -26,7 +27,7 @@ const ForgotPassword = () => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/forgot-password', { email });
+            const response = await axios.post(apis.forgotPassword, { email, language });
             setMessage(response.data.message);
             setStep(2);
         } catch (err) {
@@ -43,7 +44,7 @@ const ForgotPassword = () => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/verify-otp', { email, otp });
+            const response = await axios.post(`${apis.forgotPassword.replace('forgot-password', 'verify-otp')}`, { email, otp, language });
             setMessage(response.data.message);
             setStep(3);
         } catch (err) {
@@ -65,10 +66,11 @@ const ForgotPassword = () => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/verify-reset-otp', {
+            const response = await axios.post(`${apis.forgotPassword.replace('forgot-password', 'verify-reset-otp')}`, {
                 email,
                 otp,
-                newPassword
+                newPassword,
+                language
             });
             setMessage(response.data.message);
             // Redirect to login after success
@@ -99,8 +101,8 @@ const ForgotPassword = () => {
             case 3:
                 return {
                     icon: <Lock className="w-7 h-7" />,
-                    title: <>New <span className="text-[#8b5cf6]">Security Key.</span></>,
-                    sub: 'Enter your new credentials'
+                    title: <>{t('newSecurityKey') || 'New Security Key'}</>,
+                    sub: t('enterNewCredentials') || 'Enter your new credentials'
                 };
             default:
                 return {};
@@ -213,7 +215,7 @@ const ForgotPassword = () => {
                                     {loading ? (
                                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                     ) : (
-                                        <> <RefreshCcw size={18} /> {t('initiateRecovery') || 'Send Reset Link'} </>
+                                        <> <RefreshCcw size={18} /> {t('initiateRecovery') || 'Send OTP'} </>
                                     )}
                                 </button>
                             </motion.form>
@@ -333,7 +335,7 @@ const ForgotPassword = () => {
                                     onClick={() => setStep(2)}
                                     className="w-full text-[10px] font-black text-gray-400 uppercase tracking-widest hover:text-gray-600 transition-colors"
                                 >
-                                    Back to OTP
+                                    {t('backToOTP') || 'Back to OTP'}
                                 </button>
                             </motion.form>
                         )}

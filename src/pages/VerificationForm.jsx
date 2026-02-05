@@ -6,8 +6,10 @@ import { apiService } from '../services/apiService';
 import axios from 'axios';
 import { getUserData, setUserData } from '../userStore/userData';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function VerificationForm() {
+    const { t, language } = useLanguage();
     const [verificationCode, setVerificationCode] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -32,14 +34,14 @@ export default function VerificationForm() {
         setError('');
         setSuccessMessage('');
 
-        axios.post(apis.emailVerificationApi, { code: verificationCode, email }).then((res) => {
+        axios.post(apis.emailVerificationApi, { code: verificationCode, email, language }).then((res) => {
             console.log(res);
             setUserData(res.data)
             navigator(AppRoute.DASHBOARD)
 
         }).catch((err) => {
             console.log(err);
-            setError(err.message || 'Verification failed');
+            setError(err.response?.data?.error || t('verificationFailed'));
 
         }).finally(() => {
             setLoading(false);
@@ -54,8 +56,8 @@ export default function VerificationForm() {
         setSuccessMessage('');
 
         try {
-            const response = await axios.post(`${apis.emailVerificationApi}/resend`, { email });
-            setSuccessMessage('Verification code resent! Check your email.');
+            const response = await axios.post(`${apis.emailVerificationApi}/resend`, { email, language });
+            setSuccessMessage(t('verificationCodeResent'));
             setResendCooldown(60); // 60 second cooldown
         } catch (err) {
             console.error('Resend OTP error:', err);
@@ -81,21 +83,28 @@ export default function VerificationForm() {
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        className="inline-flex items-center justify-center w-24 h-24 bg-white/40 backdrop-blur-xl rounded-[32px] shadow-glass border border-white/60 mb-8 mx-auto group hover:rotate-12 transition-transform duration-500 ring-4 ring-white/20"
+                        className="inline-flex items-center justify-center w-28 h-28 bg-white/60 backdrop-blur-2xl rounded-[40px] shadow-glass border border-white/80 mb-10 mx-auto group relative"
                     >
-                        <div className="w-14 h-14 rounded-[22px] bg-gradient-to-br from-[#d946ef] to-[#8b5cf6] flex items-center justify-center text-white font-black shadow-lg shadow-purple-500/20">
-                            <Mail className="w-7 h-7" />
+                        {/* Highlights & Glow */}
+                        <div className="absolute inset-0 bg-[#8b5cf6]/20 rounded-[40px] animate-pulse blur-2xl -z-10 transition-colors duration-500" />
+                        <div className="absolute -inset-2 bg-gradient-to-br from-[#d946ef]/30 to-[#8b5cf6]/30 rounded-[45px] blur-md opacity-50 -z-10 animate-spin-slow" />
+
+                        <div className="w-16 h-16 rounded-[24px] bg-white flex items-center justify-center text-[#8B5CF6] shadow-[0_15px_35px_-5px_rgba(139,92,246,0.3)] border border-purple-100 group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-[#8b5cf6]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <Mail className="w-8 h-8 relative z-10" />
                         </div>
                     </motion.div>
 
-                    <h2 className="text-5xl font-black text-gray-900 tracking-tighter mb-2">Verify <span className="text-[#8b5cf6]">Identity.</span></h2>
-                    <p className="text-gray-500 font-black uppercase tracking-[0.2em] text-[10px] opacity-70">Confirming Neural Link for <span className="text-[#8b5cf6]">{email}</span></p>
+                    <h2 className="text-5xl font-black text-gray-900 tracking-tighter mb-2">{t('verify')} <span className="text-[#8b5cf6]">{t('recovery') || 'Identity'}.</span></h2>
+                    <p className="text-gray-500 font-black tracking-[0.2em] text-[10px] opacity-70">
+                        <span className="uppercase">{t('confirmingNeuralLink')}</span> <span className="text-[#8b5cf6] lowercase">{email}</span>
+                    </p>
 
                     <button
                         onClick={() => navigator(AppRoute.SIGNUP)}
                         className="mt-4 px-5 py-2 rounded-full bg-white/40 border border-white/60 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-[#8b5cf6] hover:bg-white transition-all shadow-sm flex items-center gap-2 mx-auto"
                     >
-                        <Pencil className="w-3 h-3" /> Edit Address
+                        <Pencil className="w-3 h-3" /> {t('editAddress')}
                     </button>
                 </div>
 
@@ -137,7 +146,7 @@ export default function VerificationForm() {
                     <form onSubmit={handleVerify} className="space-y-8 relative z-10">
                         <div className="space-y-3 text-center">
                             <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.25em]">
-                                Enter Verification Code
+                                {t('enterVerificationCode')}
                             </label>
 
                             <div className="relative group/input">
@@ -162,19 +171,19 @@ export default function VerificationForm() {
                             {loading ? (
                                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                             ) : (
-                                <> <CheckCircle size={18} /> Verify </>
+                                <> <CheckCircle size={18} /> {t('verify')} </>
                             )}
                         </button>
                     </form>
 
                     <div className="mt-8 text-center text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                        Didn't receive code?{' '}
+                        {t('didntReceiveCode')}{' '}
                         <button
                             onClick={handleResendOTP}
                             disabled={resendLoading || resendCooldown > 0}
                             className="text-[#8b5cf6] hover:text-[#7c3aed] transition-colors font-black ml-1 uppercase hover:blur-[0.5px] disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {resendLoading ? 'Sending...' : resendCooldown > 0 ? `Wait ${resendCooldown}s` : 'Resend Code'}
+                            {resendLoading ? t('sending') : resendCooldown > 0 ? `${t('wait') || 'Wait'} ${resendCooldown}${t('seconds') || 's'}` : t('resendCode')}
                         </button>
                     </div>
                 </motion.div>
@@ -184,9 +193,9 @@ export default function VerificationForm() {
                     to={AppRoute.SIGNUP}
                     className="mt-12 flex items-center justify-center gap-3 text-gray-400 hover:text-gray-900 transition-all font-black text-[10px] uppercase tracking-[0.3em]"
                 >
-                    <ArrowLeft className="w-4 h-4" strokeWidth={3} /> Return to Registration
+                    <ArrowLeft className="w-4 h-4" strokeWidth={3} /> {t('returnToRegistration')}
                 </Link>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

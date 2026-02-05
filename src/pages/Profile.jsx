@@ -329,7 +329,7 @@ const Profile = () => {
                                     </div>
                                 ) : (
                                     <>
-                                        <h1 className={`text-3xl md:text-5xl lg:text-6xl font-black ${isDark ? 'text-[#f1f5f9]' : 'text-gray-900'} tracking-tighter leading-none transition-colors`}>{user.name}<span className="text-[#8B5CF6]">.</span></h1>
+                                        <h1 className={`text-3xl md:text-5xl lg:text-6xl font-black ${isDark ? 'text-[#f1f5f9]' : 'text-gray-900'} tracking-tighter leading-none transition-colors`}>{user.name}</h1>
                                         <p className={`${isDark ? 'text-[#cbd5e1]' : 'text-gray-500'} font-bold text-lg md:text-xl tracking-tight opacity-70 transition-colors normal-case break-all`}>{user.email}</p>
                                     </>
                                 )}

@@ -12,7 +12,7 @@ import { useLanguage } from '../context/LanguageContext';
 import TermsModal from '../Components/Landing/TermsModal';
 
 const Signup = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const navigate = useNavigate();
   const theme = useRecoilValue(themeState);
   const isDark = theme === 'Dark';
@@ -27,7 +27,7 @@ const Signup = () => {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showAgreementError, setShowAgreementError] = useState(false);
 
-  const payLoad = { name, email, password }
+  const payLoad = { name, email, password, language }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!termsAgreed) {

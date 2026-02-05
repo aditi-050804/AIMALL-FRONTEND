@@ -225,21 +225,7 @@ const Marketplace = () => {
                     {subToggle.subscripPgTgl && <SubscriptionForm id={agentId} />}
 
                     {/* Modals */}
-                    {showDemo && (
-                        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-[#0f172a]/40 backdrop-blur-md">
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                                className={`${isDark ? 'bg-[#242f49] border-white/10' : 'bg-white/70 border-white/80'} backdrop-blur-2xl rounded-[32px] md:rounded-[40px] p-6 md:p-8 w-full max-w-5xl shadow-2xl relative border mx-4`}
-                            >
-                                <button onClick={() => setShowDemo(false)} className={`absolute -top-4 -right-4 ${isDark ? 'bg-slate-800 text-white' : 'bg-white text-gray-800'} p-3 rounded-full shadow-lg hover:scale-110 transition-transform border ${isDark ? 'border-white/10' : 'border-gray-100'}`}><X className="w-5 h-5" /></button>
-                                <div className="aspect-video w-full rounded-[32px] overflow-hidden bg-gray-950 border-4 border-white/40 shadow-inner">
-                                    <iframe width="100%" height="100%" src={demoUrl} title="Agent Demo" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                                </div>
-                            </motion.div>
-                        </div>
-                    )}
+                    {/* showDemo modal removed as per user request */}
 
                     {showAgentInfo && selectedAgent && (
                         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-[#0f172a]/40 backdrop-blur-md">

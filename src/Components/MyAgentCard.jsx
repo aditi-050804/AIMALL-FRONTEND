@@ -136,14 +136,7 @@ const MyAgentCard = ({ agent, isDark, onDelete, onUse, onContact, onDocs }) => {
                         <div className="absolute top-2.5 right-2.5 w-2 h-2 bg-[#d946ef] rounded-full border border-white shadow-sm" />
                     </motion.button>
 
-                    <motion.button
-                        whileHover={{ translateY: -4, scale: 1.1 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                        onClick={() => onDocs()}
-                        className={`w-12 h-12 rounded-[18px] ${isDark ? 'bg-[#0B0F1A]' : 'bg-white/60'} backdrop-blur-md border ${isDark ? 'border-[#8B5CF6]/10' : 'border-white'} text-gray-400 hover:text-[#8B5CF6] hover:bg-white/5 transition-all duration-300 flex items-center justify-center group/doc`}
-                    >
-                        <FileText size={18} />
-                    </motion.button>
+
                 </div>
             </motion.div>
         </div>

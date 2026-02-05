@@ -421,7 +421,7 @@ export const LanguageProvider = ({ children }) => {
             accessRecovery: "Password Recovery",
             initResetSequence: "Reset Your Password",
             neuralAddress: "Email Address",
-            initiateRecovery: "Send Reset Link",
+            initiateRecovery: "Send OTP",
             abortReturnLogin: "Back to Login",
             emailPlaceholder: "name@example.com",
             identityOTP: "Identity OTP",
@@ -493,6 +493,19 @@ export const LanguageProvider = ({ children }) => {
             legalSummaryTitle: "Legal Summary",
             legalSummaryText: "These Guidelines establish the framework for lawful use, data protection, AI governance, and operational security within the AI Mall platform.",
             closeGuidelines: "Close Guidelines",
+            confirmingNeuralLink: "Confirming Neural Link for",
+            editAddress: "Edit Address",
+            enterVerificationCode: "Enter Verification Code",
+            verify: "Verify",
+            didntReceiveCode: "Didn't receive code?",
+            resendCode: "Resend Code",
+            returnToRegistration: "Return to Registration",
+            verificationCodeResent: "Verification code resent! Check your email.",
+            verificationFailed: "Verification failed",
+
+            backToOTP: "Back to OTP",
+
+            enterNewCredentials: "Enter your new credentials",
         },
         ar: {
             title: 'العربية (Arabic)',
@@ -805,7 +818,7 @@ export const LanguageProvider = ({ children }) => {
             accessRecovery: "استعادة كلمة المرور",
             initResetSequence: "إعادة تعيين كلمة المرور",
             neuralAddress: "عنوان البريد الإلكتروني",
-            initiateRecovery: "إرسال الرابط",
+            initiateRecovery: "إرسال رمز OTP",
             abortReturnLogin: "العودة لتسجيل الدخول",
             emailPlaceholder: "name@example.com",
 
@@ -870,6 +883,26 @@ export const LanguageProvider = ({ children }) => {
             secDataSharing: "1.2 مشاركة البيانات",
             secDataCollectionDesc: "قد يقوم AI-Mall™ بجمع معلومات شخصية وتقنية بما في ذلك تفاصيل الحساب، وبيانات استخدام البيانات الوصفية، ومعرفات الأجهزة، وأذونات الوصول إلى الملفات.",
             secDataSharingDesc: "لا يقوم AI-Mall™ ببيع البيانات الشخصية. قد تتم مشاركة البيانات مع مقدمي خدمات موثوقين لأغراض تشغيلية صارمة.",
+            confirmingNeuralLink: "تأكيد الارتباط العصبي لـ",
+            editAddress: "تعديل العنوان",
+            enterVerificationCode: "أدخل رمز التحقق",
+            verify: "تحقق",
+            didntReceiveCode: "لم تتلق الكود؟",
+            resendCode: "إعادة إرسال الكود",
+            returnToRegistration: "العودة إلى التسجيل",
+            verificationCodeResent: "تم إعادة إرسال رمز التحقق! تحقق من بريدك الإلكتروني.",
+            verificationFailed: "فشل التحقق",
+
+            verifyIdentity: "تحقق من الهوية",
+
+            identityOTP: "رمز التحقق من الهوية",
+            newSecurityKey: "مفتاح أمان جديد",
+            confirmKey: "تأكيد المفتاح",
+            verifyAndUpdate: "تحقق وتحديث",
+            changeEmail: "تغيير عنوان البريد الإلكتروني",
+            secureOTPRequired: "مطلوب التحقق الآمن من رمز OTP",
+            enterNewCredentials: "أدخل أوراق اعتمادك الجديدة",
+            backToOTP: "العودة إلى رمز OTP",
         },
         hi: {
             title: 'हिन्दी (Hindi)',
@@ -1048,7 +1081,7 @@ export const LanguageProvider = ({ children }) => {
             accessRecovery: "पासवर्ड रिकवरी",
             initResetSequence: "अपना पासवर्ड रीसेट करें",
             neuralAddress: "ईमेल पता",
-            initiateRecovery: "रीसेट लिंक भेजें",
+            initiateRecovery: "OTP भेजें",
             abortReturnLogin: "लॉगिन पर वापस जाएं",
             emailPlaceholder: "name@example.com",
 
@@ -1304,6 +1337,26 @@ export const LanguageProvider = ({ children }) => {
             quantumFirewall: "क्वांटम फ़ायरवॉल",
             neuralLinkSync: "न्यूरल लिंक सिंक",
             cloudGateway: "क्लाउड गेटवे",
+            confirmingNeuralLink: "न्यूरल लिंक की पुष्टि की जा रही है ",
+            editAddress: "पता संपादित करें",
+            enterVerificationCode: "सत्यापन कोड दर्ज करें",
+            verify: "सत्यापित करें",
+            didntReceiveCode: "कोड प्राप्त नहीं हुआ?",
+            resendCode: "कोड पुन: भेजें",
+            returnToRegistration: "पंजीकरण पर लौटें",
+            verificationCodeResent: "सत्यापन कोड पुनः भेज दिया गया! अपना ईमेल जांचें।",
+            verificationFailed: "सत्यापन विफल रहा",
+
+            verifyIdentity: "पहचान सत्यापित करें",
+
+            identityOTP: "पहचान ओटीपी",
+            newSecurityKey: "नई सुरक्षा कुंजी",
+            confirmKey: "कुंजी की पुष्टि करें",
+            verifyAndUpdate: "सत्यापित करें और अपडेट करें",
+            changeEmail: "ईमेल पता बदलें",
+            secureOTPRequired: "सुरक्षित ओटीपी सत्यापन आवश्यक",
+            enterNewCredentials: "अपने नए क्रेडेंशियल दर्ज करें",
+            backToOTP: "ओटीपी पर वापस जाएं",
         },
         es: {
             title: 'Español (Spanish)',
@@ -1652,6 +1705,17 @@ export const LanguageProvider = ({ children }) => {
             legalSummaryTitle: "Resumen Legal",
             legalSummaryText: "Estas Directrices establecen el marco para el uso legal, protección de datos, gobernanza de IA y seguridad operativa dentro de la plataforma AI Mall.",
             closeGuidelines: "Cerrar Directrices",
+            confirmingNeuralLink: "Confirmando enlace neuronal para",
+            editAddress: "Editar dirección",
+            enterVerificationCode: "Ingrese el código de verificación",
+            verify: "Verificar",
+            didntReceiveCode: "¿No recibiste el código?",
+            resendCode: "Reenviar código",
+            returnToRegistration: "Volver al registro",
+            verificationCodeResent: "¡Código de verificación reenviado! Revisa tu correo electrónico.",
+            verificationFailed: "Verificación fallida",
+
+            verifyIdentity: "Verificar identidad",
         },
         fr: {
             title: 'Français (French)',
@@ -1979,6 +2043,17 @@ export const LanguageProvider = ({ children }) => {
             legalSummaryTitle: "Résumé Juridique",
             legalSummaryText: "Ces Directives établissent le cadre pour l'utilisation légale, la protection des données, la gouvernance de l'IA et la sécurité opérationnelle au sein de la plateforme AI Mall.",
             closeGuidelines: "Fermer les Directives",
+            confirmingNeuralLink: "Confirmation du lien neural pour",
+            editAddress: "Modifier l'adresse",
+            enterVerificationCode: "Entrez le code de vérification",
+            verify: "Vérifier",
+            didntReceiveCode: "Vous n'avez pas reçu le code ?",
+            resendCode: "Renvoyer le code",
+            returnToRegistration: "Retour à l'inscription",
+            verificationCodeResent: "Code de vérification renvoyé ! Vérifiez vos e-mails.",
+            verificationFailed: "Échec de la vérification",
+
+            verifyIdentity: "Vérifier l'identité",
         },
         de: {
             title: 'Deutsch (German)',
@@ -2304,6 +2379,17 @@ export const LanguageProvider = ({ children }) => {
             legalSummaryTitle: "Rechtliche Zusammenfassung",
             legalSummaryText: "Diese Richtlinien legen den Rahmen für die rechtmäßige Nutzung, den Datenschutz, die KI-Governance und die Betriebssicherheit innerhalb der AI Mall-Plattform fest.",
             closeGuidelines: "Richtlinien schließen",
+            confirmingNeuralLink: "Bestätigung der neuronalen Verbindung für",
+            editAddress: "Adresse bearbeiten",
+            enterVerificationCode: "Verifizierungscode eingeben",
+            verify: "Verifizieren",
+            didntReceiveCode: "Code nicht erhalten?",
+            resendCode: "Code erneut senden",
+            returnToRegistration: "Zurück zur Registrierung",
+            verificationCodeResent: "Verifizierungscode erneut gesendet! Überprüfen Sie Ihre E-Mails.",
+            verificationFailed: "Verifizierung fehlgeschlagen",
+
+            verifyIdentity: "Identität verifizieren",
         },
         ru: {
             title: 'Русский (Russian)',
@@ -2631,6 +2717,17 @@ export const LanguageProvider = ({ children }) => {
             legalSummaryTitle: "Юридическое резюме",
             legalSummaryText: "Эти Руководства устанавливают основу для законного использования, защиты данных, управления ИИ и операционной безопасности в рамках платформы AI Mall.",
             closeGuidelines: "Закрыть руководства",
+            confirmingNeuralLink: "Подтверждение нейронной связи для",
+            editAddress: "Изменить адрес",
+            enterVerificationCode: "Введите код подтверждения",
+            verify: "Проверить",
+            didntReceiveCode: "Не получили код?",
+            resendCode: "Переотправить код",
+            returnToRegistration: "Вернуться к регистрации",
+            verificationCodeResent: "Код подтверждения отправлен повторно! Проверьте почту.",
+            verificationFailed: "Ошибка верификации",
+
+            verifyIdentity: "Подтвердить личность",
         },
         zh: {
             title: '中文 (Chinese)',
@@ -2959,6 +3056,17 @@ export const LanguageProvider = ({ children }) => {
             legalSummaryTitle: "法律摘要",
             legalSummaryText: "这些指南为 AI Mall 平台内的合法使用、数据保护、AI 治理和运营安全建立了框架。",
             closeGuidelines: "关闭指南",
+            confirmingNeuralLink: "正在确认为以下对象建立神经连接",
+            editAddress: "编辑地址",
+            enterVerificationCode: "输入验证码",
+            verify: "验证",
+            didntReceiveCode: "没有收到验证码？",
+            resendCode: "重新发送验证码",
+            returnToRegistration: "返回注册",
+            verificationCodeResent: "验证码已重新发送！请检查您的电子邮件。",
+            verificationFailed: "验证失败",
+
+            verifyIdentity: "验证身份",
         },
         ja: {
             title: '日本語 (Japanese)',
@@ -3286,6 +3394,17 @@ export const LanguageProvider = ({ children }) => {
             secDataSharing: "1.2 データ共有",
             secDataCollectionDesc: "AI-Mall™は、アカウントの詳細、使用メタデータ、デバイス識別子、ファイルアクセス許可など、個人情報および技術情報を収集する場合があります。",
             secDataSharingDesc: "AI-Mall™は個人データを販売しません。データは、運用要件のために厳密に信頼できるサードパーティのサービスプロバイダーと共有される場合があります。",
+            confirmingNeuralLink: "ニューラルリンクを確認中",
+            editAddress: "アドレスを編集",
+            enterVerificationCode: "確認コードを入力",
+            verify: "確認",
+            didntReceiveCode: "コードが届きませんか？",
+            resendCode: "コードを再送",
+            returnToRegistration: "登録に戻る",
+            verificationCodeResent: "確認コードを再送しました。メールを確認してください。",
+            verificationFailed: "確認に失敗しました",
+
+            verifyIdentity: "本人確認",
         },
         pt: {
             title: 'Português (Portuguese)',
@@ -3613,6 +3732,17 @@ export const LanguageProvider = ({ children }) => {
             legalSummaryTitle: "Resumo Legal",
             legalSummaryText: "Estas Diretrizes estabelecem a estrutura para uso legal, proteção de dados, governança de IA e segurança operacional dentro da plataforma AI Mall.",
             closeGuidelines: "Fechar Diretrizes",
+            confirmingNeuralLink: "Confirmando link neural para",
+            editAddress: "Editar endereço",
+            enterVerificationCode: "Digite o código de verificação",
+            verify: "Verificar",
+            didntReceiveCode: "Não recebeu o código?",
+            resendCode: "Reenviar código",
+            returnToRegistration: "Voltar para o registro",
+            verificationCodeResent: "Código de verificação reenviado! Verifique seu e-mail.",
+            verificationFailed: "Falha na verificação",
+
+            verifyIdentity: "Verificar identidade",
         },
         sa: {
             title: 'संस्कृतम् (Sanskrit)',
@@ -3956,6 +4086,17 @@ export const LanguageProvider = ({ children }) => {
             secDataSharing: "१.२ दत्तांश-साझाकरणम्",
             secDataCollectionDesc: "AI-Mall™ वैयक्तिकं तथा च तांत्रिकं विवरणं सङ्ग्रहीतुं शक्नोति, यत्र खाता-विवरणानि, उपयोग-मेटाडेटा, उपकरण-परिचयाः, सञ्चिका-अभिगम-अनुमतयः च समाविष्टाः सन्ति।",
             secDataSharingDesc: "AI-Mall™ वैयक्तिक-दत्तांशं न विक्रीणते। परिचालन-आवश्यकतानां कृते एव विश्वस्तैः तृतीय-पक्ष-सेवा-प्रदातृभिः सह दत्तांशः साझा कर्तुं शक्यते।",
+            confirmingNeuralLink: "न्यूरल लिंक पुष्टीकरणम् ",
+            editAddress: "सङ्केतं सम्पादयतु",
+            enterVerificationCode: "प्रमाणीकरण कोड लिखत",
+            verify: "पुष्टीकुरु",
+            didntReceiveCode: "कोड न प्राप्तम्?",
+            resendCode: "पुनः प्रेषयतु",
+            returnToRegistration: "पञ्जीकरणं प्रति निवर्तताम्",
+            verificationCodeResent: "प्रमाणीकरण कोड पुनः प्रेषितम्! ईमेल पश्यन्तु। प्रमाणीकरणं विफलम् अभवत्",
+            verificationFailed: "प्रमाणीकरणं विफलम् अभवत्",
+
+            verifyIdentity: "परिचयं पुष्टीकुरु",
         },
         mr: {
             title: 'मराठी (Marathi)',
@@ -4283,6 +4424,17 @@ export const LanguageProvider = ({ children }) => {
             secDataSharing: "१.२ डेटा शेअरिंग",
             secDataCollectionDesc: "AI-Mall™ वैयक्तिक आणि तांत्रिक माहिती गोळा करू शकते ज्यामध्ये खाते तपशील, वापर मेटाडेटा, डिव्हाइस आयडेंटिफायर आणि फाइल ऍक्सेस परवानग्या समाविष्ट आहेत.",
             secDataSharingDesc: "AI-Mall™ वैयक्तिक डेटा विकत नाही. डेटा केवळ ऑपरेशनल आवश्यकतांसाठी विश्वसनीय तृतीय-पक्ष सेवा प्रदात्यांसह सामायिक केला जाऊ शकतो.",
+            confirmingNeuralLink: "न्यूरल लिंकची पुष्टी करत आहे ",
+            editAddress: "पत्ता संपादित करा",
+            enterVerificationCode: "सत्यापन कोड प्रविष्ट करा",
+            verify: "सत्यापित करा",
+            didntReceiveCode: "कोड मिळाला नाही?",
+            resendCode: "कोड पुन्हा पाठवा",
+            returnToRegistration: "नोंदणीकडे परत जा",
+            verificationCodeResent: "सत्यापन कोड पुन्हा पाठवला! तुमचा ईमेल तपासा.",
+            verificationFailed: "सत्यापन अयशस्वी",
+
+            verifyIdentity: "ओळख सत्यापित करा",
         },
         bn: {
             title: 'বাংলা (Bengali)',
@@ -4663,6 +4815,17 @@ export const LanguageProvider = ({ children }) => {
             legalSummaryTitle: "আইনি সারাংশ",
             legalSummaryText: "এই নির্দেশিকাগুলি এআই মল প্ল্যাটফর্মের মধ্যে আইনি ব্যবহার, ডেটা সুরক্ষা, এআই শাসন এবং অপারেশনাল নিরাপত্তার জন্য কাঠামো তৈরি করে।",
             closeGuidelines: "নির্দেশিকা বন্ধ করুন",
+            confirmingNeuralLink: "নিউরাল লিঙ্ক নিশ্চিত করা হচ্ছে ",
+            editAddress: "ঠিকানা পরিবর্তন করুন",
+            enterVerificationCode: "যাচাইকরণ কোড লিখুন",
+            verify: "যাচাই করুন",
+            didntReceiveCode: "কোড পাননি?",
+            resendCode: "কোড পুনরায় পাঠান",
+            returnToRegistration: "নিবন্ধনে ফিরে যান",
+            verificationCodeResent: "যাচাইকরণ কোড পুনরায় পাঠানো হয়েছে! ইমেল চেক করুন।",
+            verificationFailed: "যাচাইকরণ ব্যর্থ হয়েছে",
+
+            verifyIdentity: "পরিচয় যাচাই করুন",
         },
         ta: {
             title: 'தமிழ் (Tamil)',
@@ -4980,6 +5143,17 @@ export const LanguageProvider = ({ children }) => {
             secDataSharing: "1.2 தரவு பகிர்வு",
             secDataCollectionDesc: "AI-Mall™ கணக்கு விவரங்கள், பயன்பாட்டு மெட்டாடேட்டா, சாதன அடையாளங்காட்டிகள் மற்றும் கோப்பு அணுகல் அனுமதிகள் உள்ளிட்ட தனிப்பட்ட மற்றும் தொழில்நுட்ப தகவல்களை சேகரிக்கலாம்.",
             secDataSharingDesc: "AI-Mall™ தனிப்பட்ட தரவை விற்பதில்லை. தரவு கண்டிப்பாக செயல்பாட்டுத் தேவைகளுக்காக நம்பகமான மூன்றாம் தரப்பு சேவை வழங்குநர்களுடன் பகிரப்படலாம்.",
+            confirmingNeuralLink: "நியூரல் லிங்க் உறுதி செய்யப்படுகிறது ",
+            editAddress: "முகவரியைத் திருத்து",
+            enterVerificationCode: "சரிபார்ப்புக் குறியீட்டை உள்ளிடவும்",
+            verify: "சரிபார்",
+            didntReceiveCode: "குறியீடு கிடைக்கவில்லையா?",
+            resendCode: "மீண்டும் அனுப்பு",
+            returnToRegistration: "பதிவுக்குத் திரும்பு",
+            verificationCodeResent: "சரிபார்ப்புக் குறியீடு மீண்டும் அனுப்பப்பட்டது! மின்னஞ்சலைச் சரிபார்க்கவும்.",
+            verificationFailed: "சரிபார்ப்பு தோல்வியடைந்தது",
+
+            verifyIdentity: "அடையாளத்தை சரிபார்",
         },
         pa: {
             title: 'ਪੰਜਾਬੀ (Punjabi)',
@@ -5297,6 +5471,17 @@ export const LanguageProvider = ({ children }) => {
             secDataSharing: "1.2 ਡੇਟਾ ਸ਼ੇਅਰਿੰਗ",
             secDataCollectionDesc: "AI-Mall™ ਖਾਤਾ ਵੇਰਵੇ, ਵਰਤੋਂ ਮੈਟਾਡੇਟਾ, ਡਿਵਾਈਸ ਪਛਾਣਕਰਤਾ ਅਤੇ ਫਾਈਲ ਐਕਸੈਸ ਅਨੁਮਤੀਆਂ ਸਮੇਤ ਨਿੱਜੀ ਅਤੇ ਤਕਨੀਕੀ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਕਰ ਸਕਦਾ ਹੈ।",
             secDataSharingDesc: "AI-Mall™ ਨਿੱਜੀ ਡੇਟਾ ਨਹੀਂ ਵੇਚਦਾ। ਡੇਟਾ ਨੂੰ ਭਰੋਸੇਯੋਗ ਤੀਜੀ-ਧਿਰ ਸੇਵਾ ਪ੍ਰਦਾਤਾਵਾਂ ਨਾਲ ਸਖਤੀ ਨਾਲ ਸੰਚਾਲਨ ਲੋੜਾਂ ਲਈ ਸਾਂਝਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।",
+            confirmingNeuralLink: "ਨਿਊਰਲ ਲਿੰਕ ਦੀ ਪੁਸ਼ਟੀ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ ",
+            editAddress: "ਪਤਾ ਸੋਧੋ",
+            enterVerificationCode: "ਪੁਸ਼ਟੀਕਰਨ ਕੋਡ ਦਰਜ ਕਰੋ",
+            verify: "ਤਸਦੀਕ ਕਰੋ",
+            didntReceiveCode: "ਕੋਡ ਪ੍ਰਾਪਤ ਨਹੀਂ ਹੋਇਆ?",
+            resendCode: "ਕੋਡ ਦੁਬਾਰਾ ਭੇਜੋ",
+            returnToRegistration: "ਰਜਿਸਟ੍ਰੇਸ਼ਨ 'ਤੇ ਵਾਪਸ ਜਾਓ",
+            verificationCodeResent: "ਪੁਸ਼ਟੀਕਰਨ ਕੋਡ ਦੁਬਾਰਾ ਭੇਜਿਆ ਗਿਆ! ਆਪਣੀ ਈਮੇਲ ਚੈੱਕ ਕਰੋ।",
+            verificationFailed: "ਤਸਦੀਕ ਅਸਫਲ ਰਹੀ",
+
+            verifyIdentity: "ਪਛਾਣ ਤਸਦੀਕ ਕਰੋ",
         },
         gu: {
             title: 'ગુજરાતી (Gujarati)',
@@ -5624,6 +5809,17 @@ export const LanguageProvider = ({ children }) => {
             secDataSharing: "1.2 ડેટા શેરિંગ",
             secDataCollectionDesc: "AI-Mall™ એકાઉન્ટ વિગતો, વપરાશ મેટાડેટા, ઉપકરણ ઓળખકર્તાઓ અને ફાઇલ એક્સેસ પરવાનગીઓ સહિત વ્યક્તિગત અને તકનીકી માહિતી એકત્રિત કરી શકે છે.",
             secDataSharingDesc: "AI-Mall™ વ્યક્તિગત ડેટા વેચતું નથી. ઓપરેશનલ આવશ્યકતાઓ માટે સખત રીતે વિશ્વસનીય તૃતીય-પક્ષ સેવા પ્રદાતાઓ સાથે ડેટા શેર કરવામાં આવી શકે છે.",
+            confirmingNeuralLink: "ન્યુરલ લિંકની પુષ્ટિ કરવામાં આવી રહી છે ",
+            editAddress: "સરનામું સંપાદિત કરો",
+            enterVerificationCode: "વેરિફિકેશન કોડ દાખલ કરો",
+            verify: "ચકાસો",
+            didntReceiveCode: "કોડ મળ્યો નથી?",
+            resendCode: "કોડ ફરીથી મોકલો",
+            returnToRegistration: "નોંધણી પર પાછા ફરો",
+            verificationCodeResent: "વેરિફિકેશન કોડ ફરીથી મોકલવામાં આવ્યો! તમારું ઇમેઇલ તપાસો.",
+            verificationFailed: "ચકાસણી નિષ્ફળ",
+
+            verifyIdentity: "ઓળખ ચકાસો",
         },
         kn: {
             title: 'ಕನ್ನಡ (Kannada)',
@@ -5951,6 +6147,17 @@ export const LanguageProvider = ({ children }) => {
             secDataSharing: "1.2 ಡೇಟಾ ಹಂಚಿಕೆ",
             secDataCollectionDesc: "AI-Mall™ ಖಾತೆ ವಿವರಗಳು, ಬಳಕೆಯ ಮೆಟಾಡೇಟಾ, ಸಾಧನ ಗುರುತಿಸುವಿಕೆಗಳು ಮತ್ತು ಫೈಲ್ ಪ್ರವೇಶ ಅನುಮತಿಗಳು ಸೇರಿದಂತೆ ವೈಯಕ್ತಿಕ ಮತ್ತು ತಾಂತ್ರಿಕ ಮಾಹಿತಿಯನ್ನು ಸಂಗ್ರಹಿಸಬಹುದು.",
             secDataSharingDesc: "AI-Mall™ ವೈಯಕ್ತಿಕ ಡೇಟಾವನ್ನು ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ. ಡೇಟಾವನ್ನು ಕಟ್ಟುನಿಟ್ಟಾಗಿ ಕಾರ್ಯಾಚರಣೆಯ ಅವಶ್ಯಕತೆಗಳಿಗಾಗಿ ವಿಶ್ವಾಸಾರ್ಹ ತೃತೀಯ ಸೇವಾ ಪೂರೈಕೆದಾರರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಬಹುದು.",
+            confirmingNeuralLink: "ನ್ಯೂರಲ್ ಲಿಂಕ್ ದೃಢೀಕರಿಸಲಾಗುತ್ತಿದೆ ",
+            editAddress: "ವಿಳಾಸವನ್ನು ಸಂಪಾದಿಸಿ",
+            enterVerificationCode: "ಪರಿಶೀಲನಾ ಕೋಡ್ ನಮೂದಿಸಿ",
+            verify: "ಪರಿಶೀಲಿಸಿ",
+            didntReceiveCode: "ಕೋಡ್ ಸ್ವೀಕರಿಸಿಲ್ಲವೇ?",
+            resendCode: "ಕೋಡ್ ಮರುಕಳುಹಿಸಿ",
+            returnToRegistration: "ನೋಂದಣಿಗೆ ಹಿಂತಿರುಗಿ",
+            verificationCodeResent: "ಪರಿಶೀಲನಾ ಕೋಡ್ ಮರುಕಳುಹಿಸಲಾಗಿದೆ! ನಿಮ್ಮ ಇಮೇಲ್ ಪರಿಶೀಲಿಸಿ.",
+            verificationFailed: "ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ",
+
+            verifyIdentity: "ಗುರುತನ್ನು ಪರಿಶೀಲಿಸಿ",
         },
         te: {
             title: 'తెలుగు (Telugu)',
@@ -6278,6 +6485,17 @@ export const LanguageProvider = ({ children }) => {
             secDataSharing: "1.2 డేటా భాగస్వామ్యం",
             secDataCollectionDesc: "AI-Mall™ ఖాతా వివరాలు, వినియోగ మెటాడేటా, పరికర ఐడెంటిఫైయర్‌లు మరియు ఫైల్ యాక్సెస్ అనుమతులతో సహా వ్యక్తిగత మరియు సాంకేతిక సమాచారాన్ని సేకరించవచ్చు.",
             secDataSharingDesc: "AI-Mall™ వ్యక్తిగత డేటాను విక్రయించదు. డేటాను ఖచ్చితంగా కార్యాచరణ అవసరాల కోసం విశ్వసనీయ థర్డ్-పార్టీ సర్వీస్ ప్రొవైడర్‌లతో భాగస్వామ్యం చేయవచ్చు.",
+            confirmingNeuralLink: "న్యూరల్ లింక్‌ను ధృవీకరిస్తోంది ",
+            editAddress: "చిరునామాను సవరించండి",
+            enterVerificationCode: "ధృవీకరణ కోడ్ నమోదు చేయండి",
+            verify: "ధృవీకరించు",
+            didntReceiveCode: "కోడ్ రాలేదా?",
+            resendCode: "కోడ్‌ను మళ్లీ పంపండి",
+            returnToRegistration: "రిజిస్ట్రేషన్‌కు తిరిగి వెళ్ళు",
+            verificationCodeResent: "ధృవీకరణ కోడ్ మళ్లీ పంపబడింది! మీ ఇమెయిల్ తనిఖీ చేయండి.",
+            verificationFailed: "ధృవీకరణ విఫలమైంది",
+
+            verifyIdentity: "గుర్తింపును ధృవీకరించు",
         },
         ml: {
             title: 'മലയാളം (Malayalam)',
@@ -6611,6 +6829,16 @@ export const LanguageProvider = ({ children }) => {
             secDataSharing: "1.2 ഡാറ്റ പങ്കിടൽ",
             secDataCollectionDesc: "AI-Mall™ അക്കൗണ്ട് വിശദാംശങ്ങൾ, ഉപയോഗ മെറ്റാഡാറ്റ, ഉപകരണ ഐഡന്റിഫയറുകൾ, ഫയൽ ആക്സസ് അനുമതികൾ എന്നിവയുൾപ്പെടെയുള്ള വ്യക്തിഗതവും സാങ്കേതികവുമായ വിവരങ്ങൾ ശേഖരിച്ചേക്കാം.",
             secDataSharingDesc: "AI-Mall™ വ്യക്തിഗത ഡാറ്റ വിൽക്കില്ല. പ്രവർത്തന ആവശ്യങ്ങൾക്കായി വിശ്വസ്തരായ മൂന്നാം കക്ഷി സേവന ദാതാക്കളുമായി ഡാറ്റ കർശനമായി പങ്കിടാം.",
+
+            confirmingNeuralLink: "ന്യൂറൽ ലിങ്ക് സ്ഥിരീകരിക്കുന്നു ",
+            editAddress: "വിലാസം തിരുത്തുക",
+            enterVerificationCode: "വെരിഫിക്കേഷൻ കോഡ് നൽകുക",
+            verify: "പരിശോധിക്കുക",
+            didntReceiveCode: "കോഡ് ലഭിച്ചില്ലേ?",
+            resendCode: "കോഡ് വീണ്ടും അയയ്ക്കുക",
+            returnToRegistration: "രജിസ്ട്രേഷനിലേക്ക് മടങ്ങുക",
+            verificationCodeResent: "വെരിഫിക്കേഷൻ കോഡ് വീണ്ടും അയച്ചു! നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കുക.",
+            verificationFailed: "പരിശോധന പരാജയപ്പെട്ടു",
         }
     };
 
@@ -6624,10 +6852,9 @@ export const LanguageProvider = ({ children }) => {
     };
 
     return (
-        <LanguageContext.Provider value={{ t, language, setLanguage: handleSetLanguage, languages: translations }
-        }>
+        <LanguageContext.Provider value={{ t, language, setLanguage: handleSetLanguage, languages: translations }}>
             {children}
-        </LanguageContext.Provider >
+        </LanguageContext.Provider>
     );
 };
 

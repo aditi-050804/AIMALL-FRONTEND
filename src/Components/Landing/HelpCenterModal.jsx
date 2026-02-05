@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { X, ChevronDown, ChevronUp, Loader2, CheckCircle2 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { X, ChevronDown, ChevronUp, Loader2, CheckCircle, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { apiService } from '../../services/apiService';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -13,6 +13,18 @@ const HelpCenterModal = ({ isOpen, onClose }) => {
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
+    // Dropdown State from Sidebar
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const issueOptionsMap = {
+        "General Inquiry": "inquiryGeneral",
+        "Payment Issue": "inquiryPayment",
+        "Refund Request": "inquiryRefund",
+        "Technical Support": "inquiryTechnical",
+        "Account Access": "inquiryAccount",
+        "Other": "inquiryOther"
+    };
+    const issueOptions = Object.keys(issueOptionsMap);
+
     // Prevent body scroll when modal is open
     useEffect(() => {
         if (isOpen) {
@@ -21,6 +33,7 @@ const HelpCenterModal = ({ isOpen, onClose }) => {
             setMessage('');
             // Set default category localized
             setSupportCategory('General Inquiry');
+            setIsDropdownOpen(false);
         } else {
             document.body.style.overflow = 'unset';
         }
@@ -139,7 +152,7 @@ const HelpCenterModal = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* Content Area */}
-                <div className="flex-1 overflow-y-auto p-4 md:p-6 pt-2 custom-scrollbar">
+                <div className="flex-1 overflow-y-auto p-4 md:p-6 pt-2 custom-scrollbar relative z-10">
 
                     {activeTab === 'KNOWLEDGE' && (
                         <div className="space-y-4 md:space-y-6">
@@ -205,6 +218,50 @@ const HelpCenterModal = ({ isOpen, onClose }) => {
                                 </motion.div>
                             ) : (
                                 <div className="space-y-6">
+                                    <div className="space-y-4">
+                                        <label className="text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-[0.2em] ml-2 block">
+                                            {t('issueCategory') || 'ISSUE CATEGORY'}
+                                        </label>
+
+                                        {/* Custom Dropdown UI to match Sidebar */}
+                                        <div className="relative group/input">
+                                            <button
+                                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                                className="w-full px-6 py-4 rounded-[24px] bg-white/60 border-2 border-purple-100 text-sm md:text-base text-gray-800 font-medium border focus:border-purple-300 transition-all shadow-glass-sm flex justify-between items-center"
+                                            >
+                                                <span className="font-medium text-left">{t(issueOptionsMap[supportCategory]) || supportCategory}</span>
+                                                <ChevronDown size={20} className={`transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''} text-purple-400`} />
+                                            </button>
+
+                                            <AnimatePresence>
+                                                {isDropdownOpen && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, y: -10 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        exit={{ opacity: 0, y: -10 }}
+                                                        className="absolute top-full left-0 right-0 mt-2 z-50 overflow-hidden rounded-[24px] border bg-white border-purple-100 shadow-xl max-h-60 overflow-y-auto custom-scrollbar"
+                                                    >
+                                                        {issueOptions.map((option) => (
+                                                            <button
+                                                                key={option}
+                                                                onClick={() => {
+                                                                    setSupportCategory(option);
+                                                                    setIsDropdownOpen(false);
+                                                                }}
+                                                                className={`w-full px-6 py-3 text-left font-medium text-sm transition-colors ${supportCategory === option
+                                                                    ? 'bg-purple-50 text-purple-600'
+                                                                    : 'text-gray-600 hover:bg-purple-50/50'
+                                                                    }`}
+                                                            >
+                                                                {t(issueOptionsMap[option]) || option}
+                                                            </button>
+                                                        ))}
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
+                                    </div>
+
                                     <div className="space-y-2">
                                         <label className="text-[10px] md:text-xs font-black text-gray-500 uppercase tracking-[0.2em] ml-2">
                                             {t('details') || 'DETAILS'}

@@ -63,9 +63,7 @@ const MyAgents = () => {
         setIsExpandedChatOpen(true);
     };
 
-    const handleDocs = () => {
-        navigate(AppRoute.INVOICES);
-    };
+
 
     return (
         <div className={`flex-1 overflow-y-auto p-8 lg:p-12 no-scrollbar bg-transparent relative transition-colors duration-700 ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -112,7 +110,7 @@ const MyAgents = () => {
                                 onDelete={handleDelete}
                                 onUse={handleUseAgent}
                                 onContact={handleContactVendor}
-                                onDocs={handleDocs}
+
                             />
                         ))}
                     </AnimatePresence>

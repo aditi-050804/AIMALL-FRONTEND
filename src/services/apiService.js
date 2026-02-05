@@ -390,28 +390,30 @@ export const apiService = {
     }
   },
 
-  async downloadInvoice(transactionId) {
-    try {
-      const response = await apiClient.get(`/revenue/invoice/${transactionId}`, {
-        responseType: 'blob'
-      });
-
-      // Create blob link to download
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `invoice-${transactionId}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      link.parentNode.removeChild(link);
-      window.URL.revokeObjectURL(url);
-
-      return true;
-    } catch (error) {
-      console.error("Failed to download invoice:", error);
-      throw error;
-    }
-  },
+  /*
+    async downloadInvoice(transactionId) {
+      try {
+        const response = await apiClient.get(`/revenue/invoice/${transactionId}`, {
+          responseType: 'blob'
+        });
+  
+        // Create blob link to download
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `invoice-${transactionId}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+        window.URL.revokeObjectURL(url);
+  
+        return true;
+      } catch (error) {
+        console.error("Failed to download invoice:", error);
+        throw error;
+      }
+    },
+  */
 
   // --- Notifications ---
   async getNotifications() {
