@@ -312,7 +312,6 @@ const Sidebar = ({ isOpen, onClose }) => {
                       {!isDark && <div className={`absolute inset-0 bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] opacity-0 transition-opacity duration-300 ${isTabActive ? 'opacity-0' : 'group-hover:opacity-5'}`} />}
                       <item.icon size={14} className={`mr-3 transition-colors relative z-10 ${isTabActive ? (isDark ? 'text-white' : 'text-black') : `${isDark ? 'text-[#6F76A8]' : 'text-gray-400'} group-hover:text-[#8B5CF6]`}`} />
                       <span className={`relative z-10 transition-colors ${isTabActive ? (isDark ? 'text-white' : 'text-black') : ''}`}>{item.label}</span>
-                      {isTabActive && <div className={`absolute right-3 w-1.5 h-1.5 rounded-full ${isDark ? 'bg-white' : 'bg-black'} animate-pulse shadow-[0_0_10px_rgba(255,255,255,0.8)]`} />}
                     </>
                   );
                 }}

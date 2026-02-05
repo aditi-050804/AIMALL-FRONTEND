@@ -164,7 +164,7 @@ const HelpCenterModal = ({ isOpen, onClose }) => {
                                             onClick={() => toggleFaq(index)}
                                             className="w-full flex items-center justify-between p-4 md:p-5 text-left"
                                         >
-                                            <span className="font-semibold text-gray-800 text-xs md:text-sm pr-4">{faq.question}</span>
+                                            <span className="font-semibold text-gray-800 text-sm md:text-base pr-4">{faq.question}</span>
                                             {expandedFaq === index ? (
                                                 <ChevronUp size={16} className="text-gray-500" />
                                             ) : (

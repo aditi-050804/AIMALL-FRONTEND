@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, MessageSquare, User, Send, Clock, Shield, ChevronRight, Loader2, AlertCircle } from 'lucide-react';
+import { Search, MessageSquare, User, Send, Clock, Shield, ChevronRight, Loader2, AlertCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import apiService from '../../services/apiService';
 
@@ -118,7 +118,7 @@ const SupportChat = () => {
     return (
         <div className="flex h-[calc(100vh-140px)] bg-white rounded-[40px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] overflow-hidden border border-gray-100">
             {/* Sidebar */}
-            <div className="w-[400px] border-r border-gray-100 flex flex-col bg-white">
+            <div className={`w-full lg:w-[400px] border-r border-gray-100 flex flex-col bg-white ${selectedReport ? 'hidden lg:flex' : 'flex'}`}>
                 <div className="p-8 pb-4">
                     <h2 className="text-4xl font-black text-gray-900 tracking-tighter mb-8 italic">Messages<span className="text-[#8b5cf6]">.</span></h2>
                     <div className="relative group">
@@ -163,17 +163,24 @@ const SupportChat = () => {
             </div>
 
             {/* Chat Area */}
-            <div className="flex-1 flex flex-col bg-white">
+            <div className={`flex-1 flex flex-col bg-white ${selectedReport ? 'flex' : 'hidden lg:flex'}`}>
                 {selectedReport ? (
                     <>
                         {/* Header */}
-                        <div className="h-28 px-10 border-b border-gray-50 flex items-center justify-between">
-                            <div className="flex items-center gap-5">
-                                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#8b5cf6] to-[#7c3aed] flex items-center justify-center text-white text-xl font-black shadow-lg shadow-purple-500/20">
+                        <div className="h-28 px-4 lg:px-10 border-b border-gray-50 flex items-center justify-between">
+                            <div className="flex items-center gap-3 lg:gap-5">
+                                {/* Mobile Close Button */}
+                                <button
+                                    onClick={() => setSelectedReport(null)}
+                                    className="lg:hidden w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-all"
+                                >
+                                    <X className="w-5 h-5 text-gray-600" />
+                                </button>
+                                <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-gradient-to-br from-[#8b5cf6] to-[#7c3aed] flex items-center justify-center text-white text-lg lg:text-xl font-black shadow-lg shadow-purple-500/20">
                                     {(selectedReport.userId?.name || '?')[0]}
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-black text-gray-900 tracking-tighter leading-none mb-1.5 uppercase italic">
+                                    <h3 className="text-lg lg:text-xl font-black text-gray-900 tracking-tighter leading-none mb-1.5 uppercase italic">
                                         {selectedReport.userId?.name || 'Unknown'}
                                     </h3>
                                     <div className="flex items-center gap-2">
